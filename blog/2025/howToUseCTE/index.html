@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title> CTE(Common Table Expression) 활용법 | mjgwon24 </title>
+  <meta name="author" content="mjgwon24">
+  <meta name="description" content="an example of a blog post with some code">
+  <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css"
+        integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
+  <link defer rel="stylesheet" href="/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5">
+  <link defer rel="stylesheet" href="/assets/css/scholar-icons.css?62b2ac103a88034e6882a5be5f3e2772">
+  <link defer rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap">
+  <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99"
+        media="" id="highlight_theme_light">
+  <link rel="shortcut icon"
+        href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
+  <link rel="stylesheet" href="/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
+  <link rel="canonical" href="https://mjgwon24.github.io/blog/2015/code/">
+  <script src="/assets/js/theme.js?9a0c749ec5240d9cda97bc72359a72c0"></script>
+  <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca"
+        media="none" id="highlight_theme_dark">
+  <script>
+    initTheme();
+  </script>
+</head>
+<body class="fixed-top-nav ">
+<header>
+  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation">
+    <div class="container"><a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">mjgwon24</span>
+      </a>
+      <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span
+          class="icon-bar bottom-bar"></span></button>
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+          <li class="nav-item "><a class="nav-link" href="/">about </a></li>
+          <li class="nav-item active"><a class="nav-link" href="/blog/">blog </a></li>
+<!--          <li class="nav-item "><a class="nav-link" href="/publications/">publications </a></li>-->
+<!--          <li class="nav-item "><a class="nav-link" href="/projects/">projects </a></li>-->
+<!--          <li class="nav-item "><a class="nav-link" href="/repositories/">repositories </a></li>-->
+<!--          <li class="nav-item "><a class="nav-link" href="/cv/">cv </a></li>-->
+<!--          <li class="nav-item "><a class="nav-link" href="/teaching/">teaching </a></li>-->
+<!--          <li class="nav-item "><a class="nav-link" href="/people/">people </a></li>-->
+<!--          <li class="nav-item dropdown "><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"-->
+<!--                                            data-toggle="dropdown" aria-haspopup="true"-->
+<!--                                            aria-expanded="false">submenus </a>-->
+<!--            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"><a class="dropdown-item "-->
+<!--                                                                                               href="/publications/">publications</a>-->
+<!--              <div class="dropdown-divider"></div>-->
+<!--              <a class="dropdown-item " href="/projects/">projects</a>-->
+<!--              <div class="dropdown-divider"></div>-->
+<!--              <a class="dropdown-item " href="/blog/">blog</a></div>-->
+<!--          </li>-->
+          <li class="nav-item">
+            <button id="search-toggle" title="Search" onclick="openSearchModal()"><span class="nav-link">ctrl k <i
+              class="ti ti-search"></i></span></button>
+          </li>
+          <li class="toggle-container">
+            <button id="light-toggle" title="Change theme"><i class="ti ti-sun-moon" id="light-toggle-system"></i> <i
+              class="ti ti-moon-filled" id="light-toggle-dark"></i> <i class="ti ti-sun-filled"
+                                                                       id="light-toggle-light"></i></button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <progress id="progress" value="0">
+    <div class="progress-container"><span class="progress-bar"></span></div>
+  </progress>
+</header>
+<div class="container mt-5" role="main">
+  <div class="row">
+    <div class="col-sm-3">
+      <nav id="toc-sidebar" class="sticky-top"></nav>
+    </div>
+    <div class="col-sm-9">
+      <div class="post">
+        <header class="post-header"><h1 class="post-title font-weight-normal">CTE(Common Table Expression) 활용법</h1>
+          <p class="post-meta"> Created in Febrary 21, 2025 </p>
+          <p class="post-tags"><a href="/blog/2025"> <i class="fa-solid fa-calendar fa-sm"></i> 2025 </a>   ·   <a
+            href="/blog/tag/sql"> <i class="fa-solid fa-hashtag fa-sm"></i> sql</a></p></header>
+        <article class="post-content">
+          <div id="markdown-content">
+
+            <br/>
+
+            <p  class="font-weight-normal">
+              CTE는 SQL에서 <code class="language-plaintext highlighter-rouge">WITH</code> 키워드를 사용하여 정의하는 임시 결과의 집합을 의미합니다.
+              기존의 서브쿼리와 달리 여러 번 재사용할 수 있으며, 복잡한 쿼리를 간결하게 정리할 수 있다는 장점을 가지고 있습니다.
+              동일한 데이터를 여러 번 참조할 수 있어, 성능을 개선할 수 있다는 점에서 유용한 기능입니다.
+              본 글에서는 이러한 CTE의 기본 개념부터 실전 활용법까지 다뤄보도록 하겠습니다.
+            </p>
+
+            <br/>
+
+            <h2 id="sub-heading-1" class="font-weight-normal">CTE란 무엇인가?</h2>
+
+            <p  class="font-weight-normal">
+              서론에서도 언급했듯이, CTE는 SQL에서 <code class="language-plaintext highlighter-rouge">WITH</code> 키워드를 사용하여 정의하는 임시 결과의 집합을 의미합니다.
+              기본 문법은 아래와 같습니다.
+            </p>
+
+
+            <div class="language-yml highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight">
+  <code data-lang="sql">
+    <span class="s">WITH</span> <span class="na">CTE_NAME</span> <span class="pi">AS</span> (
+      <span class="s">SELECT</span> <span class="na">COLUMN1</span>, <span class="na">COLUMN2</span>
+      <span class="s">FROM</span> <span class="na">TABLE_NAME</span>
+      <span class="s">WHERE</span> <span class="na">CONDITION</span>
+    )
+
+    <span class="s">SELECT</span> <span class="o">*</span> <span class="s">FROM</span> <span class="na">CTE_NAME</span>;
+    </code>
+</pre>
+              </div>
+            </div>
+
+            <p class="font-weight-normal"><code
+              class="language-plaintext highlighter-rouge">WITH</code>를 사용하여 CTE를 정의하고, 이후의 <code
+                class="language-plaintext highlighter-rouge">SELECT</code>에서 해당 CTE를 하나의 테이블처럼 활용합니다.<br /><br />
+              위 예시코드를 보시면 알 수 있듯이, CTE를 사용하면 복잡한 서브쿼리를 더 쉽게 이해할 수 있습니다. 또한 동일한 데이터를 여러 번 참조할 수 있어 성능을 개선할 수 있습니다.
+              PostgreSQL, MySQL 등 일부 DBMS에서는 CTE를 <code
+                class="language-plaintext highlighter-rouge">MATERIALIZED</code>로 처리하여 중간 결과를 캐싱하여 성능을 높이기도 합니다.
+
+              <br />
+              <br />
+
+              MATERIALIZED VIEW는 쿼리의 결과를 저장해두고 필요할 때마다 그 결과를 조회하는 기능을 제공하는 객체입니다. 일반적인 뷰(View)는 쿼리를 저장하지만, 실제 데이터를 저장하지는 않습니다. 반면 MATERIALIZED VIEW는 쿼리의 결과를 저장하여 실제 데이터를 저장합니다. 이를 통해 쿼리의 결과를 미리 계산해두고 필요할 때마다 조회할 수 있어 더 빠르게 결과를 반환할 수 있습니다.
+            </p>
+
+            <br/>
+            <br/>
+
+            <h2 id="sub-heading-2" class="font-weight-normal">CTE를 활용한 계층형 데이터 처리</h2>
+
+            <p class="font-weight-normal">
+              CTE는 계층형 데이터를 처리할 때 유용하게 사용될 수 있습니다. 계층형 데이터는 부모-자식 관계를 가지는 데이터를 의미하며, 대표적인 예시로는 조직도, 카테고리, 트리 등이 있습니다.
+              CTE를 사용하면 계층형 데이터를 쉽게 조회할 수 있습니다. 아래 예시코드를 통해 CTE를 활용한 계층형 데이터 처리를 살펴보도록 하겠습니다.
+            </p>
+
+            <div class="language-yml highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight">
+  <code data-lang="sql">
+    <span class="s">WITH RECURSIVE</span> <span class="na">EmployeeHierarchy</span> <span class="s">AS</span> (
+      <span class="s">SELECT</span> <span class="na">ID</span>, <span class="na">NAME</span>, <span class="na">MANAGER_ID</span>, <span class="mi">1</span> <span class="s">AS</span> <span class="na">LEVEL</span>
+      <span class="s">FROM</span> <span class="na">EMPLOYEES</span>
+      <span class="s">WHERE</span> <span class="na">MANAGER_ID</span> <span class="o">IS</span> <span class="k">NULL</span>  <span class="c">&#45;&#45; 최상위 관리자</span>
+
+      <span class="s">UNION ALL</span>
+
+      <span class="s">SELECT</span> <span class="na">e.ID</span>, <span class="na">e.NAME</span>, <span class="na">e.MANAGER_ID</span>, <span class="na">h.LEVEL</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="s">FROM</span> <span class="na">EMPLOYEES</span> <span class="na">e</span>
+      <span class="s">JOIN</span> <span class="na">EmployeeHierarchy</span> <span class="na">h</span> <span class="s">ON</span> <span class="na">e.MANAGER_ID</span> <span class="o">=</span> <span class="na">h.ID</span>
+    )
+
+    <span class="s">SELECT</span> <span class="o">*</span> <span class="s">FROM</span> <span class="na">EmployeeHierarchy</span>;
+    </code>
+</pre>
+              </div>
+            </div>
+
+            <p class="font-weight-normal">
+              위 쿼리는 <code
+                class="language-plaintext highlighter-rouge">EMPLOYEES</code> 테이블에서 계층형 데이터를 조회하는 재귀 쿼리입니다.
+              직원들이 어떤 관리자를 가지고 있는지 계층 구조를 따라가며 조직도를 생성하는 방식을 보여줍니다.
+              <br />
+              <br />
+              <code class="language-plaintext highlighter-rouge">WITH RECURSIVE</code> 키워드를 사용하여 CTE를 재귀적으로 정의합니다.
+              재귀적으로 정의된 CTE는 자기 자신을 참조할 수 있게 됩니다.
+              <br />
+              <br />
+              <code
+                class="language-plaintext highlighter-rouge">MANAGER_ID IS NULL</code> 조건을 만족하는 직원들은 최상위 관리자를 의미합니다.
+              이들을 계층의 최상위(root)로 설정하고, <code class="language-plaintext highlighter-rouge">LEVEL</code>을 1로 설정하여 계층 레벨을 부여합니다.
+              <br />
+              <br />
+              이후 <code class="language-plaintext highlighter-rouge">EMPLOYEES</code> 테이블을 <code
+                class="language-plaintext highlighter-rouge">EmployeeHierarchy</code> CTE와 조인하여 관리자의 ID와 일치하는 직원을 찾습니다.
+              찾은 직원의 <code class="language-plaintext highlighter-rouge">LEVEL</code>을 상위 관리자의 <code
+                class="language-plaintext highlighter-rouge">LEVEL</code> + 1 로 설정하여 계층 구조를 표현합니다.
+              이 과정을 반복하여 모든 직원들의 계층 구조를 조회합니다.
+              <br />
+              <br />
+              이는 아래 테이블과 같이 표현될 수 있습니다.
+            </p>
+              <br />
+
+              <table>
+                <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>NAME</th>
+                  <th>MANAGER_ID</th>
+                  <th>LEVEL</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>CEO</td>
+                  <td>null</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>CTO</td>
+                  <td>1</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Manager A</td>
+                  <td>2</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Manager B</td>
+                  <td>2</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Employee A</td>
+                  <td>3</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Employee B</td>
+                  <td>3</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>Employee C</td>
+                  <td>4</td>
+                  <td>4</td>
+                </tr>
+                </tbody>
+              </table>
+
+              <br />
+
+            <p class="font-weight-normal">
+              이제 <code
+                class="language-plaintext highlighter-rouge">EmployeeHierarchy</code> CTE에 저장된 데이터를 조회하면, 계층 구조를 반영한 모든 직원들의 정보가 레벨과 함께 출력됩니다.
+              <br />
+              <br />
+              만약 CTE를 사용하지 않고 계층 구조를 조회하려면 셀프 조인(Self Join)을 여러 번 사용해야 하며, 이는 매우 복잡하고 가독성이 떨어지는 쿼리가 될 수 있습니다.
+
+              <br />
+              <br />
+              CTE를 사용하지 않는 경우의 쿼리는 아래와 같습니다.
+            </p>
+
+            <div class="language-yml highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight">
+  <code data-lang="sql">
+    <span class="s">SELECT</span> <span class="na">e1.ID</span>, <span class="na">e1.NAME</span>, <span class="na">e1.MANAGER_ID</span>, <span class="mi">1</span> <span class="s">AS</span> <span class="na">LEVEL</span>
+    <span class="s">FROM</span> <span class="na">EMPLOYEES</span> <span class="na">e1</span>
+    <span class="s">WHERE</span> <span class="na">e1.MANAGER_ID</span> <span class="o">IS</span> <span class="k">NULL</span>
+
+    <span class="s">UNION ALL</span>
+
+    <span class="s">SELECT</span> <span class="na">e2.ID</span>, <span class="na">e2.NAME</span>, <span class="na">e2.MANAGER_ID</span>, <span class="mi">2</span> <span class="s">AS</span> <span class="na">LEVEL</span>
+    <span class="s">FROM</span> <span class="na">EMPLOYEES</span> <span class="na">e1</span>
+    <span class="s">JOIN</span> <span class="na">EMPLOYEES</span> <span class="na">e2</span> <span class="s">ON</span> <span class="na">e1.ID</span> <span class="o">=</span> <span class="na">e2.MANAGER_ID</span>
+
+    <span class="s">UNION ALL</span>
+
+    <span class="s">SELECT</span> <span class="na">e3.ID</span>, <span class="na">e3.NAME</span>, <span class="na">e3.MANAGER_ID</span>, <span class="mi">3</span> <span class="s">AS</span> <span class="na">LEVEL</span>
+    <span class="s">FROM</span> <span class="na">EMPLOYEES</span> <span class="na">e2</span>
+    <span class="s">JOIN</span> <span class="na">EMPLOYEES</span> <span class="na">e3</span> <span class="s">ON</span> <span class="na">e2.ID</span> <span class="o">=</span> <span class="na">e3.MANAGER_ID</span>
+
+    <span class="s">UNION ALL</span>
+
+    <span class="c">&#45;&#45; 계속 반복...</span>
+    </code>
+</pre>
+              </div>
+            </div>
+
+            <p class="font-weight-normal">
+              이렇게 두 쿼리를 비교해보면 CTE를 사용한 쿼리가 훨씬 간결하고 가독성이 높다는 것을 알 수 있습니다.
+              또한 트리 깊이가 동적으로 변경될 경우에도 CTE를 사용하면 문제없이 처리가 가능합니다.
+              <br />
+              <br />
+              이처럼 CTE를 활용하면 계층형 데이터를 쉽게 조회할 수 있으며, 복잡한 쿼리를 간결하게 정리할 수 있습니다.
+            </p>
+
+            <br/>
+            <br/>
+
+            <h2 id="sub-heading-3" class="font-weight-normal">윈도우 함수와 CTE</h2>
+
+            <p class="font-weight-normal">
+              CTE는 윈도우 함수와 함께 사용하면 더욱 강력한 기능을 발휘할 수 있습니다.
+              윈도우 함수는 특정 윈도우(구간)에 대해 집계 함수를 계산하는 함수로, <code
+                class="language-plaintext highlighter-rouge">RANK</code>, <code
+                class="language-plaintext highlighter-rouge">DENSE_RANK</code>, <code
+                class="language-plaintext highlighter-rouge">ROW_NUMBER</code> 등이 있습니다.
+              CTE를 사용하면 윈도우 함수를 쉽게 적용할 수 있으며, 복잡한 쿼리를 간결하게 정리할 수 있습니다.
+              <br />
+              <br />
+              어떻게 윈도우 함수와 CTE를 함께 사용할 수 있는지 이어서 더욱 자세히 살펴보도록 하겠습니다.
+
+              <br />
+              <br />
+            </p>
+
+              <div class="language-y ml highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight">
+  <code data-lang="sql">
+    <span class="s">WITH</span> <span class="na">RankedFishes</span> <span class="s">AS</span> (
+      <span class="s">SELECT</span> <span class="na">ID</span>, <span class="na">FISH_TYPE</span>, <span class="na">LENGTH</span>,
+      <span class="s">RANK() OVER</span> <span class="p">(</span><span class="k">PARTITION</span> <span class="k">BY</span> <span class="na">FISH_TYPE</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="na">LENGTH</span> <span class="k">DESC</span><span class="p">)</span> <span class="k">AS</span> <span class="na">rnk</span>
+      <span class="s">FROM</span> <span class="na">FISH_INFO</span>
+    )
+
+    <span class="s">SELECT</span> <span class="na">f.ID</span>, <span class="na">fn.FISH_NAME</span>, <span class="na">f.LENGTH</span>
+    <span class="s">FROM</span> <span class="na">RankedFishes</span> <span class="k">f</span>
+    <span class="s">JOIN</span> <span class="na">FISH_NAME_INFO</span> <span class="na">fn</span> <span class="s">ON</span> <span class="na">f.FISH_TYPE</span> <span class="o">=</span> <span class="na">fn.FISH_TYPE</span>
+    <span class="s">WHERE</span> <span class="na">f.rnk</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="s">ORDER BY</span> <span class="na">f.ID</span>;
+    </code>
+</pre>
+              </div>
+            </div>
+
+            <p class="font-weight-normal">
+              위 쿼리는 <code
+                class="language-plaintext highlighter-rouge">FISH_INFO</code> 테이블에서 어류의 길이를 기준으로 각 어류의 순위를 매기는 쿼리입니다.
+              <code
+                class="language-plaintext highlighter-rouge">RANK() OVER (PARTITION BY FISH_TYPE ORDER BY LENGTH DESC)</code>를 사용하여 어류의 종류별로 길이를 기준으로 순위를 매깁니다.
+              이후 <code
+                class="language-plaintext highlighter-rouge">FISH_NAME_INFO</code> 테이블과 조인하여 어류의 이름을 조회하고, 각 어류의 길이를 출력합니다.
+              <br />
+              <br />
+              이 경우도 아까와 마찬가지로, CTE를 사용하지 않고 구현한 쿼리와 비교해보며 CTE의 강점을 확인해보도록 하겠습니다.
+            </p>
+
+            <div class="language-yml highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight">
+  <code data-lang="sql">
+    <span class="s">SELECT</span> <span class="na">f.ID</span>, <span class="na">fn.FISH_NAME</span>, <span class="na">f.LENGTH</span>
+    <span class="s">FROM</span> <span class="na">FISH_INFO</span> <span class="k">f</span>
+    <span class="s">JOIN</span> <span class="na">FISH_NAME_INFO</span> <span class="na">fn</span> <span class="s">ON</span> <span class="na">f.FISH_TYPE</span> <span class="o">=</span> <span class="na">fn.FISH_TYPE</span>
+    <span class="s">WHERE</span> <span class="p">(</span><span class="na">f.FISH_TYPE</span><span class="p">,</span> <span class="na">f.LENGTH</span><span class="p">)</span> <span class="s">IN</span> <span class="p">(</span>
+      <span class="s">SELECT</span> <span class="na">f.FISH_TYPE</span>, <span class="s">MAX</span><span class="p">(</span><span class="na">f.LENGTH</span><span class="p">)</span>
+      <span class="s">FROM</span> <span class="na">FISH_INFO</span> <span class="k">f</span>
+      <span class="s">GROUP BY</span> <span class="na">f.FISH_TYPE</span>
+    <span class="p">)</span>
+
+    <span class="s">ORDER BY</span> <span class="na">f.ID</span>;
+    </code>
+</pre>
+              </div>
+            </div>
+
+            <p class="font-weight-normal">
+              위 쿼리는 CTE를 사용하지 않고 구현한 쿼리입니다.
+              어류의 종류별로 길이를 기준으로 최대값을 구한 뒤, 해당 최대값과 일치하는 어류의 정보를 조회합니다.
+              <br />
+              <br />
+              그러나 CTE를 사용한 쿼리보다 복잡하며, 가독성이 떨어집니다.
+              또한 CTE를 사용한 쿼리는 어류의 순위를 매기는 로직이 명확하게 드러나기 때문에 이해하기 쉽습니다.
+              <br />
+              <br />
+
+
+              이처럼 윈도우 함수와 CTE를 함께 사용하면, 이후 <code
+                class="language-plaintext highlighter-rouge">JOIN</code>이나 <code
+                class="language-plaintext highlighter-rouge">WHERE</code> 등의 조건을 더욱 깔끔하게 적용할 수 있습니다.
+
+            </p>
+
+            <br/>
+            <br/>
+
+            <h2 id="sub-heading-4" class="font-weight-normal">데이터 집계 및 필터링 최적화</h2>
+
+            <p class="font-weight-normal">
+              CTE를 활용하면 중복 연산을 줄일 수 있어, 동일한 데이터 집계를 여러 번 수행할 필요가 없어집니다.
+              이를 통해 쿼리의 성능을 개선할 수 있습니다.
+              <br />
+              <br />
+              아래에서 더욱 자세히 CTE를 사용하여 데이터 집계 및 필터링을 최적화하는 방법을 살펴보도록 하겠습니다.
+            </p>
+
+            <div class="language-yml highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight">
+  <code data-lang="sql">
+    <span class="s">WITH</span> <span class="na">SalesSummary</span> <span class="s">AS</span> (
+      <span class="s">SELECT</span> <span class="na">PRODUCT_ID</span>, <span class="s">SUM</span><span class="p">(</span><span class="na">SALES</span><span class="p">)</span> <span class="s">AS</span> <span class="na">TOTAL_SALES</span>
+      <span class="s">FROM</span> <span class="na">SALES</span>
+      <span class="s">GROUP BY</span> <span class="na">PRODUCT_ID</span>
+    )
+
+    <span class="s">SELECT</span> <span class="na">s.PRODUCT_ID</span>, <span class="na">p.PRODUCT_NAME</span>, <span class="na">s.TOTAL_SALES</span>
+    <span class="s">FROM</span> <span class="na">SalesSummary</span> <span class="na">s</span>
+    <span class="s">JOIN</span> <span class="na">PRODUCTS</span> <span class="na">p</span> <span class="s">ON</span> <span class="na">s.PRODUCT_ID</span> <span class="o">=</span> <span class="na">p.PRODUCT_ID</span>;
+    </code>
+</pre>
+              </div>
+            </div>
+
+            <p class="font-weight-normal">
+              위 쿼리는 <code
+                class="language-plaintext highlighter-rouge">SALES</code> 테이블에서 제품별 판매량을 집계하는 쿼리입니다.
+              <code
+                class="language-plaintext highlighter-rouge">WITH</code>를 사용하여 <code
+                class="language-plaintext highlighter-rouge">SalesSummary</code> CTE를 정의하고, 이후의 쿼리에서 해당 CTE를 활용하여 제품별 판매량을 조회합니다.
+              이렇게 CTE를 한번 정의하면, 이후의 쿼리에서는 동일한 데이터 집계를 여러 번 수행할 필요가 없어집니다.
+              <br />
+              <br />
+              만약 CTE를 사용하지 않고 해당 쿼리를 구현한다면 어떻게 될까요?
+            </p>
+
+            <div class="language-yml highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight">
+  <code data-lang="sql">
+    <span class="s">SELECT</span> <span class="na">s.PRODUCT_ID</span>, <span class="na">p.PRODUCT_NAME</span>, <span class="s">SUM</span><span class="p">(</span><span class="na">s.SALES</span><span class="p">)</span> <span class="s">AS</span> <span class="na">TOTAL_SALES</span>
+    <span class="s">FROM</span> <span class="na">SALES</span> <span class="na">s</span>
+    <span class="s">JOIN</span> <span class="na">PRODUCTS</span> <span class="na">p</span> <span class="s">ON</span> <span class="na">s.PRODUCT_ID</span> <span class="o">=</span> <span class="na">p.PRODUCT_ID</span>
+    <span class="s">GROUP BY</span> <span class="na">s.PRODUCT_ID</span>;
+    </code>
+</pre>
+              </div>
+            </div>
+
+            <p class="font-weight-normal">
+              <code
+                class="language-plaintext highlighter-rouge">SALES</code> 테이블과 <code
+                class="language-plaintext highlighter-rouge">PRODUCTS</code> 테이블을 조인하여 제품별 판매량을 집계합니다.
+              <br />
+              <br />
+              언뜻 보기에는 CTE를 사용하지 않은 쿼리가 더 간단해 보일 수 있습니다.
+              그러나 이 경우에는 제품별 판매량을 집계하는 동작이 여러번 필요할 경우 문제가 발생할 수 있습니다.
+              해당 동작을 필요한만큼 반복해야하기 때문에 중복 연산이 발생할 수 있고, 이는 성능 저하로 이어질 수 있습니다.
+              <br />
+              <br />
+              따라서 CTE를 사용하여 데이터 집계 및 필터링을 최적화하면, 중복 연산을 줄일 수 있어 성능을 개선할 수 있습니다.
+            </p>
+
+            <br />
+            <br />
+
+            <h2 id="sub-heading-5" class="font-weight-normal">주의점</h2>
+
+            <p class="font-weight-normal">
+              CTE를 사용하면 쿼리의 가독성을 높일 수 있으나, 어느 기술이던 그렇듯이 잘못 사용하면 오히려 성능을 저하시킬 수 있습니다.
+              <br />
+              <br />
+              CTE가 <code
+                class="language-plaintext highlighter-rouge">MATERIALIZED</code>(물리적으로 저장) 되면 성능이 향상될 수 있는것은 사실이나, 일부 DBMS(MySQL)에서는 <code
+                class="language-plaintext highlighter-rouge">INLINE</code>(그냥 서브쿼리처럼 동작) 처리되어 최적화 효과가 미미할 수도 있습니다.
+              <br />
+              <br />
+              또한 데이터를 여러 번 사용하는 경우가 아니라면 일반 서브쿼리(Subquery)를 사용하는 것이 더 효율적일 수 있습니다.
+              CTE가 유용한 경우는 동일한 집계 결과를 여러 번 참조해야 할 때이며, 그렇지 않다면 단순한 서브쿼리나 일반 <code
+                class="language-plaintext highlighter-rouge">JOIN + GROUP BY</code>로 충분히 대체할 수 있습니다.
+              <br />
+              <br />
+              마지막으로, 대용량 데이터에서는 인덱스 활용이 어려울 수 있어, 사용 시 실행 계획(EXPLAIN) 분석이 함께 요구됩니다.
+              <br />
+              <br />
+              따라서 CTE를 사용할 때는 쿼리의 성능과 가독성을 모두 고려하여 적절히 활용해야 합니다.
+            </p>
+
+            <br/>
+            <br/>
+
+            <h2 id="sub-heading-6" class="font-weight-normal">CTE 사용이 필요한 경우</h2>
+
+            <p class="font-weight-normal">
+              CTE를 사용해야 하는 경우는 다음과 같습니다.
+              <br />
+              <br />
+              <span class="font-weight-bold">1. 계층형 데이터 처리:</span>
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;계층형 데이터를 쉽게 조회하고 가독성을 높이기 위해 사용합니다. 특히 조직도, 카테고리, 트리 등의 데이터를 처리할 때 유용합니다.
+              <br />
+              <span class="font-weight-bold">2. 윈도우 함수와의 조합:</span>
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;윈도우 함수를 쉽게 적용하고 가독성을 높이기 위해 사용합니다. 특히 순위를 매기는 경우 유용합니다.
+              <br />
+              <span class="font-weight-bold">3. 데이터 집계 및 필터링 최적화:</span>
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;중복 연산을 줄이고 성능을 개선하기 위해 사용합니다. 특히 동일한 데이터 집계를 여러 번 수행해야 하는 경우 유용합니다.
+              <br />
+              <br />
+              이외에도 CTE를 사용해야 하는 경우가 있을 수 있으며, 쿼리의 성능과 가독성을 고려하여 적절히 활용해야 합니다.
+            </p>
+
+            <br/>
+            <br/>
+
+            <h2 id="sub-heading-7" class="font-weight-normal">마무리</h2>
+
+            <p class="font-weight-normal">
+              지금까지 CTE의 기본 개념과 활용법에 대해 알아보았습니다.
+              <br />
+              <br />
+              CTE를 활용하면 계층형 데이터 처리, 윈도우 함수와의 조합, 데이터 집계 및 필터링 최적화 등 다양한 기능을 쉽게 구현할 수 있습니다.
+              하지만 CTE를 사용할 때는 성능을 고려하여 적절히 활용해야 하며, 실행 계획(EXPLAIN) 분석을 통해 사용 여부를 결정해야 합니다.
+              <br />
+              <br />
+              이상으로 CTE 활용법을 마치도록 하겠습니다. 피드백은 언제나 환영입니다. 감사합니다.
+            </p>
+
+
+
+
+          </div>
+        </article>
+        <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;">
+          <script>
+            let giscusTheme = determineComputedTheme();
+            let giscusAttributes = {
+              src: "https://giscus.app/client.js",
+              "data-repo": "mjgwon24/mjgwon24.github.io",
+              "data-repo-id": "",
+              "data-category": "Comments",
+              "data-category-id": "",
+              "data-mapping": "title",
+              "data-strict": "1",
+              "data-reactions-enabled": "1",
+              "data-emit-metadata": "0",
+              "data-input-position": "bottom",
+              "data-theme": giscusTheme,
+              "data-lang": "en",
+              crossorigin: "anonymous",
+              async: "",
+            };
+
+            let giscusScript = document.createElement("script");
+            Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+            document.getElementById("giscus_thread").appendChild(giscusScript);
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript"
+                                                            rel="external nofollow noopener" target="_blank">comments
+            powered by giscus.</a></noscript>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="fixed-bottom" role="contentinfo">
+  <div class="container mt-0"> © Copyright mjgwon24. Powered by <a href="https://jekyllrb.com/" target="_blank"
+                                                                   rel="external nofollow noopener">Jekyll</a> with <a
+    href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme.
+    Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>.
+    Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>.
+  </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js"
+        integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+        integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js"
+        integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
+<script defer src="/assets/js/masonry.js?a0db7e5d5c70cc3252b3138b0c91dcaf" type="text/javascript"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"
+        integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+<script defer src="/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
+<script defer src="/assets/js/bootstrap-toc.min.js?c82ff4de8b0955d6ff14f5b05eed7eb6"></script>
+<script src="/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
+<script defer src="/assets/js/common.js?e0514a05c5c95ac1a93a8dfd5249b92e"></script>
+<script defer src="/assets/js/copy_code.js?12775fdf7f95e901d7119054556e495f" type="text/javascript"></script>
+<script defer src="/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script>
+<script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
+<script async src="https://badge.dimensions.ai/badge.js"></script>
+<script defer type="text/javascript" id="MathJax-script"
+        src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js"
+        integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
+<script src="/assets/js/mathjax-setup.js?a5bb4e6a542c546dd929b24b8b236dfd"></script>
+<script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"
+        crossorigin="anonymous"></script>
+<script defer src="/assets/js/progress-bar.js?2f30e0e6801ea8f5036fa66e1ab0a71a" type="text/javascript"></script>
+<script src="/assets/js/vanilla-back-to-top.min.js?f40d453793ff4f64e238e420181a1d17"></script>
+<script>
+  addBackToTop();
+</script>
+<script type="module" src="/assets/js/search/ninja-keys.min.js?a3446f084dcaecc5f75aa1757d087dcf"></script>
+<ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys>
+<script src="/assets/js/search-setup.js?6c304f7b1992d4b60f7a07956e52f04a"></script>
+<script src="/assets/js/search-data.js"></script>
+<script src="/assets/js/shortcut-key.js?6f508d74becd347268a7f822bca7309d"></script>
+</body>
+</html>
