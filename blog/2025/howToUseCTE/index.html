@@ -525,18 +525,20 @@
               이상으로 CTE 활용법을 마치도록 하겠습니다. 피드백은 언제나 환영입니다. 감사합니다.
             </p>
 
-
-
+            <br/>
+            <br/>
 
           </div>
+
         </article>
+
         <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;">
           <script>
             let giscusTheme = determineComputedTheme();
             let giscusAttributes = {
               src: "https://giscus.app/client.js",
               "data-repo": "mjgwon24/mjgwon24.github.io",
-              "data-repo-id": "",
+              "data-repo-id": "R_kgDON8uq8g ",
               "data-category": "Comments",
               "data-category-id": "",
               "data-mapping": "title",
@@ -551,11 +553,18 @@
             };
 
             let giscusScript = document.createElement("script");
-            Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
-            document.getElementById("giscus_thread").appendChild(giscusScript);
+            try {
+              Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+              document.getElementById("giscus_thread").appendChild(giscusScript);
+            } catch (error) {
+              console.error(error);
+            }
+
+
           </script>
-          <noscript>Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript"
-                                                            rel="external nofollow noopener" target="_blank">comments
+
+          <noscript>Please enable JavaScript to view the
+            <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments
             powered by giscus.</a></noscript>
         </div>
       </div>
