@@ -28,7 +28,6 @@ ninja.data = [{
   }
 }
 
-
 // }, {
 //   id: "nav-publications",
 //   title: "publications",
