@@ -365,26 +365,142 @@
 
             <h2 id="sub-heading-7" class="font-weight-normal">Servlet과 EJB</h2>
 
+            <p class="font-weight-normal">
+              Servlet이 요청 처리의 최전선이라면, EJB(Enterprise JavaBeans)는 비즈니스 로직을 처리하는 중심입니다.
+              EJB는 비즈니스 로직을 캡슐화하고 분산 환경을 다루는 데 강점을 가지고 있습니다.
+              특히 금융권이나 레거시 엔터프라이즈 시스템에서 두 기술의 조합을 많이 사용합니다.
+              아래에서 이 두 기술이 어떻게 연계되는지 알아보겠습니다.
+
+              <br />
+              <br />
+
+              <span class="font-weight-bold">1. 서블릿에서 EJB 호출</span><br />
+
+              Servlet은 HTTP 요청을 받아 EJB의 <code class="language-plaintext highlighter-rouge">Session Bean</code>을 호출해 복잡한 로직을 처리합니다.
+              <br />
+              <br />
+              예를 들어, 주문 시스템에서 서블릿이 주문 요청을 받고 EJB가 결제 트랜잭션을 관리할 수 있습니다.
+              JNDI(Java Naming and Directory Interface)를 통해 EJB를 lookup할 수 있습니다.
+              <br />
+              <br />
+              그러나 lookup은 비용이 많이 들기 때문에, <code class="language-plaintext highlighter-rouge">@EJB</code> 어노테이션이나 프록시 캐싱을 사용해 재사용성을 높여주는 방법도 사용할 수 있습니다.
+            </p>
+
+            <div class="language-java highlighter-rouge">
+              <div class="highlight">
+                <pre class="highlight">
+  <code data-lang="java">
+    <span class="s">@WebServlet</span><span class="p">(</span><span class="s">"/order"</span><span class="p">)</span>
+    <span class="k">public</span> <span class="k">class</span> <span class="nc">OrderServlet</span> <span class="k">extends</span> <span class="nc">HttpServlet</span> <span class="p">{</span>
+        <span class="s">@EJB</span>
+        <span class="k">private</span> <span class="nc">OrderService</span> <span class="n">orderService</span><span class="p">;</span>
+
+        <span class="s">@Override</span>
+        <span class="k">protected</span> <span class="kt">void</span> <span class="nf">doPost</span><span class="p">(</span><span class="nc">HttpServletRequest</span> <span class="n">req</span><span class="p">,</span> <span class="nc">HttpServletResponse</span> <span class="n">resp</span><span class="p">)</span>
+        <span class="k">throws</span> <span class="nc">ServletException</span><span class="p">,</span> <span class="nc">IOException</span> <span class="p">{</span>
+            <span class="c1">// 주문 로직 호출</span>
+            <span class="n">orderService</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="n">req</span><span class="p">.</span><span class="nf">getParameter</span><span class="p">(</span><span class="s">"item"</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span></code>
+                </pre>
+              </div>
+            </div>
+
+            <p class="font-weight-normal">
+              위 코드는 Servlet에서 EJB를 호출하는 예시입니다.
+              <br />
+              <code class="language-plaintext highlighter-rouge">@EJB</code> 어노테이션을 통해 <code class="language-plaintext highlighter-rouge">OrderService</code>를 주입받아 사용합니다.
+              <code class="language-plaintext highlighter-rouge">doPost()</code> 메서드에서 주문 요청을 받아 <code class="language-plaintext highlighter-rouge">OrderService</code>의 <code class="language-plaintext highlighter-rouge">order()</code> 메서드를 호출합니다.
+              <br />
+              <br />
+              여기서 EJB는 트랜잭션 관리와 같은 엔터프라이즈 기능을 수행합니다.
+              EJB가 트랜잭션을 관리하는 방식을 아래 섹션에서 이어서 알아보겠습니다.
+            </p>
+
+            <p class="font-weight-normal">
+              <span class="font-weight-bold">2. EJB의 트랜잭션 관리</span><br />
+              EJB는 선언적 트랜잭션(ex. <code class="language-plaintext highlighter-rouge">@TransactionAttribute</code>)을 제공해서 Servlet에서 트랜잭션을 관리할 수 있습니다.
+              트랜잭션은 데이터베이스 연산을 묶어서 원자성을 보장하고, 데이터 일관성을 유지하는 데 사용됩니다.
+              DB 업데이트 중 예외가 발생하면 롤백하거나, 여러 DB 연산을 하나의 트랜잭션으로 묶어서 일관성을 유지할 수 있습니다.
+
+            </p>
 
             <br />
             <br />
 
             <h2 id="sub-heading-8" class="font-weight-normal">Servlet 기반 시스템의 성능 최적화</h2>
 
+            <p class="font-weight-normal">
+              Servlet 기반 시스템은 성능을 최적화하기 위한 몇 가지 방법이 존재합니다.
+              이번 섹션에서는 3가지 주요 방법을 다뤄보도록 하겠습니다.
+
+              <br />
+              <br />
+
+              <span class="font-weight-bold">1. 스레드 풀 튜닝</span><br />
+              서블릿 컨테이너는 요청마다 스레드를 생성하는 것이 아니라, 미리 생성된 스레드 풀에서 스레드를 할당해 처리합니다.
+              스레드 풀의 크기를 적절히 조절하면, 서버의 부하를 줄이고 성능을 향상시킬 수 있습니다.
+              <br />
+              예를 들어, 다음과 같은 상황이 있을 때 스레드 풀을 튜닝할 수 있습니다.
+              <br />
+              <br />
+              [ 상황 ] 부하 테스트 중 응답 시간이 길어져 톰캣 로그를 확인해보니, 스레드 풀이 꽉 차서 대기 중인 경우
+              <br />
+              [ 해결 ] <code class="language-plaintext highlighter-rouge">server.xml</code>의 <code class="language-plaintext highlighter-rouge">maxThreads</code> 속성을 늘리거나, <code class="language-plaintext highlighter-rouge">acceptCount</code>를 조절하여 대기 큐를 늘릴 수 있습니다.
+              부하 테스트를 통해 스레드 풀의 최적 크기를 찾아주면 더욱 효과적인 성능 튜닝이 될 수 있습니다.
+              <br />
+              <br />
+
+              <span class="font-weight-bold">2. 비동기 Servlet</span><br />
+
+              Servlet 3.0부터 비동기 서블릿을 지원합니다.
+              비동기 서블릿은 요청을 받아 처리하는 동안 다른 작업을 수행할 수 있어, I/O 작업이 많은 서비스에서 성능을 향상시킬 수 있습니다.
+              <br />
+              예를 들어, 파일 업로드나 외부 API 호출 같은 I/O 작업을 비동기로 처리하면, 서버의 부하를 줄이고 응답 시간을 단축할 수 있습니다.
+              다음과 같은 상황이 있을 때 비동기 서블릿을 사용할 수 있습니다.
+              <br />
+              <br />
+              [ 상황 ] 외부 API 호출로 응답이 느려지고, 동기 방식이 병목이 되는 경우<br />
+              <span class="font-weight-lighter font-italic" style="font-size: 14px">* 동기 방식 병목: 외부 API 호출이 느려져서 프로그램이 그 응답을 기다리느라 다른 작업을 수행하지 못하는 상태</span><br />
+              [ 해결 ] Servlet 3.0의 비동기 처리(<code class="language-plaintext highlighter-rouge">AsyncContext</code>, <code class="language-plaintext highlighter-rouge">startAsync</code>)를 도입해 스레드를 블로킹하지 않고 비동기로 처리하면, 응답 시간을 단축할 수 있습니다.
+              <br />
+              <br />
+
+              <span class="font-weight-bold">3. 캐싱 도입</span><br />
+              캐싱은 반복적인 계산을 줄여 성능을 향상시키는 기법입니다.
+              서블릿에서는 메모리 캐시, HTTP 캐시, 데이터베이스 캐시 등 다양한 캐싱 기법을 사용할 수 있습니다.
+              <br />
+              예를 들어, 다음과 같은 상황이 있을 때 캐싱을 도입할 수 있습니다.
+              <br />
+              <br />
+              [ 상황 ] 반복적인 DB 조회로 부하가 걸려 응답 시간이 느려지는 경우<br />
+              [ 해결 ] 자주 조회되는 데이터를 <code class="language-plaintext highlighter-rouge">ServletContext</code>에 캐싱하거나, <code class="language-plaintext highlighter-rouge">@Cacheable</code> 어노테이션을 사용해 메서드 결과를 캐싱하면, DB 조회 횟수를 줄여 성능을 향상시킬 수 있습니다.
+
+
+
+            </p>
+
             <br />
             <br />
 
+
             <h2 id="sub-heading-9" class="font-weight-normal">Servlet과 Spring의 연결 고리</h2>
+
+            <p class="font-weight-normal"></p>
 
             <br />
             <br />
 
             <h2 id="sub-heading-10" class="font-weight-normal">Servlet 사용 시 주의점</h2>
 
+            <p class="font-weight-normal"></p>
+
             <br />
             <br />
 
             <h2 id="sub-heading-11" class="font-weight-normal">마무리</h2>
+
+            <p class="font-weight-normal"></p>
 
             <br />
             <br />
