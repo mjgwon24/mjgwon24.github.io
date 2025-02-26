@@ -26,7 +26,16 @@ ninja.data = [{
   handler: () => {
     window.location.href = "/blog/2025/howToUseCTE/";
   }
-}
+},
+  {
+    id: "post-servlet",
+    title: "Servlet 탐구",
+    description: "Servlet 탐구",
+    section: "Posts",
+    handler: () => {
+      window.location.href = "/blog/2025/servlet/";
+    }
+  }
 
 // }, {
 //   id: "nav-publications",
