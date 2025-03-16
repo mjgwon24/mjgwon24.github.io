@@ -49,7 +49,7 @@ const Header = () => {
                         </Link>
                         <Link
                             href="/contact"
-                            className="ml-2 text-white text-[14px] weight-600 py-2 px-4 rounded-lg transition duration-300"
+                            className="ml-2 text-white text-[14px] weight-600 py-2 px-4 rounded-lg"
                             style={{background: "linear-gradient(90deg, #4A96EC 4.14%, #237BE6 97.19%), #FFF"}}
                         >
                             CONTACT
@@ -107,7 +107,7 @@ const Header = () => {
                             </Link>
                             <Link
                                 href="/contact"
-                                className="text-white text-[14px] py-2 px-4 rounded-lg weight-600 transition duration-300 text-center mt-2"
+                                className="text-white text-[14px] py-2 px-4 rounded-lg weight-600 text-center mt-2"
                                 style={{background: "linear-gradient(90deg, #4A96EC 4.14%, #237BE6 97.19%), #FFF"}}
                                 onClick={() => setIsMenuOpen(false)}
                             >
