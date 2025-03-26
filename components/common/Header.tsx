@@ -49,8 +49,8 @@ const Header = () => {
                         </Link>
                         <Link
                             href="/contact"
-                            className="ml-2 text-white text-[14px] weight-600 py-2 px-4 rounded-lg"
-                            style={{background: "linear-gradient(90deg, #4A96EC 4.14%, #237BE6 97.19%), #FFF"}}
+                            className="ml-2 text-white text-[14px] weight-600 py-2 px-4 rounded-lg
+                            bg-gradient-to-r from-[#4A96EC] to-[#237BE6] bg-white hover:from-[#237BE6] hover:to-[#1A5CAB]"
                         >
                             CONTACT
                         </Link>
@@ -107,8 +107,8 @@ const Header = () => {
                             </Link>
                             <Link
                                 href="/contact"
-                                className="text-white text-[14px] py-2 px-4 rounded-lg weight-600 text-center mt-2"
-                                style={{background: "linear-gradient(90deg, #4A96EC 4.14%, #237BE6 97.19%), #FFF"}}
+                                className="text-white text-[14px] py-2 px-4 rounded-lg weight-600 text-center mt-2
+                                bg-gradient-to-r from-[#4A96EC] to-[#237BE6] bg-white hover:from-[#237BE6] hover:to-[#1A5CAB]"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 CONTACT
