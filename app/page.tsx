@@ -168,10 +168,10 @@ export default function Home() {
                 <p className="sm:text-xl weight-500 pl-3 select-none">제작한 프로젝트들, 어떤게 있을까요?</p>
                 <Link
                     href="/portfolio"
-                    className="text-white text-[14px] sm:text-[16px] py-1.5 px-8 rounded-lg weight-600 text-center mt-2"
-                    style={{background: "linear-gradient(90deg, #4A96EC 4.14%, #237BE6 97.19%), #FFF"}}
+                    className="text-white text-[14px] sm:text-[16px] py-1.5 px-8 rounded-lg weight-600 text-center mt-2
+                    bg-gradient-to-r from-[#4A96EC] to-[#237BE6] bg-white hover:from-[#237BE6] hover:to-[#1A5CAB]"
                 >
-                  전체보기
+                    전체보기
                 </Link>
               </div>
 
@@ -498,12 +498,10 @@ export default function Home() {
                     <p className="text-xs sm:text-sm text-center weight-400">더 자세한 소개, 경력 사항을<br/>
                       확인하실 수 있어요!</p>
                   </div>
-                  <div
-                      className="flex flex-row gap-1 items-center border border-blue-400 border-solid rounded-md pl-6 pr-4 sm:pr-4.5 py-1.5"
-                      style={{background: "linear-gradient(90deg, rgba(74, 150, 236, 0.10) 4.14%, rgba(35, 123, 230, 0.10) 97.19%)"}}
-
-                  >
-                    <p className="text-xs sm:text-sm text-center weight-600 text-blue-400">보러가기</p>
+                  <div className="cursor-pointer flex flex-row gap-1 items-center border border-blue-400 border-solid rounded-md pl-6 pr-4 sm:pr-4.5 py-1.5
+                    bg-[linear-gradient(90deg,rgba(74,150,236,0.10)_4.14%,rgba(35,123,230,0.10)_97.19%)]
+                    hover:bg-[linear-gradient(90deg,rgba(74,150,236,0.20)_4.14%,rgba(35,123,230,0.50)_97.19%)]">
+                    <p className="text-xs sm:text-sm text-center weight-600 text-blue-400 select-none">보러가기</p>
                     <svg className="w-3 sm:w-4 h-3 sm:h-4 text-blue-400" fill="none" stroke="currentColor"
                          strokeWidth="3"
                          viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -519,11 +517,9 @@ export default function Home() {
                     <p className="text-xs sm:text-sm text-center weight-400">사용했던 기술, 활동 회고와 관련된<br/>
                       포스팅을 확인하실 수 있어요!</p>
                   </div>
-                  <div
-                      className="flex flex-row gap-1 items-center border border-blue-400 border-solid rounded-md pl-6 pr-4 sm:pr-4.5 py-1.5"
-                      style={{background: "linear-gradient(90deg, rgba(74, 150, 236, 0.10) 4.14%, rgba(35, 123, 230, 0.10) 97.19%)"}}
-
-                  >
+                  <div className="cursor-pointer flex flex-row gap-1 items-center border border-blue-400 border-solid rounded-md pl-6 pr-4 sm:pr-4.5 py-1.5
+                    bg-[linear-gradient(90deg,rgba(74,150,236,0.10)_4.14%,rgba(35,123,230,0.10)_97.19%)]
+                    hover:bg-[linear-gradient(90deg,rgba(74,150,236,0.20)_4.14%,rgba(35,123,230,0.50)_97.19%)]">
                     <p className="text-xs sm:text-sm text-center weight-600 text-blue-400">보러가기</p>
                     <svg className="w-3 sm:w-4 h-3 sm:h-4 text-blue-400" fill="none" stroke="currentColor"
                          strokeWidth="3"
@@ -547,11 +543,9 @@ export default function Home() {
                     <p className="text-xs sm:text-sm text-center weight-400">프로젝트 진행 과정, 관련 코드들을<br/>
                       직접 볼 수 있어요!</p>
                   </div>
-                  <div
-                      className="flex flex-row gap-1 items-center border border-blue-400 border-solid rounded-md pl-6 pr-4 sm:pr-4.5 py-1.5"
-                      style={{background: "linear-gradient(90deg, rgba(74, 150, 236, 0.10) 4.14%, rgba(35, 123, 230, 0.10) 97.19%)"}}
-
-                  >
+                  <div className="cursor-pointer flex flex-row gap-1 items-center border border-blue-400 border-solid rounded-md pl-6 pr-4 sm:pr-4.5 py-1.5
+                    bg-[linear-gradient(90deg,rgba(74,150,236,0.10)_4.14%,rgba(35,123,230,0.10)_97.19%)]
+                    hover:bg-[linear-gradient(90deg,rgba(74,150,236,0.20)_4.14%,rgba(35,123,230,0.50)_97.19%)]">
                     <p className="text-xs sm:text-sm text-center weight-600 text-blue-400">깃허브</p>
                     <svg className="w-3 sm:w-4 h-3 sm:h-4 text-blue-400" fill="none" stroke="currentColor"
                          strokeWidth="3"
