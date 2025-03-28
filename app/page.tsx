@@ -1,7 +1,7 @@
 'use client';
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { techStackData, projectsData, linkCardsData } from "@/constants/home";
 import StackCard from "@/components/project/StackCard";
 import SectionTitle from "@/components/section/SectionTitle";
@@ -10,6 +10,22 @@ import ProjectCard from "@/components/project/ProjectCard";
 
 export default function Home() {
   const [height, setHeight] = useState<number>(0);
+  const [visibleSection, setVisibleSections] = useState<{
+    intro: boolean;
+    techStack: boolean;
+    portfolio: boolean;
+    links: boolean;
+  }>({
+    intro: false,
+    techStack: false,
+    portfolio: false,
+    links: false
+  });
+
+  const introRef = useRef<HTMLDivElement>(null);
+  const techStackRef = useRef<HTMLDivElement>(null);
+  const portfolioRef = useRef<HTMLDivElement>(null);
+  const linksRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -22,6 +38,38 @@ export default function Home() {
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }
+  }, []);
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '-40px'
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+      entries.forEach(entry => {
+        if (entry.target === introRef.current) {
+          setVisibleSections(prev => ({ ...prev, intro: entry.isIntersecting }));
+        } else if (entry.target === techStackRef.current) {
+            setVisibleSections(prev => ({ ...prev, techStack: entry.isIntersecting }));
+        } else if (entry.target === portfolioRef.current) {
+            setVisibleSections(prev => ({ ...prev, portfolio: entry.isIntersecting }));
+        } else if (entry.target === linksRef.current) {
+            setVisibleSections(prev => ({ ...prev, links: entry.isIntersecting }));
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    if (introRef.current) observer.observe(introRef.current);
+    if (techStackRef.current) observer.observe(techStackRef.current);
+    if (portfolioRef.current) observer.observe(portfolioRef.current);
+    if (linksRef.current) observer.observe(linksRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -41,7 +89,9 @@ export default function Home() {
               className="flex flex-col row-start-2 items-center"
               style={{ gap: `${height / 4}px` }}
           >
-            <div className="flex flex-col mb-3 sm:mb-44 gap-6 items-center">
+            <div ref={introRef}
+                className={`flex flex-col mb-3 sm:mb-44 gap-6 items-center transition-all duration-1000 
+                ${visibleSection.intro ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
               <Image
                   className="rounded-full"
                   src="/profile/profile-circle.svg"
@@ -57,7 +107,10 @@ export default function Home() {
               </h1>
             </div>
 
-            <div className="flex flex-col gap-5 items-center">
+            <div ref={techStackRef}
+                 className={`flex flex-col gap-5 items-center transition-all duration-1000 ${
+                     visibleSection.techStack ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
+                 }`}>
               <SectionTitle
                   emoji="🚀"
                   title="기술 스택"
@@ -77,7 +130,10 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-5 items-center">
+            <div ref={portfolioRef}
+                className={`flex flex-col gap-5 items-center transition-all duration-1000 ${
+                    visibleSection.portfolio ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
+                }`}>
               <SectionTitle
                   emoji="✨"
                   title="포트폴리오"
@@ -96,7 +152,10 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4 sm:gap-10 items-center">
+            <div ref={linksRef}
+                className={`flex flex-col gap-5 items-center transition-all duration-1000 ${
+                    visibleSection.links ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
+                }`}>
               <div className="flex flex-col items-center mb-6">
                 <h2 className="text-2xl sm:text-3xl weight-700 pr-1 select-none">
                   💡 더 알고싶으신가요?
