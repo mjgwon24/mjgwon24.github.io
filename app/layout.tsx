@@ -5,7 +5,7 @@ import "../styles/globals.css";
 export default function RootLayout({children}: { children: React.ReactNode }) {
     return (
         <html lang="ko">
-        <body>
+        <body className="sm:min-w-[768px]">
         <Header />
         <main>{children}</main>
         <Footer />
