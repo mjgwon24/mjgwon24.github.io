@@ -10,34 +10,27 @@ interface ProjectCardProps {
     roles: string[];
     tags: string[];
     slug?: string;
+    onImageLoad?: () => void;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
-                                                     image, title, period, organization, description, roles, tags, slug = ''
+                                                     image, title, period, organization, description, roles, tags, slug, onImageLoad
                                                  }) => {
-    const handleClick = () => {
-        if (slug) {
-            window.location.href = `/portfolio/${slug}`;
-        }
-    };
-
     return (
-        <div
-            className="flex flex-col w-60 sm:w-80 rounded-lg bg-black-10p cursor-pointer transform transition-all duration-300 hover:scale-[1.02]"
-            onClick={handleClick}
-        >
+        <div className="flex flex-col w-60 sm:w-80 rounded-lg bg-black-10p">
             <Image
                 src={image}
                 alt={title}
                 width={320}
                 height={190}
                 className="w-full h-[140px] sm:h-[190px] object-cover object-center rounded-t-lg"
+                onLoad={onImageLoad}
+                loading="eager"
             />
 
             <div className="flex flex-col justify-between sm:h-[250px] sm:h-[240px] p-4">
                 <div className="flex flex-col sm:gap-1 gap-0 pb-4 sm:pb-0">
-                    <div
-                        className="flex flex-col-reverse sm:flex-row justify-start items-start sm:justify-between sm:items-center gap-1 sm:gap-0">
+                    <div className="flex flex-col-reverse sm:flex-row justify-start items-start sm:justify-between sm:items-center gap-1 sm:gap-0">
                         <p className="text-sm sm:text-[16px] weight-600">{title}</p>
                         <div className="border border-blue-500 border-solid rounded-sm px-1.5 py-0.5">
                             <p className="text-xs weight-400 text-blue-500">{period}</p>

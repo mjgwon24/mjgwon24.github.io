@@ -3,13 +3,16 @@
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import { techStackData, projectsData, linkCardsData } from "@/constants/home";
-import StackCard from "@/components/project/StackCard";
+import StackCard from "@/components/home/StackCard";
 import SectionTitle from "@/components/section/SectionTitle";
 import LinkCard from "@/components/home/LinkCard";
 import ProjectCard from "@/components/project/ProjectCard";
+import ProjectCardSkeleton from "@/components/project/ProjectCardSkeleton";
 
 export default function Home() {
   const [height, setHeight] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [imagesLoaded, setImagesLoaded] = useState<Record<number, boolean>>({});
   const [visibleSection, setVisibleSections] = useState<{
     intro: boolean;
     techStack: boolean;
@@ -26,6 +29,21 @@ export default function Home() {
   const techStackRef = useRef<HTMLDivElement>(null);
   const portfolioRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleImageLoad = (index: number) => {
+    setImagesLoaded(prev => ({
+      ...prev,
+      [index]: true
+    }));
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -51,11 +69,11 @@ export default function Home() {
         if (entry.target === introRef.current) {
           setVisibleSections(prev => ({ ...prev, intro: entry.isIntersecting }));
         } else if (entry.target === techStackRef.current) {
-            setVisibleSections(prev => ({ ...prev, techStack: entry.isIntersecting }));
+          setVisibleSections(prev => ({ ...prev, techStack: entry.isIntersecting }));
         } else if (entry.target === portfolioRef.current) {
-            setVisibleSections(prev => ({ ...prev, portfolio: entry.isIntersecting }));
+          setVisibleSections(prev => ({ ...prev, portfolio: entry.isIntersecting }));
         } else if (entry.target === linksRef.current) {
-            setVisibleSections(prev => ({ ...prev, links: entry.isIntersecting }));
+          setVisibleSections(prev => ({ ...prev, links: entry.isIntersecting }));
         }
       });
     };
@@ -90,8 +108,8 @@ export default function Home() {
               style={{ gap: `${height / 4}px` }}
           >
             <div ref={introRef}
-                className={`flex flex-col mb-3 sm:mb-44 gap-6 items-center transition-all duration-1000 
-                ${visibleSection.intro ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
+                 className={`flex flex-col mb-3 sm:mb-44 gap-6 items-center transition-all duration-1000 
+              ${visibleSection.intro ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
               <Image
                   className="rounded-full"
                   src="/profile/profile-circle.svg"
@@ -131,9 +149,9 @@ export default function Home() {
             </div>
 
             <div ref={portfolioRef}
-                className={`flex flex-col gap-5 items-center transition-all duration-1000 ${
-                    visibleSection.portfolio ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
-                }`}>
+                 className={`flex flex-col gap-5 items-center transition-all duration-1000 ${
+                     visibleSection.portfolio ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
+                 }`}>
               <SectionTitle
                   emoji="✨"
                   title="포트폴리오"
@@ -144,18 +162,39 @@ export default function Home() {
               <div className="flex flex-col gap-6">
                 {[0, 2, 4].map((startIndex) => (
                     <div key={startIndex} className="flex flex-col sm:flex-row gap-6 items-center">
-                      {projectsData.slice(startIndex, startIndex + 2).map((project, index) => (
-                          <ProjectCard key={index} {...project} />
-                      ))}
+                      {loading ? (
+                          <>
+                            <ProjectCardSkeleton />
+                            <ProjectCardSkeleton />
+                          </>
+                      ) : (
+                          projectsData.slice(startIndex, startIndex + 2).map((project, index) => (
+                              <div key={index} className="relative">
+                                {!imagesLoaded[startIndex + index] && (
+                                    <div className="absolute inset-0 z-10">
+                                      <ProjectCardSkeleton />
+                                    </div>
+                                )}
+
+                                <div className={`transition-opacity duration-300 ${imagesLoaded[startIndex + index] ? 'opacity-100' : 'opacity-0'}`}>
+                                  <ProjectCard
+                                      key={index}
+                                      {...project}
+                                      onImageLoad={() => handleImageLoad(startIndex + index)}
+                                  />
+                                </div>
+                              </div>
+                          ))
+                      )}
                     </div>
                 ))}
               </div>
             </div>
 
             <div ref={linksRef}
-                className={`flex flex-col gap-5 items-center transition-all duration-1000 ${
-                    visibleSection.links ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
-                }`}>
+                 className={`flex flex-col gap-5 items-center transition-all duration-1000 ${
+                     visibleSection.links ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
+                 }`}>
               <div className="flex flex-col items-center mb-6">
                 <h2 className="text-2xl sm:text-3xl weight-700 pr-1 select-none">
                   💡 더 알고싶으신가요?

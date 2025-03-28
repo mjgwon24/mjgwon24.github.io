@@ -1,10 +1,29 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { projectsData } from '@/constants/home';
 import ProjectCard from '@/components/project/ProjectCard';
+import ProjectCardSkeleton from '@/components/project/ProjectCardSkeleton';
 
 export default function Portfolio() {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [imagesLoaded, setImagesLoaded] = useState<Record<number, boolean>>({});
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+    const handleImageLoad = (index: number) => {
+        setImagesLoaded(prev => ({
+            ...prev,
+            [index]: true
+        }));
+    };
+
     return (
         <div className="relative min-h-screen pt-28 py-24">
             <div
@@ -24,23 +43,32 @@ export default function Portfolio() {
                     </p>
                 </div>
 
-                {/* 프로젝트 그리드 */}
                 <div className="w-full max-w-7xl mx-auto flex flex-col items-center sm:min-w-[664px]">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
-                        {projectsData.map((project, index) => (
-                            <div key={index} className="w-full max-w-sm">
-                                <ProjectCard
-                                    image={project.image}
-                                    title={project.title}
-                                    period={project.period}
-                                    organization={project.organization}
-                                    description={project.description}
-                                    roles={project.roles}
-                                    tags={project.tags}
-                                    slug={project.slug}
-                                />
-                            </div>
-                        ))}
+                        {loading ? (
+                            Array(6).fill(0).map((_, index) => (
+                                <div key={index} className="w-full max-w-sm">
+                                    <ProjectCardSkeleton />
+                                </div>
+                            ))
+                        ) : (
+                            projectsData.map((project, index) => (
+                                <div key={index} className="w-full max-w-sm relative">
+                                    {!imagesLoaded[index] && (
+                                        <div className="absolute inset-0 z-10">
+                                            <ProjectCardSkeleton />
+                                        </div>
+                                    )}
+
+                                    <div className={`transition-opacity duration-300 ${imagesLoaded[index] ? 'opacity-100' : 'opacity-0'}`}>
+                                        <ProjectCard
+                                            {...project}
+                                            onImageLoad={() => handleImageLoad(index)}
+                                        />
+                                    </div>
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
