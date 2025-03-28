@@ -1,0 +1,61 @@
+import Image from 'next/image';
+import React from 'react';
+
+interface ProjectCardProps {
+    image: string;
+    title: string;
+    period: string;
+    organization: string;
+    description: string;
+    roles: string[];
+    tags: string[];
+}
+
+const ProjectCard: React.FC<ProjectCardProps> = ({
+                                                     image, title, period, organization, description, roles, tags
+                                                 }) => {
+    return (
+        <div className="flex flex-col w-60 sm:w-80 rounded-lg bg-black-10p">
+            <Image
+                src={image}
+                alt={title}
+                width={320}
+                height={190}
+                className="w-full h-[140px] sm:h-[190px] object-cover object-center rounded-t-lg"
+            />
+
+            <div className="flex flex-col justify-between sm:h-[250px] sm:h-[240px] p-4">
+                <div className="flex flex-col sm:gap-1 gap-0 pb-4 sm:pb-0">
+                    <div className="flex flex-col-reverse sm:flex-row justify-start items-start sm:justify-between sm:items-center gap-1 sm:gap-0">
+                        <p className="text-sm sm:text-[16px] weight-600">{title}</p>
+                        <div className="border border-blue-500 border-solid rounded-sm px-1.5 py-0.5">
+                            <p className="text-xs weight-400 text-blue-500">{period}</p>
+                        </div>
+                    </div>
+                    <span className="text-xs sm:text-sm text-gray-400 weight-400">{organization}</span>
+                    <span className="text-xs sm:text-sm weight-400 sm:p-0 pt-1">{description}</span>
+                </div>
+
+                <div className="flex flex-col sm:gap-1.5 gap-1 flex-wrap">
+                    <div className="flex flex-row sm:gap-1.5 gap-1 flex-wrap">
+                        {roles.map((role, index) => (
+                            <div key={index} className="pb-0.5 px-2 bg-black-10p rounded-sm">
+                                <span className="text-xs sm:text-sm weight-400 text-blue-500">{role}</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="flex flex-row sm:gap-1.5 gap-1 flex-wrap">
+                        {tags.map((tag, index) => (
+                            <div key={index} className="pb-0.5 px-2 bg-black-10p rounded-sm">
+                                <span className="text-xs sm:text-sm weight-400">{tag}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ProjectCard;
