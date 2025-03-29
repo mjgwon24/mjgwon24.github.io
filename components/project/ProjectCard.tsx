@@ -24,7 +24,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
     return (
         <div
-            className="flex flex-col w-60 sm:w-80 rounded-lg bg-black-10p cursor-pointer transform transition-all duration-300 hover:scale-[1.02]"
+            className="flex flex-col w-60 sm:w-80 rounded-lg bg-black-05p cursor-pointer transform transition-all duration-300 hover:scale-[1.02]"
             onClick={handleClick}
         >
             <Image
@@ -53,7 +53,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 <div className="flex flex-col sm:gap-1.5 gap-1 flex-wrap">
                     <div className="flex flex-row sm:gap-1.5 gap-1 flex-wrap">
                         {roles.map((role, index) => (
-                            <div key={index} className="pb-0.5 px-2 bg-black-10p rounded-sm">
+                            <div key={index} className="pb-0.5 px-2 bg-blue-500/10 rounded-sm">
                                 <span className="text-xs sm:text-sm weight-400 text-blue-500">{role}</span>
                             </div>
                         ))}
@@ -61,8 +61,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
                     <div className="flex flex-row sm:gap-1.5 gap-1 flex-wrap">
                         {tags.map((tag, index) => (
-                            <div key={index} className="pb-0.5 px-2 bg-black-10p rounded-sm">
-                                <span className="text-xs sm:text-sm weight-400">{tag}</span>
+                            <div key={index}
+                                 className="pb-0.5 px-2 bg-gradient-to-r from-gray-800/30 to-gray-700/20 backdrop-blur-sm border border-gray-700/20 rounded-md">
+                                <span className="text-xs sm:text-sm weight-400 text-gray-300">{tag}</span>
                             </div>
                         ))}
                     </div>
