@@ -42,8 +42,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                     <div
                         className="flex flex-col-reverse sm:flex-row justify-start items-start sm:justify-between sm:items-center gap-1 sm:gap-0">
                         <p className="text-sm sm:text-[16px] weight-600">{title}</p>
-                        <div className="border border-blue-500 border-solid rounded-sm px-1.5 py-0.5">
-                            <p className="text-xs weight-400 text-blue-500">{period}</p>
+                        <div
+                            className="sm:bg-gradient-to-r sm:from-blue-500/10 sm:to-blue-400/5 sm:backdrop-blur-sm sm:border sm:border-blue-500/20 rounded-md sm:px-2 sm:py-0.5">
+                            <p className="text-xs weight-400 text-gray-300 sm:text-blue-400">{period}</p>
                         </div>
                     </div>
                     <span className="text-xs sm:text-sm text-gray-400 weight-400">{organization}</span>
