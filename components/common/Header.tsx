@@ -8,8 +8,15 @@ const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const pathname = usePathname();
 
+    const navLinks = [
+        { href: '/about', label: '소개' },
+        { href: '/portfolio', label: '포트폴리오' },
+        { href: '/posts', label: '포스팅' },
+        { href: '/contact', label: 'CONTACT' }
+    ]
+
     const isActive = (path: string) => {
-        return pathname === path;
+        return pathname === path || pathname?.startsWith(`${path}/`);
     };
 
     const toggleMenu = () => {
@@ -29,31 +36,19 @@ const Header = () => {
                     </div>
 
                     <nav className="hidden md:flex space-x-6 items-center">
-                        <Link
-                            href="/about"
-                            className={`${isActive('/about') ? 'text-blue-600 weight-700' : 'text-gray-300'} hover:text-blue-500 transition duration-300 weight-500`}
-                        >
-                            소개
-                        </Link>
-                        <Link
-                            href="/portfolio"
-                            className={`${isActive('/portfolio') ? 'text-blue-600 weight-700' : 'text-gray-300'} hover:text-blue-500 transition duration-300 weight-500`}
-                        >
-                            포트폴리오
-                        </Link>
-                        <Link
-                            href="/posting"
-                            className={`${isActive('/posting') ? 'text-blue-600 weight-700' : 'text-gray-300'} hover:text-blue-500 transition duration-300 weight-500`}
-                        >
-                            포스팅
-                        </Link>
-                        <Link
-                            href="/contact"
-                            className="ml-2 text-white text-[14px] weight-600 py-2 px-4 rounded-lg
-                            bg-gradient-to-r from-[#4A96EC] to-[#237BE6] bg-white hover:from-[#237BE6] hover:to-[#1A5CAB]"
-                        >
-                            CONTACT
-                        </Link>
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className={
+                                    link.label === 'CONTACT'
+                                        ? "ml-2 text-white text-[14px] weight-600 py-2 px-4 rounded-lg bg-gradient-to-r from-[#4A96EC] to-[#237BE6] bg-white hover:from-[#237BE6] hover:to-[#1A5CAB]"
+                                        : `${isActive(link.href) ? 'text-blue-600 weight-700' : 'text-gray-300'} hover:text-blue-500 transition duration-300 weight-500`
+                                }
+                            >
+                                {link.label}
+                            </Link>
+                        ))}
                     </nav>
 
                     <div className="md:hidden">
@@ -72,9 +67,9 @@ const Header = () => {
                                 stroke="currentColor"
                             >
                                 {isMenuOpen ? (
-                                    <path d="M6 18L18 6M6 6l12 12" />
+                                    <path d="M6 18L18 6M6 6l12 12"/>
                                 ) : (
-                                    <path d="M4 6h16M4 12h16M4 18h16" />
+                                    <path d="M4 6h16M4 12h16M4 18h16"/>
                                 )}
                             </svg>
                         </button>
