@@ -298,7 +298,7 @@ export default function ProjectDetail() {
                     )}
 
                     <div className="mb-8">
-                        <h2 className="text-2xl weight-600 sm:weight-700 mb-4 select-none">프로젝트 개요</h2>
+                        <h2 className="text-2xl weight-600 sm:weight-700 mb-4 select-none">서비스 개요</h2>
                         <div className="flex flex-wrap gap-2 mb-4">
                             {project.tags.map((tag: string, index: number) => (
                                 <span
