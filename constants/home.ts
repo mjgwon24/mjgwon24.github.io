@@ -12,7 +12,15 @@ export const projectsData = [
         period: '25.02~25.03',
         organization: '정보보안 SW 웹/앱 개발 공모전',
         description: '차세대 산업 보안 시뮬레이터 웹 플랫폼, SECUBOX입니다. 드래그 앤 드롭을 통해 쉽게 커스텀 네트워크 환경을 구성할 수 있으며, 공격 및 방어 시뮬레이션을 실행해 직접 보안 테스트를 진행할 수 있습니다.',
-        detailedDescription: 'SECUBOX는 보안 교육을 위한 시뮬레이션 플랫폼으로, 사용자가 드래그 앤 드롭 방식으로 네트워크 환경을 구성하고, 다양한 공격 및 방어 시나리오를 실행할 수 있는 웹 기반의 서비스입니다. 이 플랫폼은 보안 교육을 보다 실용적이고 효과적으로 진행할 수 있도록 도와줍니다. 사용자는 자신만의 네트워크 환경을 쉽게 설정하고, 다양한 보안 공격 및 방어 기술을 실습할 수 있습니다. 이를 통해 보안 전문가로 성장하는 데 필요한 실전 경험을 쌓을 수 있습니다.',
+        detailedDescription: '산업별 사이버 위협이 증가하는 가운데, 기존 보안 교육은 이론 중심이라 실전 대응력이 부족합니다. 또한, 산업별 특화된 보안 교육이 부족한 상황입니다.' +
+            '이에 따라, 보다 실전적인 훈련이 가능한 차별화된 실습형 보안 플랫폼 "SECUBOX"를 기획하게 되었습니다.\n\n' +
+            '본 서비스는 웹 기반 실습형 보안 훈련 플랫폼으로, 사용자가 직접 네트워크 환경을 커스텀하여 구성하고, 맞춤형 공격·방어 시뮬레이션을 수행할 수 있도록 설계되었습니다.\n' +
+            '이를 통해 기업과 개인 모두 쉽고 효과적으로 보안 역량을 강화할 수 있습니다.\n' +
+            '\n' +
+            '• Drag & Drop 네트워크 구성으로 원하는 장비를 배치하고, 직접 커스터마이징 가능\n' +
+            '• 금융, 제조, 스마트 시티 등 특화된 시나리오 제공하여 산업별 맞춤형 보안 훈련 가능\n' +
+            '•  다양한 공격·방어 모듈을 활용한 실전 시뮬레이션 실습 가능\n' +
+            '• 별도 구축 없이 언제 어디서나 보안 훈련을 수행할 수 있는 웹 기반 환경',
         roles: ['Back', 'Front', 'Design'],
         tags: ['WEB', 'Security', 'Education'],
         techStacks: ['Spring Boot', 'React', 'MySQL', 'Docker', 'JavaScript', 'HTML/CSS', 'Node.js', 'Git'],
@@ -53,7 +61,9 @@ export const projectsData = [
             live: 'https://github.com/mjgwon24',
         },
         detailImages: [
-            '/portfolio/details/secubox-detail1.png'
+            '/portfolio/details/secubox-detail1.png',
+            '/portfolio/details/secubox-detail2.png',
+            '/portfolio/details/secubox-detail3.png'
         ]
     },{
         image: '/portfolio/semi-erp.png',
