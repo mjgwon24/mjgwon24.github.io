@@ -290,7 +290,7 @@ export default function ProjectDetail() {
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-colors duration-200 sm:text-[16px] text-xs"
                                     >
-                                        <span>Live Demo</span>
+                                        <span>Visit Service</span>
                                     </a>
                                 )}
                             </div>

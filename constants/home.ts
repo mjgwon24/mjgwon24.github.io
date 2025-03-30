@@ -199,7 +199,8 @@ export const projectsData = [
                 ]
             }
         ],
-        slug: 'stack-four-cut'
+        slug: 'stack-four-cut',
+
     },{
         image: '/portfolio/developer.png',
         title: '개발동아리 사이트 개발',
@@ -208,12 +209,13 @@ export const projectsData = [
         description: '동국대학교 개발 동아리 DEVELOPER의 공식 사이트입니다. 동아리 성과, 활동 내용, 부원 현황 등의 동아리 관련 정보를 제공해줍니다.',
         roles: ['Front', 'Planning', 'Design'],
         tags: ['WEB', 'Community'],
-        techStacks: ['Spring Boot', 'React', 'MySQL', 'Docker'],
+        techStacks: ['React', 'JavaScript', 'HTML/CSS', 'Node.js', 'Tailwind CSS', 'Git'],
         rolesAndContributions: [
             {
                 role: 'Frontend',
                 contributions: [
                     'React를 사용하여 사용자 인터페이스 개발',
+                    '스켈레톤 UI를 사용하여 반응형 웹 구현',
                     '사용자 경험을 고려한 UI/UX 설계 및 구현',
                 ]
             },
@@ -225,7 +227,23 @@ export const projectsData = [
                 ]
             }
         ],
-        slug: 'developer'
+        achievements: [
+            {
+                title: 'IT동아리 DEVELOPER 공식 사이트',
+                description: '2024년 동국대학교 IT동아리 DEVELOPER 공식 사이트 개발',
+                date: '2024.12.01',
+            }
+        ],
+        slug: 'developer',
+        links: {
+            github: 'https://github.com/mjgwon24/developer2023-web',
+            live: 'https://www.developer2023.com/',
+        },
+        detailImages: [
+            '/portfolio/details/developer/developer-detail1.png',
+            '/portfolio/details/developer/developer-detail2.png',
+            '/portfolio/details/developer/developer-detail3.png'
+        ]
     }
 ];
 
