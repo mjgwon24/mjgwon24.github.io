@@ -309,7 +309,7 @@ export default function ProjectDetail() {
                 </span>
                             ))}
                         </div>
-                        <p className="text-gray-300">{project.detailedDescription || project.description}</p>
+                        <p className="text-gray-300 whitespace-pre-wrap">{project.detailedDescription || project.description}</p>
                     </div>
 
                     <div className="mb-8">
