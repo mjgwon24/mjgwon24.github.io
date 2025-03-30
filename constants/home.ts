@@ -57,7 +57,7 @@ export const projectsData = [
         ],
         slug: 'secubox',
         links: {
-            github: 'https://github.com/secu-box',
+            github: 'https://secubox-front.vercel.app/',
             live: 'https://github.com/mjgwon24',
         },
         detailImages: [
