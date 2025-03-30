@@ -12,7 +12,7 @@ export const projectsData = [
         period: '25.02~25.03',
         organization: '정보보안 SW 웹/앱 개발 공모전',
         description: '차세대 산업 보안 시뮬레이터 웹 플랫폼, SECUBOX입니다. 드래그 앤 드롭을 통해 쉽게 커스텀 네트워크 환경을 구성할 수 있으며, 공격 및 방어 시뮬레이션을 실행해 직접 보안 테스트를 진행할 수 있습니다.',
-        detailedDescription: '산업별 사이버 위협이 증가하는 가운데, 기존 보안 교육은 이론 중심이라 실전 대응력이 부족합니다. 또한, 산업별 특화된 보안 교육이 부족한 상황입니다.' +
+        detailedDescription: '산업별 사이버 위협이 증가하는 가운데, 기존 보안 교육은 이론 중심이라 실전 대응력이 부족합니다. 또한, 산업별 특화된 보안 교육이 부족한 상황입니다. ' +
             '이에 따라, 보다 실전적인 훈련이 가능한 차별화된 실습형 보안 플랫폼 "SECUBOX"를 기획하게 되었습니다.\n\n' +
             '본 서비스는 웹 기반 실습형 보안 훈련 플랫폼으로, 사용자가 직접 네트워크 환경을 커스텀하여 구성하고, 맞춤형 공격·방어 시뮬레이션을 수행할 수 있도록 설계되었습니다.\n' +
             '이를 통해 기업과 개인 모두 쉽고 효과적으로 보안 역량을 강화할 수 있습니다.\n' +
@@ -171,7 +171,7 @@ export const projectsData = [
         title: '네컷사진 촬영 서비스 개발',
         period: '24.07~24.10',
         organization: 'IT동아리 DEVELOPER',
-        description: '사진을 찍어 네컷 사진으로 병합해주는 추억 남기기 서비스입니다. 경주시와 협업하여 “2024 경주 지역문제 해결 해커톤”에서 실제로 서비스를 사용하였고, 많은 행사 참가자들의 추억을 만들어주었습니다.',
+        description: '사진을 찍어 네컷 사진으로 병합해주는 추억 남기기 서비스입니다. 경주시와 협업하여 “2024 경주 지역문제 해결 해커톤”에서 실제로 서비스를 사용하였고, 약 60명의 행사 참가자들에게 추억을 만들어주었습니다.',
         roles: ['Back', 'Front', 'Planning', 'Design'],
         tags: ['WEB', 'Entertainment'],
         techStacks: ['Spring Boot', 'React', 'MySQL', 'Docker'],
@@ -200,6 +200,9 @@ export const projectsData = [
             }
         ],
         slug: 'stack-four-cut',
+        links: {
+            github: 'https://github.com/mjgwon24/stack-snapshot-back',
+        },
 
     },{
         image: '/portfolio/developer.png',
@@ -230,7 +233,7 @@ export const projectsData = [
         achievements: [
             {
                 title: 'IT동아리 DEVELOPER 공식 사이트',
-                description: '2024년 동국대학교 IT동아리 DEVELOPER 공식 사이트 개발',
+                description: '동국대학교 IT동아리 DEVELOPER 공식 사이트 개발',
                 date: '2024.12.01',
             }
         ],

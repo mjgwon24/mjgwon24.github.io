@@ -155,7 +155,7 @@ export default function Home() {
               <SectionTitle
                   emoji="✨"
                   title="포트폴리오"
-                  subtitle="제작한 프로젝트들, 어떤게 있을까요?"
+                  subtitle="진행한 프로젝트들, 어떤게 있을까요?"
                   showMoreLink="/portfolio"
               />
 
