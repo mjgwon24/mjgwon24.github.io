@@ -67,11 +67,11 @@ const ProjectDetailPage = async ({ params }: Props) => {
                             const sectionData = projectDoc.sections[section.id as keyof typeof projectDoc.sections];
                             return (
                                 <section key={section.id} id={section.id} className="scroll-mt-28">
-                                    <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-blue-400">
+                                    <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-blue-400 select-none">
                                         {index + 1}. {sectionData.title}
                                     </h2>
                                     <div className="bg-gray-800/30 p-6 rounded-xl">
-                                        <p className="text-gray-300">{sectionData.content}</p>
+                                        <p className="text-gray-300 whitespace-pre-wrap">{sectionData.content}</p>
                                     </div>
                                 </section>
                             );
