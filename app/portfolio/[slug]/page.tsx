@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { projectsData } from '@/constants/home';
-import { ArrowLeft, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import {ArrowLeft, X, ChevronLeft, ChevronRight, LucideFileText} from 'lucide-react';
 
 interface Contribution {
     role: string;
@@ -24,6 +24,7 @@ interface Project {
     techStacks: string[];
     slug: string;
     links?: {
+        isDevDoc?: boolean;
         github?: string;
         live?: string;
     };
@@ -266,6 +267,19 @@ export default function ProjectDetail() {
                     {project.links && (
                         <div className="mb-5">
                             <div className="flex sm:flex-row-reverse flex-wrap gap-2 sm:gap-4">
+                                {project.links.isDevDoc && (
+                                    <a
+                                        href={`/portfolio/${project.slug}/dev-doc`}
+                                        className="flex items-center gap-1.5 sm:gap-2 sm:px-5 sm:py-2.5 px-3 py-1 rounded-lg border border-gray-700 bg-green-500/10 text-green-400 hover:bg-green-500/20 transition-colors duration-200"
+                                    >
+                                        <LucideFileText
+                                            size={20}
+                                            className="opacity-80 text-gray-200"
+                                        />
+                                        <span
+                                            className="text-gray-200 sm:text-[16px] text-xs">Development Document</span>
+                                    </a>
+                                )}
                                 {project.links.github && (
                                     <a
                                         href={project.links.github}
