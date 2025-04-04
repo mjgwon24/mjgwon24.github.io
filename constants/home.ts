@@ -12,7 +12,7 @@ export const projectsData = [
         period: '25.02~25.03',
         organization: '정보보안 SW 웹/앱 개발 공모전',
         description: '차세대 산업 보안 시뮬레이터 웹 플랫폼, SECUBOX입니다. 드래그 앤 드롭을 통해 쉽게 커스텀 네트워크 환경을 구성할 수 있으며, 공격 및 방어 시뮬레이션을 실행해 직접 보안 테스트를 진행할 수 있습니다.',
-        detailedDescription: '산업별 사이버 위협이 증가하는 가운데, 기존 보안 교육은 이론 중심이라 실전 대응력이 부족합니다. 또한, 산업별 특화된 보안 교육이 부족한 상황입니다. ' +
+        detailedDescription: '산업별 사이버 위협이 증가하는 가운데, 기존 보안 교육은 이론 중심이라 실전 대응력이 부족합니다. 또한, 산업별 특화된 보안 교육이 부족한 상황입니다. 이' +
             '이에 따라, 보다 실전적인 훈련이 가능한 차별화된 실습형 보안 플랫폼 "SECUBOX"를 기획하게 되었습니다.\n\n' +
             '본 서비스는 웹 기반 실습형 보안 훈련 플랫폼으로, 사용자가 직접 네트워크 환경을 커스텀하여 구성하고, 맞춤형 공격·방어 시뮬레이션을 수행할 수 있도록 설계되었습니다.\n' +
             '이를 통해 기업과 개인 모두 쉽고 효과적으로 보안 역량을 강화할 수 있습니다.\n' +
@@ -167,21 +167,27 @@ export const projectsData = [
         ],
         slug: 'gyeongju-night'
     },{
-        image: '/portfolio/stack-four-cut.png',
+        image: '/portfolio/stack-snapshot.png',
         title: '네컷사진 촬영 서비스 개발',
         period: '24.07~24.10',
         organization: 'IT동아리 DEVELOPER',
-        description: '사진을 찍어 네컷 사진으로 병합해주는 추억 남기기 서비스입니다. 경주시와 협업하여 “2024 경주 지역문제 해결 해커톤”에서 실제로 서비스를 사용하였고, 약 60명의 행사 참가자들에게 추억을 만들어주었습니다.',
+        description: '사진을 촬영한 뒤 원하는 프레임을 적용하고 QR 코드를 통해 즉시 다운로드할 수 있는 서비스입니다. 경주시와 협업하여 "2024 경북 해커톤"에서 약 60명의 참가자들에게 특별한 추억을 만들어 주었습니다.',
+        detailedDescription: '스택네컷(Stack Snapshot) 은 행사장에서 참가자들이 직접 촬영한 네컷사진을 제공하는 서비스입니다. 사용자는 원하는 사진을 선택하고 프레임을 적용한 후, QR 코드를 통해 즉시 다운로드할 수 있습니다. 또한, QR 코드 사용 후에는 경품 이벤트(뽑기 게임)에 참여할 수 있어 행사 몰입도를 높입니다.\n' +
+'\n' +
+'2024 경북 해커톤에서 실제로 사용되었으며, 약 60명의 해커톤 참가자에게 소중한 추억을 제공했습니다. 해커톤 현장에서 요구되는 빠른 응답 속도, 안정적인 서버 운영, 대학생들이 관심을 가질만한 UI/UX를 고려하여 개발되었으며, 실사용자 피드백을 바탕으로 기능을 개선하여 추후 행사에서도 활용 가능하도록 고도화하였습니다.',
         roles: ['Back', 'Front', 'Planning', 'Design'],
         tags: ['WEB', 'Entertainment'],
-        techStacks: ['Spring Boot', 'React', 'MySQL', 'Docker'],
+        techStacks: ['Spring Boot', 'REST API', 'React', 'Node.js', 'Nginx', 'JavaScript', 'HTML/CSS', 'Naver Cloud', 'Git', 'FileZilla'],
         rolesAndContributions: [
             {
                 role: 'Backend',
                 contributions: [
-                    'Spring Boot를 사용하여 RESTful API 설계 및 구현',
-                    'MySQL을 이용한 데이터베이스 설계 및 최적화',
-                    'Docker를 활용한 배포 및 환경 설정'
+                    'Spring Boot를 사용하여 REST API 설계 및 구현',
+                    'CORS 설정을 통해 외부 API와의 통신 구현',
+                    'MultipartFile을 사용하여 파일 업로드 및 처리 구현',
+                    'BufferedImage, Graphics2D를 사용하여 이미지 병합 및 편집 기능 구현',
+                    'google zxing 라이브러리를 사용하여 QR 코드 생성 및 다운로드 기능 구현',
+                    'Naver Cloud Server, FileZilla를 사용하여 서버 배포 및 관리',
                 ]
             },
             {
@@ -192,18 +198,30 @@ export const projectsData = [
                 ]
             },
             {
+                role: 'Planning',
+                contributions: [
+                    '서비스 기획 및 요구사항 분석'
+                ]
+            },
+            {
                 role: 'Designer',
                 contributions: [
-                    '전체적인 UI/UX 디자인 및 프로토타입 제작',
-                    '사용자 피드백을 반영하여 디자인 개선'
+                    '전체적인 UI/UX 디자인 및 프로토타입 제작'
                 ]
             }
         ],
-        slug: 'stack-four-cut',
+        slug: 'stack-snapshot',
         links: {
+            isDevDoc: true,
             github: 'https://github.com/mjgwon24/stack-snapshot-back',
         },
-
+        achievements: [
+            {
+                title: '2024 경주 지역문제 해결 해커톤',
+                description: '2024 경주 지역문제 해결 해커톤 행사에서 이벤트성 서비스로 사용',
+                date: '2024.11.29',
+            }
+        ]
     },{
         image: '/portfolio/developer.png',
         title: '개발동아리 사이트 개발',
@@ -233,7 +251,7 @@ export const projectsData = [
         achievements: [
             {
                 title: 'IT동아리 DEVELOPER 공식 사이트',
-                description: '동국대학교 IT동아리 DEVELOPER 공식 사이트 개발',
+                description: '동국대학교 IT동아리 DEVELOPER 공식 사이트로 사용중',
                 date: '2024.12.01',
             }
         ],
