@@ -1,15 +1,23 @@
 'use client';
 
-import React from 'react';
+import React, {ReactNode, use} from 'react';
 import { projectDevDocs } from '@/constants/dev-doc';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
+import { Components } from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
+import components from '@/components/MarkdownComponents';
 
-const ProjectDetailPage = ({ params }: Props) => {
-    const resolvedParams = React.use(params);
-    const slug = resolvedParams.slug;
+interface RouteParams {
+    params: {
+        slug: string;
+    };
+}
+
+const ProjectDetailPage = ({ params }: RouteParams) => {
+    const slug = use(params).slug;
     const projectDoc = projectDevDocs[slug];
 
     if (!projectDoc) {
@@ -105,18 +113,9 @@ const ProjectDetailPage = ({ params }: Props) => {
                                     <div className="bg-gray-800/30 sm:p-8 p-6 rounded-xl transition-all duration-300">
                                         <div className="text-gray-200 weight-400 prose prose-invert prose-pre:bg-gray-800/50 prose-pre:border prose-pre:border-gray-700 max-w-none">
                                             <ReactMarkdown
+                                                remarkPlugins={[remarkGfm]}
                                                 rehypePlugins={[rehypeRaw, rehypeHighlight]}
-                                                components={{
-                                                    h1: ({...props}) => <h1 className="text-xl weight-500 my-2" {...props} />,
-                                                    h2: ({...props}) => <h2 className="text-lg weight-500 my-2" {...props} />,
-                                                    h3: ({...props}) => <h3 className="weight-500 my-2" {...props} />,
-                                                    ul: ({...props}) => <ul className="list-disc ml-5 my-2" {...props} />,
-                                                    ol: ({...props}) => <ol className="list-decimal ml-5 my-2" {...props} />,
-                                                    hr: ({...props}) => <hr className="border-gray-700 my-4" {...props} />,
-                                                    code: ({inline, ...props}) => inline
-                                                        ? <code className="bg-gray-800 px-1 rounded" {...props} />
-                                                        : <code className="block bg-gray-800 p-2 rounded my-2" {...props} />
-                                                }}
+                                                components={{ ...components }}
                                             >
                                                 {sectionData.content}
                                             </ReactMarkdown>
