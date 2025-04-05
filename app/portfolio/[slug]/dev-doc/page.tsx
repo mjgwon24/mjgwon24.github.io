@@ -1,14 +1,14 @@
 'use client';
 
-import React, {ReactNode, use} from 'react';
+import React, {use} from 'react';
 import { projectDevDocs } from '@/constants/dev-doc';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
-import { Components } from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
 import components from '@/components/MarkdownComponents';
+import { IoArrowBack } from 'react-icons/io5';
 
 interface RouteParams {
     params: {
@@ -24,16 +24,21 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
         notFound();
     }
 
-    const sections = [
+    const sectionDefinitions = [
         { id: 'planning', title: '기획' },
         { id: 'requirements', title: '프로젝트 요구사항' },
         { id: 'architecture', title: '아키텍처 및 기술 설계' },
         { id: 'process', title: '서비스 프로세스' },
+        { id: 'flowchart', title: '플로우차트' },
         { id: 'api', title: 'REST API' },
         { id: 'problemSolving', title: '문제 해결 및 성능 개선' },
         { id: 'results', title: '성과' },
         { id: 'retrospective', title: '회고' }
     ];
+
+    const sections = sectionDefinitions.filter(section =>
+        section.id in projectDoc.sections
+    );
 
     React.useEffect(() => {
         if (window.location.hash) {
@@ -54,6 +59,17 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
             <div className="space-y-24 max-w-3xl mx-auto">
 
                 <div className="relative container mx-auto px-4 flex flex-col items-center">
+                    <div className="absolute top-4 left-4">
+                        <button
+                            type="button"
+                            onClick={() => window.history.back()}
+                            className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-800/60 text-white transition-all duration-300 cursor-pointer shadow-md"
+                            aria-label="뒤로 가기"
+                        >
+                            <IoArrowBack className="text-xl" />
+                        </button>
+                    </div>
+
                     <header className="text-center my-8 sm:my-12">
                         <h1 className="text-3xl sm:text-4xl weight-600 text-white mb-2 sm:mb-4">{projectDoc.projectName} 개발 문서</h1>
                         <p className="text-lg text-gray-300">{projectDoc.subtitle}</p>
@@ -87,6 +103,9 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
 
                     {sections.map((section, index) => {
                         const sectionData = projectDoc.sections[section.id as keyof typeof projectDoc.sections];
+                        if (!sectionData) {
+                            return null;
+                        }
                         const [isExpanded, setIsExpanded] = React.useState(true);
 
                         return (
@@ -97,28 +116,82 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
                                 >
                                     <div className="flex flex-row items-center justify-between w-full">
                                         <div className="flex flex-row items-center gap-2">
-                                            <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-900/40 text-blue-300 rounded-full text-sm weight-500">
-                                                {index + 1}
-                                            </span>
+                                        <span className="inline-flex items-center justify-center w-6 h-6 bg-blue-900/40 text-blue-300 rounded-full text-sm weight-500">
+                                            {index + 1}
+                                        </span>
                                             <span className="text-gray-100">{sectionData.title}</span>
                                         </div>
 
                                         <span className="text-gray-400 ml-2 text-xs pr-2">
-                                            {isExpanded ? '▲' : '▼'}
-                                        </span>
+                                        {isExpanded ? '▲' : '▼'}
+                                    </span>
                                     </div>
                                 </h2>
 
                                 {isExpanded && (
                                     <div className="bg-gray-800/30 sm:p-8 p-6 rounded-xl transition-all duration-300">
                                         <div className="text-gray-200 weight-400 prose prose-invert prose-pre:bg-gray-800/50 prose-pre:border prose-pre:border-gray-700 max-w-none">
-                                            <ReactMarkdown
-                                                remarkPlugins={[remarkGfm]}
-                                                rehypePlugins={[rehypeRaw, rehypeHighlight]}
-                                                components={{ ...components }}
-                                            >
-                                                {sectionData.content}
-                                            </ReactMarkdown>
+                                            {sectionData.content && (
+                                                <ReactMarkdown
+                                                    remarkPlugins={[remarkGfm]}
+                                                    rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                                                    components={{ ...components }}
+                                                >
+                                                    {sectionData.content}
+                                                </ReactMarkdown>
+                                            )}
+
+                                            {sectionData.image && (
+                                                <figure className="my-8">
+                                                    <div
+                                                        className="overflow-hidden rounded-xl bg-gradient-to-b from-gray-800/30 to-gray-900/30 shadow-lg border border-gray-700/20 transition-transform hover:shadow-blue-500/10 cursor-pointer"
+                                                        onClick={() => {
+                                                            const modal = document.createElement('div');
+                                                            modal.className = 'fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 backdrop-blur-sm';
+                                                            modal.onclick = () => document.body.removeChild(modal);
+
+                                                            const img = document.createElement('img');
+                                                            img.src = sectionData.image?.src || '';
+                                                            img.alt = sectionData.image?.alt || '';
+                                                            img.className = 'max-w-full max-h-[90vh] object-contain';
+
+                                                            const closeButton = document.createElement('button');
+                                                            closeButton.className = 'absolute top-4 right-4 text-white bg-black/50 rounded-full p-2 hover:bg-black/70';
+                                                            closeButton.innerHTML = '✕';
+                                                            closeButton.onclick = (e) => {
+                                                                e.stopPropagation();
+                                                                document.body.removeChild(modal);
+                                                            };
+
+                                                            modal.appendChild(img);
+                                                            modal.appendChild(closeButton);
+                                                            document.body.appendChild(modal);
+                                                        }}
+                                                    >
+                                                        <div className="p-1 relative group">
+                                                            <img
+                                                                src={sectionData.image.src}
+                                                                alt={sectionData.image.alt}
+                                                                width={sectionData.image.width}
+                                                                height={sectionData.image.height}
+                                                                className="w-full h-auto rounded-lg object-contain mx-auto"
+                                                                style={{ maxHeight: '480px' }}
+                                                                loading="lazy"
+                                                            />
+                                                            <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
+                                                            <span className="bg-black/50 text-white text-xs font-medium px-2.5 py-1 rounded-md">
+                                                                확대
+                                                            </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {sectionData.image.alt && (
+                                                        <figcaption className="text-center text-sm text-gray-400/80 mt-3 font-light tracking-wide">
+                                                            {sectionData.image.alt}
+                                                        </figcaption>
+                                                    )}
+                                                </figure>
+                                            )}
                                         </div>
                                     </div>
                                 )}
