@@ -167,7 +167,7 @@ export const projectsData = [
         ],
         slug: 'gyeongju-night'
     },{
-        image: '/portfolio/stack-snapshot.png',
+        image: '/portfolio/stack-snapshot/thumb/thumb1.png',
         title: '네컷사진 촬영 서비스 개발',
         period: '24.07~24.10',
         organization: 'IT동아리 DEVELOPER',
@@ -221,6 +221,15 @@ export const projectsData = [
                 description: '2024 경주 지역문제 해결 해커톤 행사에서 이벤트성 서비스로 사용',
                 date: '2024.11.29',
             }
+        ],
+        detailImages: [
+            '/portfolio/stack-snapshot/thumb/thumb8.png',
+            '/portfolio/stack-snapshot/thumb/thumb2.png',
+            '/portfolio/stack-snapshot/thumb/thumb3.png',
+            '/portfolio/stack-snapshot/thumb/thumb4.png',
+            '/portfolio/stack-snapshot/thumb/thumb5.png',
+            '/portfolio/stack-snapshot/thumb/thumb6.png',
+            '/portfolio/stack-snapshot/thumb/thumb7.png',
         ]
     },{
         image: '/portfolio/developer.png',
