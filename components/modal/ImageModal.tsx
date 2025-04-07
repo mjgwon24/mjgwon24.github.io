@@ -40,19 +40,25 @@ const ImageModal: React.FC<ImageModalProps> = ({ image }) => {
                 onClick={handleImageClick}
             >
                 <div className="p-1 relative group">
-                    <img
-                        src={image.src}
-                        alt={image.alt}
-                        width={image.width}
-                        height={image.height}
-                        className="w-full h-auto rounded-lg object-contain mx-auto"
-                        style={{ maxHeight: '480px' }}
-                        loading="lazy"
-                    />
+                    <React.Suspense
+                        fallback={
+                            <div className="w-full h-48 bg-gray-700 animate-pulse rounded-lg"></div>
+                        }
+                    >
+                        <img
+                            src={image.src}
+                            alt={image.alt}
+                            width={image.width}
+                            height={image.height}
+                            className="w-full h-auto rounded-lg object-contain mx-auto"
+                            style={{ maxHeight: '480px' }}
+                            loading="lazy"
+                        />
+                    </React.Suspense>
                     <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
-                        <span className="bg-black/50 text-white text-xs font-medium px-2.5 py-1 rounded-md">
-                            확대
-                        </span>
+                    <span className="bg-black/50 text-white text-xs font-medium px-2.5 py-1 rounded-md">
+                        확대
+                    </span>
                     </div>
                 </div>
             </div>
