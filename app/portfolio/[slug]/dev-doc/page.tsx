@@ -28,6 +28,7 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
         { id: 'planning', title: '기획' },
         { id: 'requirements', title: '프로젝트 요구사항' },
         { id: 'architecture', title: '아키텍처 및 기술 설계' },
+        { id: 'wbs', title: 'WBS' },
         { id: 'process', title: '서비스 프로세스' },
         { id: 'flowchart', title: '플로우차트' },
         { id: 'api', title: 'REST API' },
