@@ -8,6 +8,10 @@ export interface DevDocContent {
         width: number;
         height: number;
     };
+    link?: {
+        href: string;
+        text: string;
+    }
 }
 
 export interface ProjectDevDoc {
@@ -131,8 +135,7 @@ export const projectDevDocs: { [key: string]: ProjectDevDoc } = {
 # 1. 아키텍처 개요
 본 프로젝트는 한정된 자원 내에서 최적의 성능을 발휘해야 했기 때문에, 무료 크레딧 활용이 가능한 \`Naver Cloud Server\`를 배포 환경으로 선택하였습니다.<br />
 이와 같은 맥락으로, 파일 스토리지 또한 별도로 사용하지 않았습니다(파일 스토리지를 추가로 도입할 경우 이벤트용 서비스의 시스템 복잡성이 증가할 수 있고, 추가적인 관리 비용이 발생할 가능성 존재). 따라서 배포 환경 내 서버 폴더에 직접 파일을 저장하였습니다.<br />
-또한 이미지 처리와 QR 코드 생성 같은 고성능 연산이 필요한 기능을 고려하여 비동기 처리 및 캐싱 기법을 적용했습니다.
-<br /><br />
+<br />
 # 2. 아키텍처 구성 요소
 - 백엔드: \`Spring Boot\`(Java 17)
 - 프론트엔드: \`React\`, \`Tailwind CSS\`
@@ -154,7 +157,10 @@ export const projectDevDocs: { [key: string]: ProjectDevDoc } = {
             api: {
                 title: 'API 문서',
                 description: 'API 개요 및 세부 사항',
-                content: 'API 설계와 구현 디테일...'
+                link: {
+                    href: 'https://documenter.getpostman.com/view/33657317/2sB2cUC3iT#b26da350-eed8-45fd-8b97-21febb6e50b8',
+                    text: 'API 문서 보기'
+                }
             },
             problemSolving: {
                 title: '문제 해결',
