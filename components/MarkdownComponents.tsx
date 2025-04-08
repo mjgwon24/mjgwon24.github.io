@@ -2,9 +2,9 @@ import React, { ReactNode } from 'react';
 import { Components } from 'react-markdown';
 
 const components: Components = {
-    h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h1 className="text-xl font-semibold my-2" {...props} />,
-    h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h2 className="text-lg font-semibold my-2" {...props} />,
-    h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h3 className="font-semibold my-2" {...props} />,
+    h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h1 className="text-lg weight-700 my-2" {...props} />,
+    h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h2 className="text-lg weight-600 my-2" {...props} />,
+    h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h3 className="weight-500 my-2" {...props} />,
     ul: (props: React.HTMLAttributes<HTMLUListElement>) => <ul className="list-disc ml-5 my-2" {...props} />,
     ol: (props: React.HTMLAttributes<HTMLOListElement>) => <ol className="list-decimal ml-5 my-2" {...props} />,
     hr: (props: React.HTMLAttributes<HTMLHRElement>) => <hr className="border-gray-700 my-4" {...props} />,
