@@ -2,7 +2,7 @@ export const techStackData = {
     languages: ['JAVA', 'JavaScript', 'TypeScript', 'Thymeleaf', 'HTML/CSS'],
     frameworks: ['Spring', 'Spring Boot', 'React', 'MyBatis', 'Node.js', 'Next.js'],
     infrastructure: ['AWS', 'Nginx', 'Docker', 'MySQL', 'PostgreSQL'],
-    tools: ['Git', 'VS Code', 'IntelliJ', 'WebStorm', 'Postman', 'FileZilla']
+    tools: ['Git', 'JMeter', 'VS Code', 'IntelliJ', 'Postman', 'FileZilla']
 };
 
 export const projectsData = [
@@ -169,15 +169,15 @@ export const projectsData = [
     },{
         image: '/portfolio/stack-snapshot/thumb/thumb1.png',
         title: '네컷사진 촬영 서비스 개발',
-        period: '24.07~24.10',
+        period: '24.07~24.11',
         organization: 'IT동아리 DEVELOPER',
         description: '사진을 촬영한 뒤 원하는 프레임을 적용하고 QR 코드를 통해 즉시 다운로드할 수 있는 서비스입니다. 경주시와 협업하여 "2024 경북 해커톤"에서 약 60명의 참가자들에게 특별한 추억을 만들어 주었습니다.',
-        detailedDescription: '스택네컷(Stack Snapshot) 은 행사장에서 참가자들이 직접 촬영한 네컷사진을 제공하는 서비스입니다. 사용자는 원하는 사진을 선택하고 프레임을 적용한 후, QR 코드를 통해 즉시 다운로드할 수 있습니다. 또한, QR 코드 사용 후에는 경품 이벤트(뽑기 게임)에 참여할 수 있어 행사 몰입도를 높입니다.\n' +
+        detailedDescription: '스택네컷(Stack Snapshot) 은 행사장에서 참가자들이 직접 촬영한 네컷사진을 제공하는 서비스입니다. 사용자는 원하는 사진을 선택하고 프레임을 적용한 후, QR 코드를 통해 즉시 다운로드할 수 있습니다. 또한, 부가 서비스인 경품 이벤트(뽑기 게임)를 통해 행사 참여도를 높입니다.\n' +
 '\n' +
 '2024 경북 해커톤에서 실제로 사용되었으며, 약 60명의 해커톤 참가자에게 소중한 추억을 제공했습니다. 해커톤 현장에서 요구되는 빠른 응답 속도, 안정적인 서버 운영, 대학생들이 관심을 가질만한 UI/UX를 고려하여 개발되었으며, 실사용자 피드백을 바탕으로 기능을 개선하여 추후 행사에서도 활용 가능하도록 고도화하였습니다.',
         roles: ['Back', 'Front', 'Planning', 'Design'],
         tags: ['WEB', 'Entertainment'],
-        techStacks: ['Spring Boot', 'REST API', 'React', 'Node.js', 'Nginx', 'JavaScript', 'HTML/CSS', 'Naver Cloud', 'Git', 'FileZilla'],
+        techStacks: ['Spring Boot', 'REST API', 'React', 'Node.js', 'Nginx', 'JavaScript', 'HTML/CSS', 'Naver Cloud', 'Git', 'FileZilla', 'Postman'],
         rolesAndContributions: [
             {
                 role: 'Backend',
