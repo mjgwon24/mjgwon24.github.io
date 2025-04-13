@@ -270,14 +270,14 @@ export default function ProjectDetail() {
                                 {project.links.isDevDoc && (
                                     <a
                                         href={`/portfolio/${project.slug}/dev-doc`}
-                                        className="flex items-center gap-1.5 sm:gap-2 sm:px-5 sm:py-2.5 px-3 py-1 rounded-lg border border-gray-700 bg-green-500/10 text-green-400 hover:bg-green-500/20 transition-colors duration-200"
+                                        className="flex items-center gap-1.5 sm:gap-2 sm:px-5 sm:py-2.5 px-3 py-1 rounded-lg border border-green-900 bg-green-500/10 text-green-400 hover:bg-green-500/20 transition-colors duration-200"
                                     >
                                         <LucideFileText
                                             size={20}
-                                            className="opacity-80 text-gray-200"
+                                            className="opacity-80 text-green-200"
                                         />
                                         <span
-                                            className="text-gray-200 sm:text-[16px] text-xs">Development Document</span>
+                                            className="text-green-200 sm:text-[16px] text-xs">Development Document</span>
                                     </a>
                                 )}
                                 {project.links.github && (
@@ -395,6 +395,56 @@ export default function ProjectDetail() {
             </span>
                             ))}
                         </div>
+                    </div>
+
+                    <div className="mb-32">
+                        <h2 className="text-2xl weight-600 sm:weight-700 mb-4 select-none">🔍 자세히 알아보기</h2>
+                        {project.links && (
+                            <div className="mb-5">
+                                <div className="flex flex-wrap gap-2 sm:gap-4">
+                                    {project.links.isDevDoc && (
+                                        <a
+                                            href={`/portfolio/${project.slug}/dev-doc`}
+                                            className="flex items-center gap-1.5 sm:gap-2 sm:px-5 sm:py-2.5 px-3 py-1 rounded-lg border border-green-900 bg-green-500/10 text-green-400 hover:bg-green-500/20 transition-colors duration-200"
+                                        >
+                                            <LucideFileText
+                                                size={20}
+                                                className="opacity-80 text-green-200"
+                                            />
+                                            <span
+                                                className="text-green-200 sm:text-[16px] text-xs">Development Document</span>
+                                        </a>
+                                    )}
+                                    {project.links.github && (
+                                        <a
+                                            href={project.links.github}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-1.5 sm:gap-2 sm:px-5 sm:py-2.5 px-3 py-1 rounded-lg border border-gray-700 bg-black-05p hover:bg-black-10p transition-colors duration-200"
+                                        >
+                                            <Image
+                                                src="/icon/github.svg"
+                                                width={20}
+                                                height={20}
+                                                alt="GitHub"
+                                                className="opacity-80"
+                                            />
+                                            <span className="text-gray-200 sm:text-[16px] text-xs">GitHub</span>
+                                        </a>
+                                    )}
+                                    {project.links.live && (
+                                        <a
+                                            href={project.links.live}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-colors duration-200 sm:text-[16px] text-xs"
+                                        >
+                                            <span>Visit Service</span>
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     {renderOtherProjects()}

@@ -8,6 +8,7 @@ const components: Components = {
     ul: (props: React.HTMLAttributes<HTMLUListElement>) => <ul className="list-disc ml-5 my-2" {...props} />,
     ol: (props: React.HTMLAttributes<HTMLOListElement>) => <ol className="list-decimal ml-5 my-2" {...props} />,
     hr: (props: React.HTMLAttributes<HTMLHRElement>) => <hr className="border-gray-700 my-4" {...props} />,
+    strong: (props: React.HTMLAttributes<HTMLElement>) => <strong className="weight-600" {...props} />,
     code: ({ className, children, ...props }: React.HTMLAttributes<HTMLElement> & { className?: string; children?: ReactNode }) =>
         (<code className={`bg-gray-800 text-blue-300 px-1 py-0.5 rounded text-sm ${className || ''}`} {...props}>
             {children}
