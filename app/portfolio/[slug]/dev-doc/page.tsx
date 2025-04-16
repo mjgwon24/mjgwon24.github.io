@@ -33,7 +33,8 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
         { id: 'process', title: '서비스 프로세스' },
         { id: 'flowchart', title: '플로우차트' },
         { id: 'api', title: 'REST API' },
-        { id: 'problemSolving', title: '문제 해결 및 성능 개선' },
+        { id: 'improvement', title: '최적화 및 트레이드 오프'},
+        { id: 'problemSolving', title: '문제 해결' },
         { id: 'results', title: '성과' },
         { id: 'retrospective', title: '회고' }
     ];
