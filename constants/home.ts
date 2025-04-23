@@ -177,37 +177,33 @@ export const projectsData = [
 '2024 경북 해커톤에서 실제로 사용되었으며, 약 60명의 해커톤 참가자에게 소중한 추억을 제공했습니다. 해커톤 현장에서 요구되는 빠른 응답 속도, 안정적인 서버 운영, 대학생들이 관심을 가질만한 UI/UX를 고려하여 개발되었으며, 실사용자 피드백을 바탕으로 기능을 개선하여 추후 행사에서도 활용 가능하도록 고도화하였습니다.',
         roles: ['Back', 'Front', 'Planning', 'Design'],
         tags: ['WEB', 'Entertainment'],
-        techStacks: ['Spring Boot', 'REST API', 'React', 'Node.js', 'Nginx', 'JavaScript', 'HTML/CSS', 'Naver Cloud', 'Git', 'FileZilla', 'Postman'],
+        techStacks: ['Spring Boot', 'REST API', 'React', 'Node.js', 'Nginx', 'JavaScript', 'HTML/CSS', 'Naver Cloud', 'Git', 'FileZilla', 'Postman', 'JMeter'],
         rolesAndContributions: [
             {
                 role: 'Backend',
-                contributions: [
-                    'Spring Boot를 사용하여 REST API 설계 및 구현',
-                    'CORS 설정을 통해 외부 API와의 통신 구현',
-                    'MultipartFile을 사용하여 파일 업로드 및 처리 구현',
-                    'BufferedImage, Graphics2D를 사용하여 이미지 병합 및 편집 기능 구현',
-                    'google zxing 라이브러리를 사용하여 QR 코드 생성 및 다운로드 기능 구현',
-                    'Naver Cloud Server, FileZilla를 사용하여 서버 배포 및 관리',
-                ]
+                contributions: `
+- [비동기 아키텍처 설계] Spring Boot 기반으로 동기 구조를 비동기로 전환
+- [비동기 아키텍처 설계] 이미지 처리 병목 해소 및 서버 **응답속도 66% 향상**(282ms → 95ms)
+- [비동기 아키텍처 설계] JMeter 부하테스트로 실환경 성능 검증, 최소 **100명 동시접속 안정성** 확보
+- [동시성 이슈 해결] 비동기 환경에서의 **race condition** 문제(여러 스레드가 동시에 디렉토리 생성에 접근)를 클래스 수준의 \`synchronized\` 동기화 블록으로 **원자적 처리하여 해결**
+- [리소스 절감] 불필요한 임시파일 최소화, 프레임 캐싱, DTO 개선으로 **데이터 전송량 40% 절감**(15,464KB/s → 9,285KB/s)
+- [이미지 처리] OpenCV 활용 실시간 네컷사진 합성
+`
             },
             {
                 role: 'Frontend',
-                contributions: [
-                    'React를 사용하여 사용자 인터페이스 개발',
-                    '사용자 경험을 고려한 UI/UX 설계 및 구현',
-                ]
+                contributions: 'React·Tailwind 기반 반응형 UI 개발'
             },
             {
                 role: 'Planning',
-                contributions: [
-                    '서비스 기획 및 요구사항 분석'
-                ]
+                contributions:`
+- 촬영부터 편집, QR 다운로드, 경품 참여까지 한 번에 진행할 수 있는 원스톱 경험 설계
+- 참가자 몰입도와 주최자 만족도를 모두 높이는 이벤트 연동 전략 수립
+                `
             },
             {
                 role: 'Designer',
-                contributions: [
-                    '전체적인 UI/UX 디자인 및 프로토타입 제작'
-                ]
+                contributions: '행사 분위기와 타겟 연령층을 고려한 서비스 및 네컷 프레임 디자인'
             }
         ],
         slug: 'stack-snapshot',
@@ -218,7 +214,7 @@ export const projectsData = [
         achievements: [
             {
                 title: '2024 경주 지역문제 해결 해커톤',
-                description: '2024 경주 지역문제 해결 해커톤 행사에서 이벤트성 서비스로 사용',
+                description: '2024 경주 지역문제 해결 해커톤 행사에서 실사용자 60명 사용',
                 date: '2024.11.29',
             }
         ],
