@@ -5,11 +5,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { projectsData } from '@/constants/home';
+import components from '@/components/MarkdownComponents';
 import {ArrowLeft, X, ChevronLeft, ChevronRight, LucideFileText} from 'lucide-react';
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import rehypeHighlight from "rehype-highlight";
 
 interface Contribution {
     role: string;
-    contributions: string[];
+    contributions: string;
 }
 
 interface Project {
@@ -345,11 +350,15 @@ export default function ProjectDetail() {
                                     <div key={index}
                                          className="bg-black-05p rounded-lg border border-gray-800/50 px-5 pt-3 pb-4">
                                         <h3 className="text-lg font-semibold mb-2 sm:mb-3 pl-1 text-blue-400">{item.role}</h3>
-                                        <ul className="list-disc pl-5 text-gray-300 space-y-2">
-                                            {item.contributions.map((contribution, cIndex) => (
-                                                <li key={cIndex}>{contribution}</li>
-                                            ))}
-                                        </ul>
+                                        <div className="pl-1 text-gray-300 space-y-2">
+                                            <ReactMarkdown
+                                                remarkPlugins={[remarkGfm]}
+                                                rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                                                components={{ ...components }}
+                                            >
+                                                {item.contributions}
+                                            </ReactMarkdown>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
