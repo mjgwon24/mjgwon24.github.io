@@ -27,25 +27,29 @@ export const projectsData = [
         rolesAndContributions: [
             {
                 role: 'Backend',
-                contributions: [
-                    'Spring Boot를 사용하여 RESTful API 설계 및 구현',
-                    'MySQL을 이용한 데이터베이스 설계 및 최적화',
-                    'Docker를 활용한 배포 및 환경 설정'
-                ]
+                contributions:`
+- Spring Boot를 사용하여 RESTful API 설계 및 구현
+- 보안 시뮬레이션을 위한 다양한 공격 및 방어 모듈 개발 및 관리
+- 사용자 인증 및 권한 관리 기능 구현
+- Docker를 활용한 배포 및 환경 설정
+                `
             },
             {
                 role: 'Frontend',
-                contributions: [
-                    'React를 사용하여 사용자 인터페이스 개발',
-                    '사용자 경험을 고려한 UI/UX 설계 및 구현',
-                ]
+                contributions: `
+- React를 사용하여 사용자 인터페이스 개발
+- 사용자 경험을 고려한 UI/UX 설계 및 구현
+- 사용자 인증 및 권한 관리 기능 구현
+- Docker를 활용한 배포 및 환경 설정
+                `
             },
             {
                 role: 'Designer',
-                contributions: [
-                    '전체적인 UI/UX 디자인 및 프로토타입 제작',
-                    '사용자 피드백을 반영하여 디자인 개선'
-                ]
+                contributions: `
+- UI/UX 디자인 및 프로토타입 제작
+- 사용자 피드백을 반영하여 디자인 개선
+- Figma를 활용한 프로토타입 제작 및 사용자 피드백 반영
+                `
             }
         ],
         achievements: [
@@ -77,25 +81,15 @@ export const projectsData = [
         rolesAndContributions: [
             {
                 role: 'Backend',
-                contributions: [
-                    'Spring Boot를 사용하여 RESTful API 설계 및 구현',
-                    'MySQL을 이용한 데이터베이스 설계 및 최적화',
-                    'Docker를 활용한 배포 및 환경 설정'
-                ]
+                contributions: ``
             },
             {
                 role: 'Frontend',
-                contributions: [
-                    'React를 사용하여 사용자 인터페이스 개발',
-                    '사용자 경험을 고려한 UI/UX 설계 및 구현',
-                ]
+                contributions: ``
             },
             {
                 role: 'Designer',
-                contributions: [
-                    '전체적인 UI/UX 디자인 및 프로토타입 제작',
-                    '사용자 피드백을 반영하여 디자인 개선'
-                ]
+                contributions: ``
             }
         ],
         slug: 'semi-erp'
@@ -111,29 +105,20 @@ export const projectsData = [
         rolesAndContributions: [
             {
                 role: 'Backend',
-                contributions: [
-                    'Spring Boot를 사용하여 RESTful API 설계 및 구현',
-                    'MySQL을 이용한 데이터베이스 설계 및 최적화',
-                    'Docker를 활용한 배포 및 환경 설정'
-                ]
+                contributions: ``
             },
             {
                 role: 'Frontend',
-                contributions: [
-                    'React를 사용하여 사용자 인터페이스 개발',
-                    '사용자 경험을 고려한 UI/UX 설계 및 구현',
-                ]
+                contributions: ``
             },
             {
                 role: 'CI/CD',
-                contributions: [
-                    'GitHub Actions를 사용하여 CI/CD 파이프라인 구축 및 자동화'
-                ]
+                contributions: ``
             }
         ],
         slug: 'softcat'
     },{
-        image: '/portfolio/gyeongju-night.png',
+        image: '/portfolio/gyeongju-night/thumb/thumb1.png',
         title: '숙소 예약 서비스 개발',
         period: '24.11~24.12',
         organization: '2024 경주 지역문제 해결 해커톤',
@@ -144,28 +129,38 @@ export const projectsData = [
         rolesAndContributions: [
             {
                 role: 'Backend',
-                contributions: [
-                    'Spring Boot를 사용하여 RESTful API 설계 및 구현',
-                    'MySQL을 이용한 데이터베이스 설계 및 최적화',
-                    'Docker를 활용한 배포 및 환경 설정'
-                ]
+                contributions: ``
             },
             {
                 role: 'Frontend',
-                contributions: [
-                    'React를 사용하여 사용자 인터페이스 개발',
-                    '사용자 경험을 고려한 UI/UX 설계 및 구현',
-                ]
+                contributions: ``
             },
             {
                 role: 'Designer',
-                contributions: [
-                    '전체적인 UI/UX 디자인 및 프로토타입 제작',
-                    '사용자 피드백을 반영하여 디자인 개선'
-                ]
+                contributions: ``
             }
         ],
-        slug: 'gyeongju-night'
+        slug: 'gyeongju-night',
+        links: {
+            isDevDoc: false,
+            github: 'https://github.com/mjgwon24/tour-recommend-back',
+        },
+        achievements: [
+            {
+                title: '2024 경주 지역문제 해결 해커톤 최우수상',
+                description: '2024 경주 지역문제 해결 해커톤에서 최우수상 수상',
+                date: '2024.12.01',
+            }
+        ],
+        detailImages: [
+            '/portfolio/gyeongju-night/thumb/thumb2.png',
+            '/portfolio/gyeongju-night/thumb/thumb3.png',
+            '/portfolio/gyeongju-night/thumb/thumb4.png',
+            '/portfolio/gyeongju-night/thumb/thumb5.png',
+            '/portfolio/gyeongju-night/thumb/thumb6.png',
+            '/portfolio/gyeongju-night/thumb/thumb7.png',
+            '/portfolio/gyeongju-night/thumb/thumb8.png'
+        ]
     },{
         image: '/portfolio/stack-snapshot/thumb/thumb1.png',
         title: '네컷사진 촬영 서비스 개발',
@@ -239,18 +234,21 @@ export const projectsData = [
         rolesAndContributions: [
             {
                 role: 'Frontend',
-                contributions: [
-                    'React를 사용하여 사용자 인터페이스 개발',
-                    '스켈레톤 UI를 사용하여 반응형 웹 구현',
-                    '사용자 경험을 고려한 UI/UX 설계 및 구현',
-                ]
+                contributions:`
+- [React] SPA 기반의 동아리 공식 웹사이트 개발
+- [Next.js] 정적 페이지 생성 및 SEO 최적화
+- [Tailwind CSS] 반응형 웹 디자인 및 UI 컴포넌트 라이브러리 제작
+- [Node.js] 관리자 페이지 및 API 서버 개발
+- [Git] Github Flow 기반의 협업 및 버전 관리
+                `
             },
             {
                 role: 'Designer',
-                contributions: [
-                    '전체적인 UI/UX 디자인 및 프로토타입 제작',
-                    '사용자 피드백을 반영하여 디자인 개선'
-                ]
+                contributions: `
+- [Figma] 동아리 로고 및 웹사이트 디자인
+- [UI/UX] 사용자 경험을 고려한 UI/UX 설계 및 구현
+- [Prototyping] Figma를 활용한 프로토타입 제작 및 사용자 피드백 반영
+                `
             }
         ],
         achievements: [
