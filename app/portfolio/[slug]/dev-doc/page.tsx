@@ -1,6 +1,6 @@
 'use client';
 
-import React, {use} from 'react';
+import React, { useState, useEffect } from 'react';
 import { projectDevDocs } from '@/constants/dev-doc';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
@@ -9,6 +9,7 @@ import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
 import components from '@/components/MarkdownComponents';
 import { IoArrowBack } from 'react-icons/io5';
+import { FaArrowUp } from 'react-icons/fa';
 import ImageModal from "@/components/modal/ImageModal";
 
 interface RouteParams {
@@ -18,7 +19,7 @@ interface RouteParams {
 }
 
 const ProjectDetailPage = ({ params }: RouteParams) => {
-    const slug = use(params).slug;
+    const { slug } = React.use(params);
     const projectDoc = projectDevDocs[slug];
 
     if (!projectDoc) {
@@ -31,7 +32,7 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
         { id: 'architecture', title: '아키텍처 및 기술 설계' },
         { id: 'wbs', title: 'WBS' },
         { id: 'process', title: '서비스 프로세스' },
-        { id: 'flowchart', title: '플로우차트' },
+        { id: 'flowchart', title: '시퀀스 다이어그램' },
         { id: 'api', title: 'REST API' },
         { id: 'improvement', title: '최적화 및 트레이드 오프'},
         { id: 'problemSolving', title: '문제 해결' },
@@ -43,16 +44,22 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
         section.id in projectDoc.sections
     );
 
-    React.useEffect(() => {
-        if (window.location.hash) {
-            const element = document.getElementById(window.location.hash.substring(1));
-            if (element) {
-                setTimeout(() => {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 300);
-            }
-        }
+    const [showScrollToTop, setShowScrollToTop] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowScrollToTop(window.scrollY > 300);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     return (
         <div
@@ -169,6 +176,15 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
                     })}
                 </div>
 
+                {showScrollToTop && (
+                    <button
+                        onClick={scrollToTop}
+                        className="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-r from-gray-800/80 to-gray-900/80 hover:from-blue-900/60 hover:to-blue-800/60 text-gray-300 hover:text-blue-200 rounded-xl border border-gray-700/30 hover:border-blue-700/50 shadow-lg hover:shadow-blue-900/20 flex items-center justify-center transition-all duration-300 backdrop-blur-sm transform hover:scale-105"
+                        aria-label="최상단으로 이동"
+                    >
+                        <FaArrowUp className="text-lg group-hover:animate-pulse" />
+                    </button>
+                )}
             </div>
         </div>
     );
