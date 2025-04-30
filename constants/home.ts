@@ -122,14 +122,27 @@ export const projectsData = [
         title: '숙소 예약 서비스 개발',
         period: '24.11~24.12',
         organization: '2024 경주 지역문제 해결 해커톤',
-        description: '2024 경주 해커톤 최우수상 수상! 경주만의 독특한 매력을 활용하여, 한옥·캠핑장 예약, 신선 지역 재료 직배송, 태그 이벤트 등을 녹여낸 숙박업소 예약 서비스입니다.',
+        description: '2024 경주 해커톤 최우수상 수상! 경주만의 독특한 매력을 활용하여, 한옥·캠핑장 예약, 신선 지역 재료 직배송, SNS 연계 이벤트 등을 녹여낸 숙박업소 예약 서비스입니다.',
+        detailedDescription:
+`경주의 밤은 경주 지역 경제 활성화를 목표로 기획된 통합 플랫폼입니다. 2024 경주 해커톤에서 최우수상을 받은 작품으로, 숙박 예약과 지역 특산품 연계, 그리고 SNS 기반의 오프라인 이벤트 참여 기능을 제공합니다.
+
+4인 팀의 대표로 참여하여 기획, 개발, 협업 전반을 주도하였습니다. 또한 참가팀 중 유일하게 전체 기능의 90% 이상을 구현해, 가장 완성도 높은 결과물을 도출했습니다.`,
         roles: ['Back', 'Front', 'Planning', 'Design'],
         tags: ['WEB', 'Commerce'],
-        techStacks: ['Spring Boot', 'React', 'MySQL', 'Docker'],
+        techStacks: ['Spring Boot', 'REST API', 'JPA', 'JPQL', 'Next.js', 'React Query', 'Tailwind', 'MySQL', 'Docker', 'Git', 'Postman', 'Figma'],
         rolesAndContributions: [
             {
                 role: 'Backend',
-                contributions: ``
+                contributions:
+`
+-   [데이터/트랜잭션] 예약 서비스에서 발생할 수 있는 동시성·무결성 이슈를 고려하여, 날짜+객체 조합의 유니크 제약조건을 통해 이중 예약 및 동시성 문제 예방
+-   [데이터/트랜잭션]  \`@Transactional\`  어노테이션을 통한 데이터 무결성 보장 및 실패 시 롤백 처리
+-   [인프라]  \`docker-compose.yml\`을 활용한 DB 컨테이너화로 개발 환경 구축 시간 단축
+-   [설계] Java 17의 \`record\`와 Lombok의 Builder 패턴을 결합하여, 불변 객체 기반 DTO 구조 설계
+-   [설정/정책]  \`@Value\`  어노테이션으로 외부 설정(환경 변수/설정 파일) 주입 및 Config 클래스 분리, CORS 등 인프라 정책 설정
+-   [로깅/예외] Slf4j를 활용한 로깅과 일관된 예외 처리 체계 구축
+-   [쿼리] Spring Data JPA 기반 CRUD, 페이징, 정렬 기능을 활용해 API 응답 구조 설계
+`
             },
             {
                 role: 'Frontend',
@@ -166,14 +179,21 @@ export const projectsData = [
         title: '네컷사진 촬영 서비스 개발',
         period: '24.07~24.11',
         organization: 'IT동아리 DEVELOPER',
-        description: '사진을 촬영한 뒤 원하는 프레임을 적용하고 QR 코드를 통해 즉시 다운로드할 수 있는 서비스입니다. 경주시와 협업하여 "2024 경북 해커톤"에서 약 60명의 참가자들에게 특별한 추억을 만들어 주었습니다.',
+        description: '경주시와 협업하여 "2024 경북 해커톤"에서 약 60명의 참가자들에게 특별한 추억을 만들어준 사진 촬영 서비스입니다.',
         detailedDescription: '스택네컷(Stack Snapshot) 은 행사장에서 참가자들이 직접 촬영한 네컷사진을 제공하는 서비스입니다. 사용자는 원하는 사진을 선택하고 프레임을 적용한 후, QR 코드를 통해 즉시 다운로드할 수 있습니다. 또한, 부가 서비스인 경품 이벤트(뽑기 게임)를 통해 행사 참여도를 높입니다.\n' +
 '\n' +
-'2024 경북 해커톤에서 실제로 사용되었으며, 약 60명의 해커톤 참가자에게 소중한 추억을 제공했습니다. 해커톤 현장에서 요구되는 빠른 응답 속도, 안정적인 서버 운영, 대학생들이 관심을 가질만한 UI/UX를 고려하여 개발되었으며, 실사용자 피드백을 바탕으로 기능을 개선하여 추후 행사에서도 활용 가능하도록 고도화하였습니다.',
-        roles: ['Back', 'Front', 'Planning', 'Design'],
+'2024 경북 해커톤 행사에서 이벤트성 서비스로 사용되었으며, 약 60명의 해커톤 참가자에게 소중한 추억을 제공했습니다. 해커톤 현장에서 요구되는 빠른 응답 속도, 안정적인 서버 운영, 대학생들이 관심을 가질만한 UI/UX를 고려하여 개발되었으며, 실사용자 피드백을 바탕으로 기능을 개선하여 추후 행사에서도 활용 가능하도록 고도화하였습니다.',
+        roles: ['PM', 'Back', 'Front', 'Planning', 'Design'],
         tags: ['WEB', 'Entertainment'],
-        techStacks: ['Spring Boot', 'REST API', 'JPA', 'MySQL', 'React', 'Node.js', 'Nginx', 'JavaScript', 'HTML/CSS', 'Naver Cloud', 'Git', 'FileZilla', 'Postman', 'JMeter'],
+        techStacks: ['Spring Boot', 'REST API', 'JPA', 'MySQL', 'React', 'Node.js', 'Nginx', 'JavaScript', 'HTML/CSS', 'Naver Cloud', 'Git', 'FileZilla', 'Postman', 'JMeter', 'Figma'],
         rolesAndContributions: [
+            {
+                role: 'PM',
+                contributions: `
+- 기술 스택 선정 및 아키텍처 설계
+- 팀원 역할 분배 및 일정 관리
+`
+            },
             {
                 role: 'Backend',
                 contributions: `
@@ -197,7 +217,7 @@ export const projectsData = [
                 `
             },
             {
-                role: 'Designer',
+                role: 'Design',
                 contributions: '행사 분위기와 타겟 연령층을 고려한 서비스 및 네컷 프레임 디자인'
             }
         ],
