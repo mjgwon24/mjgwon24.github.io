@@ -146,11 +146,24 @@ export const projectsData = [
             },
             {
                 role: 'Frontend',
-                contributions: ``
+                contributions:
+`
+- [SPA 설계] Next.js 기반 서버사이드 렌더링(SSR) 및 클라이언트 사이드 렌더링(CSR) 병행 구조 설계
+- [상태 관리/비동기 처리] React Query와 \`axios\`로 서버 데이터 패칭, 캐싱, 자동 갱신하여 비동기 데이터 흐름 체계화
+- [UI/UX] Tailwind CSS를 통한 반응형 디자인 및 일관된 디자인 시스템 구축
+- [컴포넌트화] 재사용 가능한 컴포넌트 기반 설계로 유지보수성과 확장성 강화
+- [외부 라이브러리] 인터페이스 완성도를 위해 \`React-icons\` 외부 라이브러리 활용
+- [코드 최적화] \`useCallback\`, \`useRef\` React Hook을 활용해 렌더링 최적화
+- [이미지 업로드] 이미지 업로드 및 미리보기 기능 구현
+`
             },
             {
-                role: 'Designer',
-                contributions: ``
+                role: 'Design',
+                contributions:
+`
+- [UI/UX] Figma를 사용하여 프로토타입 제작
+- [컬러 아이덴티티] 경주의 시그니처 컬러인 주황색을 메인 컬러로 선정하여, 지역의 정체성을 시각적으로 강조한 디자인 구현
+`
             }
         ],
         slug: 'gyeongju-night',
@@ -161,7 +174,7 @@ export const projectsData = [
         achievements: [
             {
                 title: '2024 경주 지역문제 해결 해커톤 최우수상',
-                description: '2024 경주 지역문제 해결 해커톤에서 최우수상 수상',
+                description: '2024 경주 지역문제 해결 해커톤에서 경북 ICT 융합 산업 진흥 협회로부터 최우수상 수상',
                 date: '2024.12.01',
             }
         ],
