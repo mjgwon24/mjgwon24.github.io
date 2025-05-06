@@ -124,8 +124,8 @@ export const projectsData = [
         organization: '2024 경주 지역문제 해결 해커톤',
         description: '2024 경주 해커톤 최우수상 수상! 경주만의 독특한 매력을 활용하여, 한옥·캠핑장 예약, 신선 지역 재료 직배송, SNS 연계 이벤트 등을 녹여낸 숙박업소 예약 서비스입니다.',
         detailedDescription:
-`
-'경주의 밤'은 경주 지역 경제 활성화를 목표로 기획된 통합 플랫폼입니다. 
+`"경주의 밤"은 경주 지역 경제 활성화를 목표로 기획된 통합 플랫폼입니다.
+
 전국 단위 숙박 플랫폼이 넘치는 시대에 경주만의 독특한 매력을 집중적으로 살리는 서비스로, 숙박 예약과 지역 특산품 연계, 그리고 SNS 기반의 오프라인 이벤트 참여 기능을 제공합니다.
 
 2024 경주 해커톤에서 최우수상을 받은 작품으로, 참가팀 중 유일하게 전체 기능의 90% 이상을 구현해, 가장 완성도 높은 결과물을 도출했습니다.`,
@@ -170,7 +170,7 @@ export const projectsData = [
         ],
         slug: 'gyeongju-night',
         links: {
-            isDevDoc: false,
+            isDevDoc: true,
             github: 'https://github.com/mjgwon24/tour-recommend-back',
         },
         achievements: [
