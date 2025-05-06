@@ -136,12 +136,14 @@ export const projectDevDocs: { [key: string]: ProjectDevDoc } = {
                 content: `
 <img src="/portfolio/stack-snapshot/architecture.png" alt="stack-snapshot architecture" />
 
+<br />
+
 # 1. 아키텍처 개요
 본 프로젝트는 한정된 자원 내에서 최적의 성능을 발휘해야 했기 때문에, 무료 크레딧 활용이 가능한 \`Naver Cloud Server\`를 배포 환경으로 선택하였습니다.<br />
 이와 같은 맥락으로, 파일 스토리지 또한 별도로 사용하지 않았습니다(파일 스토리지를 추가로 도입할 경우 이벤트용 서비스의 시스템 복잡성이 증가할 수 있고, 추가적인 관리 비용이 발생할 가능성 존재). 따라서 배포 환경 내 서버 폴더에 직접 파일을 저장하였습니다.<br />
 <br />
 # 2. 기술 스택 설계
-- 백엔드: \`Spring Boot\`(Java 17), JPA, \`MySQL\`
+- 백엔드: \`Spring Boot\`(Java 17), \`JPA\`, \`MySQL\`
 - 프론트엔드: \`React\`, \`Tailwind CSS\`
 - QR 코드 생성: ZXing 라이브러리
 - 이미지 처리: \`OpenCV\` 
@@ -326,19 +328,23 @@ JMeter를 활용해 최적화 방법을 직접 검증하고 성능 개선 결과
                 title: '아키텍처 및 기술 설계',
                 description: '시스템 설계 및 구조',
                 content: `
-<img src="/portfolio/stack-snapshot/architecture.png" alt="stack-snapshot architecture" />
+<img src="/portfolio/gyeongju-night/architecture.png" alt="gyeongju-night architecture" />
+
+<br />
 
 # 1. 아키텍처 개요
-
+본 프로젝트는 짧은 해커톤 기간 동안 진행되어, 빠른 프로토타입 개발과 MVP 필수 기능 구현에 집중해야 했습니다.
+따라서 개발 환경의 차이로 발생할 수 있는 문제를 방지하기 위해 Docker 컨테이너를 도입하여 환경의 일관성을 확보하였습니다.<br />
+데이터 관리는 MySQL을 통해 수행하고, AI 추천 시스템은 별도의 TensorFlow 모듈로 구현하여, 백엔드 서버가 AI 모듈에 요청을 보내고 응답을 받아 클라이언트에 반환하는 구조로 설계하였습니다.
+프론트엔드와 백엔드 간에는 REST API를 통해 데이터가 원활하게 교환되도록 설계하였습니다.
 <br />
 <br />
 
 # 2. 기술 스택 설계
-- 백엔드: 
-- 프론트엔드: 
-- QR 코드 생성: 
-- 이미지 처리:  
-- 인프라: 
+- 백엔드: \`Spring Boot\`(Java 17), \`JPA\`, \`MySQL\`
+- 프론트엔드: \`React\`, \`Next.js\`, \`Tailwind CSS\`
+- AI 추천 시스템: \`TensorFlow\`, \`DNN\`
+- 인프라: \`Docker\`, \`Git\`
 `},
 
         }
