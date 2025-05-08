@@ -354,6 +354,14 @@ JMeter를 활용해 최적화 방법을 직접 검증하고 성능 개선 결과
                     alt: '경주의 밤 시퀀스 다이어그램',
                 }
             },
+            api: {
+                title: 'API 문서',
+                description: 'API 개요 및 세부 사항',
+                link: {
+                    href: 'https://documenter.getpostman.com/view/33657317/2sB2j7epue#64b85721-a955-48ac-9d01-6e89e770e75d',
+                    text: 'API 문서 보기'
+                }
+            },
 
         }
     }
