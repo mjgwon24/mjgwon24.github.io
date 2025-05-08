@@ -346,6 +346,14 @@ JMeter를 활용해 최적화 방법을 직접 검증하고 성능 개선 결과
 - AI 추천 시스템: \`TensorFlow\`, \`DNN\`
 - 인프라: \`Docker\`, \`Git\`
 `},
+            flowchart: {
+                title: '시퀀스 다이어그램',
+                description: '서비스 흐름도 및 아키텍처',
+                image: {
+                    src: '/portfolio/gyeongju-night/flowchart.png',
+                    alt: '경주의 밤 시퀀스 다이어그램',
+                }
+            },
 
         }
     }
