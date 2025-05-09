@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Components } from 'react-markdown';
-import {dracula, okaidia} from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { dracula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import SyntaxHighlighter from "react-syntax-highlighter/dist/esm/prism";
 
 const components: Components = {
