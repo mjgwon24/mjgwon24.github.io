@@ -362,7 +362,92 @@ JMeter를 활용해 최적화 방법을 직접 검증하고 성능 개선 결과
                     text: 'API 문서 보기'
                 }
             },
+            problemSolving: {
+                title: '문제 해결',
+                description: '문제 해결 및 개선 사항',
+                content: `
+# 1. 동시 예약(Concurrency) 문제 해결
 
+서비스 개발 과정에서, 여러 사용자가 거의 동시에 동일한 날짜와 방에 대해 예약 요청을 보낼 경우 \`room_availability\` 상태가 중복으로 변경되어 **오버부킹(중복 예약)이 발생하는 문제**가 있었습니다.
+<br /><br />
+기존에는 예약 요청 시 단순히 해당 날짜의 방이 비어있는지만 확인한 뒤 바로 예약 정보를 저장했습니다. 그러나 거의 동시에 두 개의 트랜잭션이 진행될 경우, 첫 번째 트랜잭션이 아직 커밋되지 않은 상태에서 두 번째 트랜잭션도 동일하게 방이 비어있다고 판단하여, 결국 중복 예약이 발생했습니다.
+<br /><br />
+이 문제를 해결하기 위해, 우선 예약 로직 전체를 **트랜잭션**으로 감싸 원자성을 보장했습니다. Spring의 \`@Transactional\` 어노테이션을 서비스 계층 메서드에 적용하여, 예약 처리 중 예외가 발생하면 모든 작업이 롤백되도록 했습니다.
+
+\`\`\`java
+@Transactional
+public void reserveRoom(Long roomId, LocalDate date, Long userId) {
+    // 예약 가능 여부 체크 + 예약 확정까지 하나의 트랜잭션에서 처리
+}
+\`\`\`
+
+<br />
+
+또한, 예약 서비스에서 발생할 수 있는 동시성 및 무결성 이슈를 예방하기 위해, \`날짜 + 방(room)\` 조합에 **유니크 제약조건**을 추가했습니다.  
+이렇게 해줌으로써 애플리케이션 레이어에서의 체크와 더불어, 데이터베이스 레이어에서도 중복 예약을 이중으로 차단할 수 있었습니다.
+
+\`\`\`java
+@Table(name = "room_availability", 
+       uniqueConstraints = @UniqueConstraint(columnNames = {"room_id", "date"}))
+@Entity  
+public class RoomAvailability {
+    // ...
+}
+\`\`\`
+
+<br />
+
+이러한 조치들을 통해 동시 예약 상황에서도 오버부킹이 발생하지 않도록 데이터 무결성을 보장할 수 있었고, 실제 테스트 환경에서도 여러 사용자가 동시에 같은 방을 예약하더라도 단 한 명만 예약에 성공하는 것을 확인할 수 있었습니다.
+
+<br />
+
+비록 해커톤이라는 짧은 개발 기간 동안 비관적 락까지는 적용하지 못했지만, 트랜잭션과 함께 **낙관적 락**을 활용해 **동시성 문제를 해결**했습니다. 실제 서비스 환경이라면, 트랜잭션 처리와 더불어 JPA의 비관적 락을 적용하여 데이터베이스 레벨에서 동시성 문제를 더욱 확실하게 방지하는것이 안전합니다.
+<br />
+<br />
+<hr />
+
+# 2. 대용량 데이터 처리 및 성능 개선
+
+숙소 및 캠핑장 리스트를 불러올 때 데이터가 많아질 경우, 페이지 로딩 속도가 점차 느려지는 현상이 발생했습니다.
+
+<br />
+
+이러한 문제를 해결하기 위해 대량의 데이터를 한 번에 모두 조회하는 방식 대신, Spring Data JPA의 **페이징(PageRequest)과 정렬(Sort) 기능을 도입**하여 필요한 데이터만 부분적으로 조회하도록 개선했습니다.
+
+\`\`\`java
+// ReservationAPI.java
+@GetMapping("/reservation/accommodations")  
+public ResponseEntity<ResponseDto<FetchAccommodationsResponse>> fetchAccommodations(@RequestParam(name = "pageNumber", defaultValue = "0") int pageNumber,  
+                                                                                    @RequestParam(name = "size", defaultValue = "10") int size) {  
+    FetchAccommodationsResponse fetchAccommodationsResponse = reservationService.fetchAccommodations(pageNumber, size);  
+  
+    return ResponseEntity.ok(  
+            new ResponseDto<>(ResponseDto.Status.SUCCESS, "숙소 목록 조회 성공", fetchAccommodationsResponse)  
+    );  
+}
+\`\`\`
+
+\`\`\`java
+// ReservationService.java
+public FetchAccommodationsResponse fetchAccommodations(int pageNumber, int size) {  
+    // Sort 객체 생성하여 id 기준으로 정렬
+  Sort sort = Sort.by(Sort.Direction.ASC, "id");  
+  
+    // 페이지 번호와 페이지 크기를 사용하여 PageRequest 객체 생성  
+  PageRequest pageRequest = PageRequest.of(pageNumber, size, sort);  
+  
+    // Page 객체를 사용하여 숙소 목록 조회  
+  Page<Accommodation> fetchedAccommodations = accommodationRepository.findAll(pageRequest);  
+  
+    // 조회된 숙소 목록을 DTO로 변환하여 반환
+}
+\`\`\`
+
+<br />
+
+이와 같은 개선을 통해, 데이터가 충분히 많이 늘어나는 상황까지 고려하여 페이지 로딩 속도를 효율적으로 개선했습니다. 또한, 사용자가 원하는 페이지와 데이터 크기를 요청 파라미터로 지정할 수 있어 더욱 유연한 데이터 조회가 가능해졌습니다. 
+`
+            },
         }
     }
 };

@@ -144,7 +144,7 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
                                             {sectionData.content && (
                                                 <ReactMarkdown
                                                     remarkPlugins={[remarkGfm]}
-                                                    rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                                                    rehypePlugins={[rehypeRaw]}
                                                     components={{ ...components }}
                                                 >
                                                     {sectionData.content}
