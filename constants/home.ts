@@ -249,13 +249,16 @@ export const projectsData = [
             }
         ],
         detailImages: [
-            '/portfolio/stack-snapshot/thumb/thumb8.png',
+            '/portfolio/stack-snapshot/thumb/thumb11.png',
             '/portfolio/stack-snapshot/thumb/thumb2.png',
             '/portfolio/stack-snapshot/thumb/thumb3.png',
             '/portfolio/stack-snapshot/thumb/thumb4.png',
             '/portfolio/stack-snapshot/thumb/thumb5.png',
             '/portfolio/stack-snapshot/thumb/thumb6.png',
             '/portfolio/stack-snapshot/thumb/thumb7.png',
+            '/portfolio/stack-snapshot/thumb/thumb8.png',
+            '/portfolio/stack-snapshot/thumb/thumb9.png',
+            '/portfolio/stack-snapshot/thumb/thumb10.png',
         ]
     },{
         image: '/portfolio/developer.png',
