@@ -220,10 +220,136 @@ export const projectDevDocs: { [key: string]: ProjectDevDoc } = {
 
 # 3. 개선 목표 및 전략
 
-분석한 결과를 바탕으로 서비스 최적화를 위해 개선 목표와 방향을 정하였습니다. 먼저, 이미지 처리 로직의 최적화를 통해 자원 사용을 최소화하는 것을 목표로 삼았습니다. 다음으로, 오류 파악을 위해 로깅을 더 철저히 하고, 개인정보를 보호하기 위해 \`@Scheduled\`  기반 자동 삭제를 통해 데이터를 24시간 후 자동으로 삭제하고자 하였습니다.
+분석 결과를 바탕으로 서비스 최적화를 위해 다음과 같은 목표와 전략을 정하고, 코드에 반영했습니다.
+
+<br />
+
+## 3.1 이미지 처리 로직의 비동기화 및 자원 최적화
+동기 방식의 이미지 업로드 및 병합 처리를 Java의 \`CompletableFuture\`와 비동기 메서드로 전환하여, 이미지들을 병렬로 처리하여 전체 처리 속도가 향상되도록 개선했습니다.
+
+\`\`\`java
+// PhotoService.java
+// 이미지 업로드 병렬 처리
+List<CompletableFuture<String>> futures = new ArrayList<>();
+for (MultipartFile image : images) {
+    CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+        // 파일 저장 로직
+        return fileName;
+    });
+    futures.add(future);
+}
+\`\`\`
+
+<br />
+이미지 병합(프레임 합성)의 경우도, 비동기적으로 처리해주도록 개선하였습니다.
+
+\`\`\`java
+// 선택된 프레임 기반 사진 합성
+// 비동기적으로 이미지 병합 작업 실행
+return selectFrameService.mergeImagesAsync( /* ... */ )
+        .thenApply(combinedImagePath -> PhotoResponseDto.builder()
+            // ...
+            .fileName(combinedImagePath)
+            .build());
+\`\`\`
+
+\`\`\`java
+// SelectFrameService.java
+@Async
+public CompletableFuture<String> mergeImagesAsync(/* ... */) {
+    // 이미지 병합 처리
+    return CompletableFuture.completedFuture(mergedFileName);
+}
+\`\`\`
+
 <br/>
 <br/>
-적용한 주요 개선 전략으로는, 동기 프로세스를 비동기 구조로 전환하여 처리 속도를 높였습니다. 이를 위해 \`@Async\`와 Executor를 활용하였습니다. 또한 불필요한 임시 파일을 제거하여 저장 공간을 절약했습니다. 마지막으로, DTO 자료형을 개선하여 메모리 사용을 최소화하고, 프레임 이미지 캐싱과 병합 프로세스를 단순화하여 시스템의 복잡성을 줄였습니다.
+
+## 3.2 프레임 이미지 캐싱
+프레임 이미지는 항상 동일하므로 매 요청마다 디스크에서 읽어올 필요가 없습니다.
+따라서, 메모리 내 캐시(ConcurrentHashMap)에 저장하여 불필요한 I/O를 줄이고 응답 속도를 높여주도록 개선하였습니다.
+
+\`\`\`java
+// 프레임 이미지 캐시
+private final ConcurrentHashMap<Integer, BufferedImage> frameImageCache = new ConcurrentHashMap<>();
+
+private BufferedImage loadFrameImage(String FRAME_PATH, int frameId) throws IOException {
+    if (frameImageCache.containsKey(frameId)) 
+        return deepCopy(frameImageCache.get(frameId));
+    // 디스크에서 읽어와 캐시에 저장
+    BufferedImage frameImage = ImageIO.read(new File(FRAME_PATH + frameId + "." + EXT));
+    frameImageCache.put(frameId, frameImage);
+    return frameImage;
+}
+\`\`\`
+
+<br/>
+<br/>
+
+## 3.3 로깅 강화
+장애 및 오류 발생 시 빠르게 원인을 추적하기 위해 Lombok의 \`@Slf4j\` 어노테이션을 활용하여 서비스 및 컨트롤러 전반에 걸쳐 로깅을 적용하였습니다.
+
+\`\`\`java
+@Slf4j
+@Service
+@RequiredArgsConstructor
+public class PhotoService {
+    // ...
+}
+\`\`\`
+
+\`\`\`java
+@PostMapping
+public ResponseEntity<GroupPhotosResponseDto> uploadPhotos(@RequestParam("images") List<MultipartFile> images) {
+    if (images.isEmpty()) {
+        log.error("업로드할 사진이 없습니다.");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+    // ...
+}
+\`\`\`
+
+<br/>
+<br/>
+
+## 3.4 DTO 자료형 개선
+개선을 위해 기존 코드를 검토해본 결과, 불필요한 DTO 구조가 존재하고있었습니다.
+따라서 필요한 데이터만 포함하도록 DTO 구조를 개선하여 메모리 사용량을 최소화하였습니다.
+
+<br/>
+<br/>
+
+## 3.5 임시 파일 및 개인정보 관리
+저장 공간 절약과 개인정보 보호를 위해 서비스에서 생성되는 임시 파일 및 개인정보가 포함된 데이터를 주기적으로 삭제하도록 로직을 추가했습니다.
+<br/>
+<br/>
+
+Spring의 \`@Scheduled\` 어노테이션을 활용하여, 24시간이 지난 파일을 매일 새벽 3시에 일괄 삭제하도록 구현하였습니다.
+
+\`\`\`java
+@Service
+public class TempFileCleanupService {
+
+    @Value("$\{file.upload-dir\}")
+    private String uploadDirectory;
+
+    // 매일 새벽 3시 실행
+    @Scheduled(cron = "0 0 3 * * *")
+    public void cleanOldFiles() {
+        File uploadDir = new File(uploadDirectory);
+        long now = System.currentTimeMillis();
+        long expiredTime = 24 * 60 * 60 * 1000L;
+
+        for (File groupDir : uploadDir.listFiles(File::isDirectory)) {
+            for (File file : groupDir.listFiles()) {
+                if (now - file.lastModified() > expiredTime) file.delete();
+            }
+            // 비어있으면 폴더 삭제
+            if (groupDir.list().length == 0) groupDir.delete();
+        }
+    }
+}
+\`\`\`
 
 <hr />
 
@@ -266,12 +392,14 @@ export const projectDevDocs: { [key: string]: ProjectDevDoc } = {
 <hr />
 
 # 5. 비동기 기술 도입의 트레이드 오프
-이미지 업로드 API (\`uploadPhotos\`)의 최적화를 진행한 결과, 동시 사용자 50명 기준으로 평균 응답 시간이 21ms에서 35ms로 증가했습니다. 그러나 동시 사용자 100명 기준으로는 응답 시간이 24ms에서 27ms로 비교적 안정적인 수준을 유지했습니다.<br/> 
-이러한 성능 변화는 최적화 로직 추가로 인한 데이터 전송량 감소와 같은 이점과의 절충으로 판단됩니다. 따라서 이미지 최적화 로직의 장점을 고려할 때, 전체 시스템의 효율성을 높이는 데 긍정적인 영향을 줄 것으로 보입니다.
-<br/><br/>
-\`synchronized\` 블록은 병렬 처리의 가능성을 제한하므로, 여러 스레드가 동시에 실행될 때 병목 현상을 일으킬 수 있습니다. 또한, 여러 스레드가 이 블록에 접근하려고 할 때 락 경쟁이 발생하여 대기 시간이 늘어날 수 있습니다.<br/>
-현재 스택네컷 프로젝트에서는 작은 단위의 기능에만 \`synchronized\` 락을 적용하여 큰 병목 현상이 발생하지 않았습니다. 게다가 아직까지 락 경쟁이 발생할 정도로 많은 요청이 들어온 적이 없어 성능 저하도 발생하지 않았습니다. 앞으로 확장성을 고려하여 필요시 더 세밀한 동기화 방법을 검토할 계획입니다.
+이미지 업로드 API (\`uploadPhotos\`)의 최적화를 진행한 결과, 동시 사용자 50명 기준으로 평균 응답 시간이 21ms에서 35ms로 증가했습니다. 그러나 동시 사용자 100명 기준으로는 응답 시간이 24ms에서 27ms로 비교적 안정적인 수준을 유지했습니다.
+이러한 성능 변화는 최적화 로직 추가로 인한 데이터 전송량 감소 이점과의 절충으로 판단됩니다. 따라서 이미지 최적화 로직의 장점을 고려할 때, 전체 시스템의 효율성을 높이는 데 긍정적인 영향을 주었다고 결론지었습니다.
+<br />
+<br />
 
+\`synchronized\` 블록은 특정 자원에 대해 하나의 스레드만 접근할 수 있도록 제한하기 때문에, 여러 스레드가 동시에 실행될 때 병목 현상을 일으킬 수 있습니다. 또한, 여러 스레드가 이 블록에 접근하려고 할 때 락 경쟁이 발생하여 대기 시간이 늘어날 수 있습니다.<br/>
+현재 스택네컷 프로젝트에서는 작은 단위의 기능에만 \`synchronized\` 락을 적용하여 큰 병목 현상이 발생하지 않았습니다. 또한 아직까지 락 경쟁이 발생할 정도로 많은 요청이 들어온 적이 없어 성능 저하도 발생하지 않았습니다. 
+앞으로의 확장 가능성이 있다고 판단되면, 동기화 범위를 더 세밀하게 조정하거나 락 분할(\`lock splitting\`), 비동기 큐와 같은 대체 동기화 방법을 도입하여 확장성을 확보할 예정입니다.
                 `
             },
             problemSolving: {
@@ -279,22 +407,40 @@ export const projectDevDocs: { [key: string]: ProjectDevDoc } = {
                 description: '문제 해결 및 개선 사항',
                 content: `
 # Race Condition - 비동기 방식 도입으로 인한 동시 디렉토리 생성 문제
-\`CompletableFuture.supplyAsync\`를 사용하여 여러 스레드가 동시에 동일한 디렉토리에 접근하는 상황이 있었습니다. 디렉토리가 존재하지 않을 경우, 각 스레드가 디렉토리를 생성하려고 시도하게 됩니다. 이 과정에서 두 개 이상의 스레드가 동시에 \`groupDirectory.exists()\`를 호출한 후, **의도치않게 여러번 디렉토리를 생성**(race condition)할 가능성이 있습니다. 이러한 경우, "디렉토리 생성 실패"나 "IOException" 오류가 발생할 수 있습니다.
+비동기 방식(\`CompletableFuture.supplyAsync\`)을 도입하면서 여러 스레드가 동시에 동일한 디렉토리에 접근하는 상황이 발생했습니다.
 <br/><br/>
-스택네컷 프로젝트에서도 이러한 문제를 경험했으며, 이를 해결하기 위해 적절한 동기화 메커니즘을 구현했습니다. 클래스 수준의 \`synchronized\` 블록을 사용하여 **한 번에 하나의 스레드만 해당 블록에 진입**할 수 있도록 했습니다. 
+디렉토리가 존재하지 않을 경우, 각 스레드가 \`groupDirectory.exists()\`를 확인한 뒤, 디렉토리를 생성하려고 시도하게 됩니다. 이 과정에서 두 개 이상의 스레드가 동시에, **의도치않게 여러번 디렉토리를 생성**(race condition)할 가능성이 있습니다. 이러한 경우, "디렉토리 생성 실패"나 "IOException" 오류가 발생하게 됩니다.
 <br/><br/>
-이러한 방식으로 디렉토리 생성 작업이 원자적으로 수행되어 다른 스레드가 동시에 같은 디렉토리를 생성하려는 시도를 방지할 수 있었습니다.
+스택네컷 프로젝트에서도 이러한 문제를 경험했으며, 이를 해결하기 위해 클래스 수준의 \`synchronized\` 블록을 도입했습니다.
+이렇게 하면 **한 번에 하나의 스레드만 해당 블록에 진입**할 수 있어, 디렉토리 생성 작업이 원자적으로 수행되고, 다른 스레드가 동시에 같은 디렉토리를 생성하려는 시도를 방지할 수 있습니다. 
+<br/><br/>
+
+\`\`\`java
+// 비동기 업로드 중 디렉토리 생성 부분
+synchronized (PhotoService.class) {
+    if (!groupDirectory.exists() && !groupDirectory.mkdirs()) {
+        throw new IOException("Failed to create group directory: " + groupDirectory.getAbsolutePath());
+    }
+}
+\`\`\`
+\`synchronized\` (PhotoService.class)를 사용하여, 동시에 여러 스레드가 해당 블록에 진입하지 못하도록 제어합니다.
+위 작업을 통해, 디렉토리 생성이 중복 없이 안전하게 진행될 수 있었습니다.
                 `
             },
             retrospective: {
                 title: '회고',
                 description: '프로젝트 리뷰 및 회고 결과',
                 content: `
-초기 소규모 사용자 환경에서는 동기 방식이 적합했지만, 사용자 수 증가에 따라 일부 로직의 비동기 처리 필요성을 느끼게 되었습니다. 이번 경험을 통해 **상황에 맞는 기술 선택의 중요성**을 다시한번 느끼게 되었습니다.
+프로젝트 초기에는 아이디어 구체화부터 설계까지 많은 고민이 필요했습니다. "사진 촬영과 프레임 선택을 통해 특별한 추억을 만들어주자"는 아이디어를 현실화하기 위해 구체적인 설계와 명확한 협업 규칙을 세우는 것이 중요했습니다.
 <br /><br />
-JMeter를 활용해 최적화 방법을 직접 검증하고 성능 개선 결과를 확인할 때 매우 즐겁고 뿌듯했습니다. 함께 열심히 작업해준 팀원들에게도 무척 고맙고, 즐거운 경험이었습니다.
+행사장 현장에서 예상보다 많은 참가자들이 스택네컷 서비스를 이용해 사진을 찍어주었고, "재미있다", "아이디어가 독특하다"는 긍정적인 반응을 많이 들을 수 있었습니다. 우리가 기획했던 작은 서비스가 실제로 사람들에게 웃음과 추억을 남겨줄 수 있었다는 점에서 큰 보람을 느꼈습니다.
 <br /><br />
-이번 프로젝트는 함께한 팀원들의 첫 프로젝트였던 만큼, 모든 팀원이 많은 것을 배우고 지식을 얻어갈 수 있도록 노력했습니다. 모두에게 보람찬 경험이 된 것 같아 정말 기쁩니다!
+이번 프로젝트를 성공적으로 마무리할 수 있었던 가장 큰 이유는, 각자 맡은 역할을 책임감 있게 수행해준 팀원들이 있었기에 가능한 일이었습니다.
+특히, 저를 믿고 따라와준 팀원들에게 진심으로 고맙고, 정말 수고했다는 말을 전하고 싶습니다.
+이번 경험을 바탕으로 앞으로도 더 나은 프로젝트를 기획 및 개발하고, 팀원들과 함께 성장하며, 새로운 도전에 나서고 싶습니다.
+<br /><br />
+
+스택네컷 프로젝트를 함께해준 모든 팀원들과 응원해주신 분들께 감사드립니다.
                 `
             }
         }
