@@ -5,7 +5,6 @@ import { projectDevDocs } from '@/constants/dev-doc';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
-import rehypeHighlight from 'rehype-highlight';
 import remarkGfm from 'remark-gfm';
 import components from '@/components/MarkdownComponents';
 import { IoArrowBack } from 'react-icons/io5';

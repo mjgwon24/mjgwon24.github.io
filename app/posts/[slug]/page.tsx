@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { postsData, Post } from '@/constants/posts';
@@ -92,10 +92,10 @@ export default function PostDetail() {
             post.category === 'cs' ? 'text-purple-400 border-purple-400' :
                 'text-yellow-400 border-yellow-400';
 
-    const categoryBg =
-        post.category === 'development' ? 'from-green-500/5 to-green-500/0' :
-            post.category === 'cs' ? 'from-purple-500/5 to-purple-500/0' :
-                'from-yellow-500/5 to-yellow-500/0';
+    // const categoryBg =
+    //     post.category === 'development' ? 'from-green-500/5 to-green-500/0' :
+    //         post.category === 'cs' ? 'from-purple-500/5 to-purple-500/0' :
+    //             'from-yellow-500/5 to-yellow-500/0';
 
     return (
         <div className="relative min-h-screen pt-28 pb-20">

@@ -94,8 +94,8 @@ export const projectsData = [
         ],
         slug: 'semi-erp'
     },{
-        image: '/portfolio/softcat.png',
-        title: '맞춤형 솔루션 판매 서비스 개발',
+        image: '/portfolio/softcat/th/thumb1.png',
+        title: '구독형 솔루션 판매 서비스 개발',
         period: '24.06~24.11',
         organization: '소프트캣 (Softcat)',
         description: '맞춤형 소프트웨어를 신청하거나 자동화 소프트웨어를 구독할 수 있는 서비스입니다. 원하는 구독 개월수 별로 구매하여 해당 소프트웨어를 사용할 수 있고, 관리자 페이지도 제공합니다.',
@@ -115,6 +115,17 @@ export const projectsData = [
                 role: 'CI/CD',
                 contributions: ``
             }
+        ],
+        detailImages: [
+            '/portfolio/softcat/th/thumb2.png',
+            '/portfolio/softcat/th/thumb3.png',
+            '/portfolio/softcat/th/thumb4.png',
+            '/portfolio/softcat/th/thumb5.png',
+            '/portfolio/softcat/th/thumb6.png',
+            '/portfolio/softcat/th/thumb7.png',
+            '/portfolio/softcat/th/thumb8.png',
+            '/portfolio/softcat/th/thumb9.png',
+            '/portfolio/softcat/th/thumb10.png',
         ],
         slug: 'softcat'
     },{
