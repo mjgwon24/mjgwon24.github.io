@@ -7,6 +7,62 @@ export const techStackData = {
 
 export const projectsData = [
     {
+        image: '/portfolio/flexrate/th/thumb1.png',
+        title: '변동금리 대출 서비스 개발',
+        period: '25.04~25.06',
+        organization: '정보보안 SW 웹/앱 개발 공모전',
+        description: '변동금리 대출 서비스 설명 요약',
+        detailedDescription: '세부 설명',
+        roles: ['Back', 'Front', 'Infra'],
+        tags: ['WEB', 'Finance', 'Admin Page'],
+        techStacks: ['Spring Boot', 'React', 'MySQL', 'Docker', 'JavaScript', 'HTML/CSS', 'Node.js', 'Git'],
+        rolesAndContributions: [
+            {
+                role: 'Backend',
+                contributions:`
+### 설계
+
+### 개발
+
+### 보안
+                `
+            },
+            {
+                role: 'Frontend',
+                contributions: `
+### 설계
+
+### 개발
+
+### 보안
+                `
+            },
+            {
+                role: 'Infra',
+                contributions: `
+### 설계
+
+                `
+            }
+        ],
+        achievements: [
+            {
+                title: '정보보안 SW 웹/앱 개발 공모전',
+                description: '2025년 정보보안 SW 웹/앱 개발 공모전에서 최우수상 수상',
+                date: '2025.03.15',
+            }
+        ],
+        slug: 'secubox',
+        links: {
+            github: 'https://github.com/FLEX-RATE/flexrate-back',
+            live: 'https://github.com/mjgwon24',
+        },
+        detailImages: [
+            '/portfolio/details/secubox-detail1.png',
+            '/portfolio/details/secubox-detail2.png',
+            '/portfolio/details/secubox-detail3.png'
+        ]
+    },{
         image: '/portfolio/secubox.png',
         title: '보안 교육 시뮬레이션 개발',
         period: '25.02~25.03',
@@ -70,9 +126,9 @@ export const projectsData = [
             '/portfolio/details/secubox-detail3.png'
         ]
     },{
-        image: '/portfolio/semi-erp.png',
+        image: '/portfolio/semi-erp/th/thumb1.png',
         title: '동아리 행정관리 ERP 개발',
-        period: '25.01~25.03',
+        period: '25.01~now',
         organization: '동국대학교',
         description: '동국대학교 동아리 행정 전반을 관리해주는 SEMI ERP 서비스입니다. 각 동아리별 인원 관리 및 예산 관리, 일정 관리를 할 수 있습니다.',
         roles: ['Back', 'Front', 'Planning', 'Design'],
@@ -104,7 +160,7 @@ export const projectsData = [
             '사용자는 원하는 구독 기간을 선택해 쉽고 빠르게 소프트웨어를 구매할 수 있으며, 라이선스 키 발급을 통해 안전하게 소프트웨어를 이용할 수 있습니다. 관리자 페이지에서는 상품 등록, 라이선스 관리 등 핵심 기능을 제공하여 운영 효율성을 높였습니다.\n' +
             '\n' +
             '결제 서비스에 요구되는 강력한 보안 정책과 빠른 로딩 속도를 고려하여 구현하였으며, 지속적인 자동화 테스트와 유지보수를 통해 서비스의 안정성과 신뢰성을 꾸준히 강화했습니다.',
-        roles: ['Back', 'Front', 'CI/CD'],
+        roles: ['Back', 'Front', 'Infra'],
         tags: ['WEB', 'Commerce', 'Admin Page'],
         techStacks: ['Spring Boot', 'REST API', 'Spring MVC', 'JPA', 'Spring Security', 'JWT', 'OAuth2', 'Thymeleaf', 'JavaScript', 'HTML/CSS', 'MySQL', 'Tailwind', 'AWS LightSail', 'Nginx', 'Docker', 'FileZilla', 'Postman', 'JMeter', 'PortOne API'],
         rolesAndContributions: [
