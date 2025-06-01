@@ -264,10 +264,10 @@ export const projectsData = [
         title: '네컷사진 촬영 서비스 개발',
         period: '24.07~24.12',
         organization: 'DEVELOPER',
-        description: '2024 경북 해커톤, 동국대학교 축제에서 누적 160명 이상의 사용자들에게 특별한 추억을 만들어준 사진 촬영 서비스입니다.',
+        description: '2024 경북 해커톤, 동국대학교 축제에서 누적 200명 이상의 사용자들에게 특별한 추억을 만들어준 사진 촬영 서비스입니다.',
         detailedDescription: '스택네컷(Stack Snapshot) 은 행사장에서 참가자들이 직접 촬영한 네컷사진을 제공하는 서비스입니다. 사용자는 원하는 사진을 선택하고 프레임을 적용한 후, QR 코드를 통해 즉시 다운로드할 수 있습니다. 또한, 부가 서비스인 경품 이벤트(뽑기 게임)를 통해 행사 참여도를 높입니다.\n' +
             '\n' +
-            '2024 경북 해커톤, 동국대학교 축제에서 이벤트성 서비스로 사용되었으며, 누적 160명 이상의 사용자들에게 소중한 추억을 제공했습니다. 이벤트 현장에서 요구되는 빠른 응답 속도, 안정적인 서버 운영, 20대들이 관심을 가질만한 UI/UX를 고려하여 개발되었으며, 실사용자 피드백을 바탕으로 기능을 개선하여 추후 행사에서도 활용 가능하도록 고도화하였습니다.',
+            '2024 경북 해커톤, 동국대학교 축제에서 이벤트성 서비스로 사용되었으며, 누적 200명 이상의 사용자들에게 소중한 추억을 제공했습니다. 이벤트 현장에서 요구되는 빠른 응답 속도, 안정적인 서버 운영, 20대들이 관심을 가질만한 UI/UX를 고려하여 개발되었으며, 실사용자 피드백을 바탕으로 기능을 개선하여 추후 행사에서도 활용 가능하도록 고도화하였습니다.',
         roles: ['PM', 'Back', 'Front', 'Planning', 'Design'],
         tags: ['WEB', 'Entertainment'],
         techStacks: ['Spring Boot', 'REST API', 'JPA', 'MySQL', 'React', 'Node.js', 'Nginx', 'JavaScript', 'HTML/CSS', 'Naver Cloud', 'Git', 'FileZilla', 'Postman', 'JMeter', 'Figma'],
@@ -314,7 +314,7 @@ export const projectsData = [
         achievements: [
             {
                 title: '2025 동국대학교 축제',
-                description: '동국대학교 축제에서 실사용자 100명 사용',
+                description: '동국대학교 축제에서 실사용자 160명 사용',
                 date: '2025.05.28',
             },
             {
