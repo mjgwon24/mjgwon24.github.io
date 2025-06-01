@@ -612,5 +612,19 @@ public FetchAccommodationsResponse fetchAccommodations(int pageNumber, int size)
                 `
             }
         }
+    },
+    'softcat': {
+        projectName: '소프트캣',
+        subtitle: '구독형 솔루션 판매 서비스',
+        sections: {
+            api: {
+                title: 'API 문서',
+                description: 'API 개요 및 세부 사항',
+                link: {
+                    href: 'https://documenter.getpostman.com/view/33657317/2sB2qXj2wZ',
+                    text: 'API 문서 보기'
+                }
+            }
+        }
     }
 };
