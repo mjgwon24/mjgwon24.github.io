@@ -52,7 +52,7 @@ export const projectsData = [
                 date: '2025.03.15',
             }
         ],
-        slug: 'secubox',
+        slug: 'flexrate',
         links: {
             github: 'https://github.com/FLEX-RATE/flexrate-back',
             live: 'https://github.com/mjgwon24',
