@@ -325,6 +325,7 @@ export const projectsData = [
         ],
         detailImages: [
             '/portfolio/stack-snapshot/thumb/thumb12.gif',
+            '/portfolio/stack-snapshot/thumb/thumb13.png',
             '/portfolio/stack-snapshot/thumb/thumb11.png',
             '/portfolio/stack-snapshot/thumb/thumb2.png',
             '/portfolio/stack-snapshot/thumb/thumb3.png',
