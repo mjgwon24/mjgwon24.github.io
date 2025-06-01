@@ -8,6 +8,7 @@ import SectionTitle from "@/components/section/SectionTitle";
 import LinkCard from "@/components/home/LinkCard";
 import ProjectCard from "@/components/project/ProjectCard";
 import ProjectCardSkeleton from "@/components/project/ProjectCardSkeleton";
+import Link from "next/link";
 
 export default function Home() {
   const [height, setHeight] = useState<number>(0);
@@ -189,6 +190,28 @@ export default function Home() {
                     </div>
                 ))}
               </div>
+
+              {/* 남은 프로젝트 개수 표시 */}
+              {projectsData.length > 6 && (
+                  <div className="mt-8 flex justify-center">
+                    <Link href="/portfolio">
+                      <div className="group relative inline-flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/90 hover:bg-gray-700/90 border border-blue-400 hover:border-blue-200 text-blue-200 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-900/20 transition-all duration-300 cursor-pointer">
+        <span className="text-sm font-medium">
+          +{projectsData.length - 6}개의 프로젝트 더보기
+        </span>
+                        <svg
+                            className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    </Link>
+                  </div>
+              )}
+
             </div>
 
             <div ref={linksRef}
