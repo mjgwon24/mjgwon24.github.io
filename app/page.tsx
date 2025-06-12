@@ -122,32 +122,11 @@ export default function Home() {
 
               <h1 className="text-3xl sm:text-4xl weight-700 text-center leading-snug select-none">
                 개발을 사랑하는 개발자,<br/>
-                <span className="text-blue-500">권민지</span>의 홈에 오신것을 환영합니다.
+                <span className="text-blue-500">권민지</span>입니다.
               </h1>
             </div>
 
-            <div ref={techStackRef}
-                 className={`flex flex-col gap-5 items-center transition-all duration-1000 ${
-                     visibleSection.techStack ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
-                 }`}>
-              <SectionTitle
-                  emoji="🚀"
-                  title="기술 스택"
-                  subtitle="이런 기술을 사용해 개발해왔습니다."
-              />
 
-              <div className="flex flex-col gap-4 items-center">
-                <div className="flex flex-col sm:flex-row gap-4 items-center">
-                  <StackCard title="Languages" items={techStackData.languages} />
-                  <StackCard title="Frameworks & Libraries" items={techStackData.frameworks} />
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4 items-center">
-                  <StackCard title="Infrastructure & Databases" items={techStackData.infrastructure} />
-                  <StackCard title="Tools & IDEs" items={techStackData.tools} />
-                </div>
-              </div>
-            </div>
 
             <div ref={portfolioRef}
                  className={`flex flex-col gap-5 items-center transition-all duration-1000 ${
@@ -156,7 +135,7 @@ export default function Home() {
               <SectionTitle
                   emoji="✨"
                   title="포트폴리오"
-                  subtitle="진행한 프로젝트들, 어떤게 있을까요?"
+                  subtitle="진행한 프로젝트들을 소개합니다."
                   showMoreLink="/portfolio"
               />
 
@@ -191,12 +170,11 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* 남은 프로젝트 개수 표시 */}
               {projectsData.length > 6 && (
                   <div className="mt-8 flex justify-center">
                     <Link href="/portfolio">
-                      <div className="group relative inline-flex items-center gap-2.5 px-6 py-2.5 bg-gray-800/90 hover:bg-gray-700/90 border border-blue-400 hover:border-blue-200 text-blue-200 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-900/20 transition-all duration-300 cursor-pointer">
-        <span className="text-sm font-medium">
+                      <div className="group relative inline-flex items-center gap-0.5 pl-6 pr-4 py-2.5 bg-gray-800/90 hover:bg-gray-700/90 border border-blue-400 hover:border-blue-200 text-blue-200 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-900/20 transition-all duration-300 cursor-pointer">
+        <span className="text-xs sm:text-sm font-medium">
           +{projectsData.length - 6}개의 프로젝트 더보기
         </span>
                         <svg
@@ -212,6 +190,39 @@ export default function Home() {
                   </div>
               )}
 
+            </div>
+
+            <div ref={techStackRef}
+                 className={`flex flex-col gap-5 items-center transition-all duration-1000 ${
+                     visibleSection.techStack ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
+                 }`}>
+              <SectionTitle
+                  emoji="🚀"
+                  title="기술 스택"
+                  subtitle="이런 기술을 사용해 개발해왔습니다."
+              />
+
+              <div className="flex flex-col gap-4 items-center">
+                <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
+                  <StackCard title="Languages" items={techStackData.languages} />
+                </div>
+
+                <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
+                  <StackCard title="Libraries & Frameworks" items={techStackData.frameworks} />
+                </div>
+
+                <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
+                  <StackCard title="Infra" items={techStackData.infrastructure} />
+                </div>
+
+                <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
+                  <StackCard title="Tools" items={techStackData.tools} />
+                </div>
+
+                <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
+                  <StackCard title="AI Assistants" items={techStackData.aiAssistants} />
+                </div>
+              </div>
             </div>
 
             <div ref={linksRef}
