@@ -12,9 +12,7 @@ import { FaArrowUp } from 'react-icons/fa';
 import ImageModal from "@/components/modal/ImageModal";
 
 interface RouteParams {
-    params: {
-        slug: string;
-    };
+    params: Promise<{ slug: string }>;
 }
 
 const ProjectDetailPage = ({ params }: RouteParams) => {
@@ -166,7 +164,7 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
                                                 </div>
                                             )}
 
-                                            {sectionData.image && <ImageModal image={sectionData.image} />}
+                                            {sectionData.image && <ImageModal image={{ ...sectionData.image, width: sectionData.image.width ?? 0, height: sectionData.image.height ?? 0 }} />}
                                         </div>
                                     </div>
                                 )}
