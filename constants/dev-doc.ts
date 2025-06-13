@@ -5,8 +5,8 @@ export interface DevDocContent {
     image?: {
         src: string;
         alt: string;
-        width: number;
-        height: number;
+        width?: number;
+        height?: number;
     };
     link?: {
         href: string;
@@ -18,17 +18,17 @@ export interface ProjectDevDoc {
     projectName: string;
     subtitle: string;
     sections: {
-        planning: DevDocContent;
-        wbs: DevDocContent;
-        requirements: DevDocContent;
-        architecture: DevDocContent;
+        planning?: DevDocContent;
+        wbs?: DevDocContent;
+        requirements?: DevDocContent;
+        architecture?: DevDocContent;
         process?: DevDocContent;
-        flowchart: DevDocContent;
-        api: DevDocContent;
+        flowchart?: DevDocContent;
+        api?: DevDocContent;
         improvement?: DevDocContent; // 성능 개선
         problemSolving?: DevDocContent; // 문제 해결
         results?: DevDocContent;
-        retrospective: DevDocContent;
+        retrospective?: DevDocContent;
     };
 }
 

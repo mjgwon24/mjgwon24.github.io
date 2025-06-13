@@ -65,7 +65,7 @@ export default function Home() {
       rootMargin: '-40px'
     };
 
-    const observerCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach(entry => {
         if (entry.target === introRef.current) {
           setVisibleSections(prev => ({ ...prev, intro: entry.isIntersecting }));

@@ -1,4 +1,3 @@
-// app/posts/[slug]/page.tsx
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -10,7 +9,6 @@ import { ArrowLeft, Calendar, Clock, Share2, BookmarkPlus, ChevronLeft, ChevronR
 
 export default function PostDetail() {
     const params = useParams();
-    // const router = useRouter();
     const { slug } = params;
 
     const [post, setPost] = useState<Post | null>(null);
@@ -36,7 +34,7 @@ export default function PostDetail() {
                 const scrollPosition = window.scrollY + 100;
 
                 for (let i = headings.length - 1; i >= 0; i--) {
-                    const heading = headings[i];
+                    const heading = headings[i] as HTMLElement;
                     if (heading.offsetTop <= scrollPosition) {
                         setActiveSection(heading.id);
                         break;

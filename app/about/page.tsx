@@ -121,7 +121,7 @@ export default function About() {
                                     <li>구매, 영업, 생산, 원가, 외주를 포함하는 총 201개의 메뉴에 대한 출력물 표준 템플릿 개발 및 적용</li>
                                     <li>매일 하루 3번 Git, FileZilla, 쉘 스크립트를 통해 개발 코드 AWS EC2에 배포</li>
                                     <li>코드 검토 및 빌드 테스트 진행</li>
-                                    <li>매주 'ERP개발부서 개발 역량 강화를 위한 지식 공유' 발표 진행 (SpringBoot, JPA, SQL 튜닝, React)</li>
+                                    <li>매주 &#39;ERP개발부서 개발 역량 강화를 위한 지식 공유&#39; 발표 진행 (SpringBoot, JPA, SQL 튜닝, React)</li>
                                 </ul>
                             </div>
 
