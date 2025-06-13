@@ -133,7 +133,7 @@ export default function Home() {
                      visibleSection.portfolio ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
                  }`}>
               <SectionTitle
-                  emoji="✨"
+                  emoji=""
                   title="포트폴리오"
                   subtitle="진행한 프로젝트들을 소개합니다."
                   showMoreLink="/portfolio"
@@ -197,7 +197,7 @@ export default function Home() {
                      visibleSection.techStack ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
                  }`}>
               <SectionTitle
-                  emoji="🚀"
+                  emoji=""
                   title="기술 스택"
                   subtitle="이런 기술을 사용해 개발해왔습니다."
               />
@@ -231,7 +231,7 @@ export default function Home() {
                  }`}>
               <div className="flex flex-col items-center mb-6">
                 <h2 className="text-2xl sm:text-3xl weight-700 pr-1 select-none">
-                  💡 더 알고싶으신가요?
+                  더 알고싶으신가요?
                 </h2>
               </div>
 
@@ -243,6 +243,7 @@ export default function Home() {
                         description={card.description}
                         linkText={card.linkText}
                         icon={card.icon}
+                        href={card.href}
                     />
                 ))}
               </div>

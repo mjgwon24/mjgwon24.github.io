@@ -36,7 +36,7 @@ export default function Portfolio() {
             <div className="relative z-10 container mx-auto px-4 py-12 sm:py-20 flex flex-col items-center">
                 <div className="flex flex-col items-center mb-12 sm:mb-20 text-center">
                     <h1 className="text-3xl sm:text-4xl weight-600 sm:weight-700 mb-4">
-                        ✨ 포트폴리오
+                        포트폴리오
                     </h1>
                     <p className="text-lg sm:text-xl text-gray-300 max-w-2xl">
                         진행했던 다양한 프로젝트들을 소개합니다!

@@ -1,8 +1,9 @@
 export const techStackData = {
-    languages: ['JAVA', 'JavaScript', 'TypeScript', 'Thymeleaf', 'HTML/CSS'],
-    frameworks: ['Spring', 'Spring Boot', 'React', 'MyBatis', 'Node.js', 'Next.js'],
-    infrastructure: ['AWS', 'Nginx', 'Docker', 'MySQL', 'PostgreSQL'],
-    tools: ['Git', 'JMeter', 'VS Code', 'IntelliJ', 'Postman', 'FileZilla']
+    languages: ['Java', 'JavaScript', 'TypeScript'],
+    frameworks: ['Spring', 'MyBatis', 'React.js', 'Next.js'],
+    infrastructure: ['AWS Cloud', 'Nginx', 'Docker'],
+    tools: ['Git', 'Figma', 'JMeter', 'Postman'],
+    aiAssistants: ['Copilot', 'MCP'],
 };
 
 export const projectsData = [
@@ -75,9 +76,6 @@ FLEXRATE는 단순한 대출 상품을 넘어, 청년 세대의 재무건전성 
 ### 최적화
 - Figma 기반 공통 컴포넌트 설계 및 재사용성 극대화
 - Skeleton UI, Lazy Loading 등 데이터 로딩 UX 최적화
-- priority 속성, dynamic import, 스켈레톤 적용으로 렌더링 병목을 해소하여 LCP 7초에서 2.35초로 66% 단축
-### 테스트
-- Cypress 기반 프론트엔드 E2E 테스트 자동화
 `
             },
             {
@@ -194,24 +192,70 @@ FLEXRATE는 단순한 대출 상품을 넘어, 청년 세대의 재무건전성 
         period: '25.01~now',
         organization: '동국대학교',
         description: '동국대학교 동아리 행정 전반을 관리해주는 SEMI ERP 서비스입니다. 각 동아리별 인원 관리 및 예산 관리, 일정 관리를 할 수 있습니다.',
+        detailedDescription: `SEMI ERP는 동국대학교 동아리행정정보시스템으로, 교내 동아리 운영의 모든 행정 절차를 하나의 통합 플랫폼에서 처리할 수 있도록 설계된 서비스입니다. 동아리 운영 과정에서 자주 지적되는 투명성 부족과 행정 업무의 번거로움을 해소하기 위해 개발되었습니다.
+
+예산 계획 및 집행, 통장 관리, 인원 관리, 일정 관리 등 동아리 운영에 필수적인 기능들을 제공합니다. 또한, 동아리 회원 등급에 따라 권한을 명확하게 구분하여 처리하였습니다. 동아리 내 상위 등급 회원은 예산 승인, 인원 관리, 일정 조정 등 동아리의 전반적인 행정 업무를 직접 수행할 수 있도록 모든 관리 기능에 접근할 수 있게 하였고, 하위 등급 회원은 본인에게 필요한 정보만을 조회할 수 있도록 권한을 제한해주었습니다. 이를 통해 각 회원이 자신의 역할에 맞는 업무만 수행하도록 하여, 불필요한 정보 노출을 방지하고 동아리 운영의 투명성을 강화해주었습니다.
+        `,
         roles: ['Back', 'Front', 'Planning', 'Design'],
         tags: ['WEB', 'ERP', 'Admin Page'],
-        techStacks: ['Spring Boot', 'React', 'MySQL', 'Docker'],
+        techStacks: ['Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'Docker', 'React', 'Next.js', 'Tailwind', 'Axios', 'TanstackQuery', 'Google Mail SMTP', 'Git', 'Figma'],
         rolesAndContributions: [
             {
                 role: 'Backend',
-                contributions: ``
+                contributions: `### 설계
+- 동아리별 통장(계좌) 관리 메뉴 데이터 모델 및 API 구조 설계
+- 회원 등급 및 권한 기반 접근 제어 정책 설계
+- 서비스 계층의 확장성과 테스트 용이성을 고려한 interface 기반 설계
+
+### 개발
+- 통장 정보/내역 조회, 추가, 수정, 삭제(soft delete)등 계좌 도메인 전반 API 개발
+- 각 API별 요청자 회원 검증 로직 추가
+- CQRS 패턴 기반으로 Command(등록/수정/삭제)와 Query(조회) 핸들러 분리 구현
+- 도메인 서비스 및 리포지토리 추상화를 위한 interface 정의 및 활용
+
+### 보안
+- 통장 관리 API 접근 시, 요청자 회원의 소속 및 권한 검증 로직 적용
+- 소속된 동아리의 일정 권한 이상일 경우에만 추가, 수정, 삭제 동작 가능하도록 분기처리
+
+### 테스트
+- 권한별(상위/하위 등급) 통장 API 접근 테스트 케이스 작성 및 검증
+- 통장 정보 변경, 삭제, 조회 등 주요 기능에 대한 JUnit 기반 단위 테스트 수행
+
+### 최적화
+- 대용량 통장 내역 데이터 처리 시 성능 저하 방지를 위한 Spring Data 페이지네이션 적용
+- MapStruct 활용으로 수동 매핑 코드 제거 및 DTO 변환 성능 최적화
+- Global Exception Handler를 통한 일관된 에러 응답 구조 적립`
             },
             {
                 role: 'Frontend',
-                contributions: ``
+                contributions: `### 설계
+- 공통 레이아웃 구조 설계 및 구현
+
+### 개발
+- 조회조건 영역, 범위 입력 폼 등 공통 컴포넌트 구현으로 재사용과 통일성 확보
+- 예산 메뉴 전반 UI 및 기능 구현  
+
+### 최적화
+- 메뉴 전반 검토 및 디테일 개선, 통일화
+- 라이트하우스 LCP 지표 분석 및 개발자 퍼포먼스 탭을 활용한 화면 렌더링 속도 개선  
+- 화면 세로 길이 축소 시 UI 요소 찌그러짐 현상 개선  
+- 통장관리 테이블 높이, UI 배경 색상 등 시각적 일관성 및 가독성 개선  
+
+### 테스트
+- Cypress를 활용한 E2E(End-to-End) 테스트 작성 및 자동화  
+- UI 변경 사항 및 오류 수정 후, 브라우저별 크로스 테스트 및 주요 기능 회귀 테스트 수행`
             },
             {
                 role: 'Designer',
-                contributions: ``
+                contributions: `- 사용자 흐름 설계, 와이어프레임 제작
+- 화면 레이아웃 및 인터랙션 설계
+- 컴포넌트 스타일 가이드 정의 및 적용`
             }
         ],
-        slug: 'semi-erp'
+        slug: 'semi-erp',
+        links: {
+            github: 'https://github.com/mjgwon24/dgu-semi-erp-back'
+        },
     },{
         image: '/portfolio/softcat/th/thumb1.png',
         title: '구독형 솔루션 판매 서비스 개발',
@@ -328,9 +372,9 @@ FLEXRATE는 단순한 대출 상품을 넘어, 청년 세대의 재무건전성 
         period: '24.07~24.12',
         organization: 'DEVELOPER',
         description: '2024 경북 해커톤, 동국대학교 축제에서 누적 200명 이상의 사용자들에게 특별한 추억을 만들어준 사진 촬영 서비스입니다.',
-        detailedDescription: '스택네컷은 행사장에서 참가자들이 직접 촬영한 네컷사진을 제공하는 서비스입니다. 사용자는 원하는 사진을 선택하고 프레임을 적용한 후, QR 코드를 통해 즉시 다운로드할 수 있습니다. 또한, 부가 서비스인 경품 이벤트(뽑기 게임)를 통해 행사 참여도를 높입니다.\n' +
+        detailedDescription: '2024 경북 해커톤, 동국대학교 축제에서 이벤트성 서비스로 사용되었으며, 누적 200명 이상의 사용자들에게 소중한 추억을 제공했습니다. 이벤트 현장에서 요구되는 빠른 응답 속도, 안정적인 서버 운영, 20대들이 관심을 가질만한 UI/UX를 고려하여 개발되었으며, 실사용자 피드백을 바탕으로 기능을 개선하여 추후 행사에서도 활용 가능하도록 고도화하였습니다.\n' +
             '\n' +
-            '2024 경북 해커톤, 동국대학교 축제에서 이벤트성 서비스로 사용되었으며, 누적 200명 이상의 사용자들에게 소중한 추억을 제공했습니다. 이벤트 현장에서 요구되는 빠른 응답 속도, 안정적인 서버 운영, 20대들이 관심을 가질만한 UI/UX를 고려하여 개발되었으며, 실사용자 피드백을 바탕으로 기능을 개선하여 추후 행사에서도 활용 가능하도록 고도화하였습니다.',
+            '스택네컷은 행사장에서 참가자들이 직접 촬영한 네컷사진을 제공하는 서비스입니다. 사용자는 원하는 사진을 선택하고 프레임을 적용한 후, QR 코드를 통해 즉시 다운로드할 수 있습니다. 또한, 부가 서비스인 경품 이벤트(뽑기 게임)를 통해 행사 참여도를 높입니다.',
         roles: ['PM', 'Back', 'Front', 'Planning', 'Design'],
         tags: ['WEB', 'Entertainment'],
         techStacks: ['Spring Boot', 'REST API', 'JPA', 'MySQL', 'React', 'Node.js', 'Nginx', 'JavaScript', 'HTML/CSS', 'Naver Cloud', 'Git', 'FileZilla', 'Postman', 'JMeter', 'Figma'],
@@ -512,19 +556,13 @@ FLEXRATE는 단순한 대출 상품을 넘어, 청년 세대의 재무건전성 
             {
                 role: 'Frontend',
                 contributions:`
-- [React] SPA 기반의 동아리 공식 웹사이트 개발
-- [Next.js] 정적 페이지 생성 및 SEO 최적화
-- [Tailwind CSS] 반응형 웹 디자인 및 UI 컴포넌트 라이브러리 제작
-- [Node.js] 관리자 페이지 및 API 서버 개발
-- [Git] Github Flow 기반의 협업 및 버전 관리
+SPA 기반 동적 웹 페이지 개발
                 `
             },
             {
                 role: 'Designer',
                 contributions: `
-- [Figma] 동아리 로고 및 웹사이트 디자인
-- [UI/UX] 사용자 경험을 고려한 UI/UX 설계 및 구현
-- [Prototyping] Figma를 활용한 프로토타입 제작 및 사용자 피드백 반영
+동아리 로고 및 웹사이트 디자인
                 `
             }
         ],
@@ -551,21 +589,21 @@ FLEXRATE는 단순한 대출 상품을 넘어, 청년 세대의 재무건전성 
 export const linkCardsData = [
     {
         title: '소개 페이지',
-        description: '더 자세한 소개, 경력 사항을\n확인하실 수 있어요!',
+        description: '더 자세한 소개, 경력 사항을\n확인해보실 수 있습니다.',
         linkText: '보러가기',
         href: '/about'
     },
     {
         title: '기술 포스팅',
-        description: '사용했던 기술, 활동 회고와 관련된\n포스팅을 확인하실 수 있어요!',
+        description: '사용했던 기술, 활동 회고와 관련된\n포스팅을 확인해보실 수 있습니다.',
         linkText: '보러가기',
         href: '/about'
     },
     {
         title: 'Github',
         icon: 'icon/github.svg',
-        description: '프로젝트 진행 과정, 관련 코드들을\n직접 볼 수 있어요!',
+        description: '프로젝트 진행 과정, 관련 코드들을\n직접 확인해보실 수 있습니다.',
         linkText: '깃허브',
-        href: '/about'
+        href: 'https://github.com/mjgwon24'
     },
 ];

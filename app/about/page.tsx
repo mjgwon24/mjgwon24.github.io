@@ -18,7 +18,7 @@ export default function About() {
 
                 <div className="w-full flex flex-col xl:flex-row gap-4 lg:gap-9 items-center xl:items-start mb-12 sm:mb-20 text-center">
                     <Image
-                        className="lg:w-[240px]"
+                        className="w-[120px] sm:w-[160px] lg:w-[240px] rounded-sm"
                         src="/profile/profile-rec.svg"
                         alt="Profile picture"
                         width={120}
@@ -26,15 +26,19 @@ export default function About() {
                         priority
                     />
 
+                    {/*<p className="text-gray-200 leading-relaxed text-start">*/}
+                    {/*    안녕하세요. 디자인부터 백엔드, 책임감까지 갖춘 육각형 개발자 권민지입니다.<br/><br/>*/}
+                    {/*    4.5 만점의 학점으로 학과 수석을 여러 차례 기록했으며, 함께 성장하는 것을 지향하기에 조교 및 멘토링 활동을 진행하며 항상 소속된 집단 전체의 성장을 위해 노력해왔습니다.<br/><br/>*/}
+                    {/*    어린 시절부터 취미였던 그림 그리기 경험을 살려, 개발 과정에서 디자인 리소스가 부족할 때는 직접 UI/UX를 디자인하였습니다. 또한, 인력이 부족할 때마다 역할을 가리지 않고 적극적으로 참여해 프로젝트가 안정적으로 마무리될 수 있도록 힘썼습니다. 이러한 경험들을 통해 다양한 분야에서의 업무 수행 역량을 크게 확장할 수 있었습니다.<br/><br/>*/}
+                    {/*    높은 책임감이 요구되는 리더 역할도 자주 맡으며 협업 과정에서 발생하는 여러 갈등 상황들을 직접 해결해왔습니다. 이 과정에서 프로젝트 일정 관리, 커뮤니케이션, 업무 우선순위 설정 및 리스크 판단 능력이 크게 향상되었습니다.<br/>*/}
+                    {/*    <br/>*/}
+                    {/*    프로젝트를 성공적으로 완수할 때마다 얻는 성취감을 원동력 삼아, 지치지않고 초심을 유지하며 꾸준히 개발 활동을 이어가고 있습니다.<br/><br/>*/}
+                    {/*    조직에 의미 있는 기여를 하는, 팀에 필요한 숙련된 개발자로 성장하는것이 저의 최종 목표입니다.*/}
+                    {/*</p>*/}
                     <p className="text-gray-200 leading-relaxed text-start">
-                        안녕하세요. 디자인부터 백엔드, 책임감까지 갖춘 육각형 개발자 권민지입니다.<br/><br/>
-                        4.5 만점의 학점으로 학과 수석을 여러 차례 기록했으며, 함께 성장하는 것을 지향하기에 조교 및 멘토링 활동을 진행하며 항상 소속된 집단 전체의 성장을 위해 노력해왔습니다.<br/><br/>
-                        어린 시절부터 취미였던 그림 그리기 경험을 살려, 개발 과정에서 디자인 리소스가 부족할 때는 직접 UI/UX를 디자인하였습니다. 또한, 인력이 부족할 때마다 역할을 가리지 않고 적극적으로 참여해 프로젝트가 안정적으로 마무리될 수 있도록 힘썼습니다. 이러한 경험들을 통해 다양한 분야에서의 업무 수행 역량을 크게 확장할 수 있었습니다.<br/><br/>
-                        높은 책임감이 요구되는 리더 역할도 자주 맡으며 협업 과정에서 발생하는 여러 갈등 상황들을 직접 해결해왔습니다.<br/>
-                        이 과정에서 프로젝트 일정 관리, 커뮤니케이션, 업무 우선순위 설정 및 리스크 판단 능력이 크게 향상되었습니다.<br/>
-                        <br/>
-                        프로젝트를 성공적으로 완수할 때마다 얻는 성취감을 원동력 삼아, 지치지않고 초심을 유지하며 꾸준히 개발 활동을 이어가고 있습니다.<br/><br/>
-                        조직에 의미 있는 기여를 하는, 팀에 필요한 숙련된 개발자로 성장하는것이 저의 최종 목표입니다.
+                        끊임없이 배우고 나누는 것을 즐기는 백엔드 개발자입니다. 코드의 가독성과 유지보수성을 중요하게 생각하며, 팀과 함께 성장하는 데에서 가장 큰 보람을 느낍니다.<br/><br/>
+                        이전 프로젝트에서는 Spring Boot 기반의 마이크로서비스 아키텍처를 도입해 서비스의 안정성과 확장성을 크게 향상시켰고, Jenkins와 Docker를 활용한 CI/CD 파이프라인 구축으로 배포 시간을 70% 단축한 경험이 있습니다.<br/><br/>
+                        앞으로는 대규모 분산 시스템과 클라우드 네이티브 아키텍처에 대한 전문성을 쌓아, 복잡한 시스템에서도 안정성과 성능을 유지할 수 있는 백엔드 기술 리더로 성장하는 것이 목표입니다.
                     </p>
                 </div>
 
@@ -43,49 +47,37 @@ export default function About() {
 
                     <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-10 lg:mb-20">
                         <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
-                            <h3 className="text-lg weight-600 mb-3 text-blue-300">프로젝트 일정 관리</h3>
+                            <h3 className="text-lg weight-600 mb-3 text-blue-300">기술 역량</h3>
                             <p className="text-gray-200 leading-relaxed">
-                                • WBS 작성으로 작업 흐름 파악<br/>
-                                • 데일리 스크럼 진행<br/>
-                                • 업무 우선순위 설정<br/>
-                                • 팀원의 업무 수행 능력과 난이도를 바탕으로 적절한 업무 분담<br/>
-                                • PR 작성 시 상세한 컨벤션 설정으로 작업 흐름 파악
+                                • 문제 해결 능력 (디버깅과 연관지어서 작성)<br/>
+                                • 성능<br/>
+                                • UX<br/>
+                                • 보안
                             </p>
                         </div>
 
                         <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
-                            <h3 className="text-lg weight-600 mb-3 text-blue-300">커뮤니케이션</h3>
+                            <h3 className="text-lg weight-600 mb-3 text-blue-300">일정 관리 및 커뮤니케이션</h3>
                             <p className="text-gray-200 leading-relaxed">
-                                • 작업 우선 순위 및 목표를 기반으로 갈등 상황에서 결론 도출<br/>
-                                • PR 리뷰시 설계 의도와 개선점에 대해 꼼꼼히 논의<br/>
-                                • 의문점이 생기면 즉시 소통 진행
+                                • 분단위 스케줄링<br/>
+                                • 업무 우선순위 설정<br/>
+                                • 팀원의 업무 수행 능력을 바탕으로 적절한 업무 분담<br/>
+                                • 의문점이 생기면 즉시 소통 진행<br/>
                             </p>
                         </div>
 
                         <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
                             <h3 className="text-lg weight-600 mb-3 text-blue-300">AI 활용</h3>
                             <p className="text-gray-200 leading-relaxed">
+                                • 문서 자동화 및 테스트 시나리오, 코드 도출<br/>
                                 • 코파일럿 AI 코드리뷰를 통해 PR 승인 속도를 높여 개발 생산성 향상<br/>
-                                • 개발 후 GPT를 활용하여 자체 코드리뷰 진행<br/>
-                                • AI 답변은 공식 문서와 리서치로 사실 검증
+                                • 할루시네이션 현상 최소화를 위한 ??? 적용
                             </p>
                         </div>
                     </div>
 
-                    <div className="mt-8 flex flex-col items-center mb-10 lg:mb-20">
-                        <h2 className="text-2xl weight-600 mb-4 text-center">보유 자격증</h2>
-                        <div className="flex gap-4 justify-center">
-                            <div className="bg-gray-800/60 rounded-xl px-6 py-2">
-                                정보처리기사
-                            </div>
-                            <div className="bg-gray-800/60 rounded-xl px-6 py-2">
-                                SQLD
-                            </div>
-                        </div>
-                    </div>
-
                     <div className="mt-12 flex flex-col items-center mb-10 lg:mb-20">
-                        <h2 className="text-2xl weight-600 mb-8 text-center">보유 경력</h2>
+                        <h2 className="text-2xl weight-600 mb-8 text-center">보유 경력 및 활동 (최신순)</h2>
 
                         <div className="w-full space-y-4">
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
@@ -194,6 +186,18 @@ export default function About() {
                                 </div>
 
                                 <p className="text-gray-400 text-sm">2021.12.16</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-8 flex flex-col items-center mb-10 lg:mb-20">
+                        <h2 className="text-2xl weight-600 mb-4 text-center">보유 자격증</h2>
+                        <div className="flex gap-4 justify-center">
+                            <div className="bg-gray-800/60 rounded-xl px-6 py-2">
+                                정보처리기사
+                            </div>
+                            <div className="bg-gray-800/60 rounded-xl px-6 py-2">
+                                SQLD
                             </div>
                         </div>
                     </div>
