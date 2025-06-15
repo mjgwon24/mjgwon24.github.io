@@ -93,12 +93,25 @@ export default function Home() {
 
   return (
       <div className="relative min-h-screen">
-        <div
-            className="absolute inset-0 z-0"
-            style={{
-              background: "radial-gradient(131.64% 50.74% at 97.42% 14.64%, rgba(73, 149, 236, 0.30) 0%, rgba(41, 85, 134, 0.00) 70%)"
-            }}
-        />
+        <div className="absolute inset-0 z-0 pointer-events-none select-none">
+          <svg
+              width="120%"
+              height="100%"
+              viewBox="0 0 390 844"
+              preserveAspectRatio="none"
+              style={{ position: 'absolute', width: '100%', height: '100%' }}
+              aria-hidden="true"
+              focusable="false"
+          >
+            <defs>
+              <radialGradient id="myGradient" cx="80%" cy="20%" r="70%" fx="80%" fy="20%">
+                <stop offset="0%" stopColor="rgba(73,149,236,0.3)" />
+                <stop offset="100%" stopColor="rgba(41,85,134,0)" />
+              </radialGradient>
+            </defs>
+            <rect x="0" y="-100" width="120%" height="100%" fill="url(#myGradient)" />
+          </svg>
+        </div>
 
         <div
             className="relative z-10 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]"
@@ -112,7 +125,7 @@ export default function Home() {
                  className={`flex flex-col mb-3 sm:mb-44 gap-6 items-center transition-all duration-1000 
               ${visibleSection.intro ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
               <Image
-                  className="rounded-full"
+                  className="rounded-full w-[90px] sm:w-[120px]"
                   src="/profile/profile-circle.png"
                   alt="Profile picture"
                   width={120}
@@ -120,7 +133,7 @@ export default function Home() {
                   priority
               />
 
-              <h1 className="text-3xl sm:text-4xl weight-700 text-center leading-snug select-none">
+              <h1 className="text-2xl sm:text-4xl weight-700 text-center leading-snug select-none">
                 개발을 사랑하는 개발자,<br/>
                 <span className="text-blue-500">권민지</span>입니다.
               </h1>
