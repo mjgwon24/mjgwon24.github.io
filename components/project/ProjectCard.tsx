@@ -41,14 +41,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 <div className="flex flex-col sm:gap-1 gap-0 pb-4 sm:pb-0">
                     <div
                         className="flex flex-col-reverse sm:flex-row justify-start items-start sm:justify-between sm:items-center gap-1 sm:gap-0">
-                        <p className="text-sm sm:text-[16px] weight-600">{title}</p>
+                        <p className="text-white text-sm sm:text-[16px] weight-600">{title}</p>
                         <div
                             className="sm:bg-gradient-to-r sm:from-blue-500/10 sm:to-blue-400/5 sm:backdrop-blur-sm sm:border sm:border-blue-500/20 rounded-md sm:ml-2 sm:px-2 sm:py-0.5">
                             <p className="text-xs weight-400 text-gray-300 sm:text-blue-400">{period}</p>
                         </div>
                     </div>
                     <span className="text-xs sm:text-sm text-gray-400 weight-400">{organization}</span>
-                    <span className="text-xs sm:text-sm weight-400 sm:p-0 pt-1">{description}</span>
+                    <span className="text-white text-xs sm:text-sm weight-400 sm:p-0 pt-1">{description}</span>
                 </div>
 
                 <div className="flex flex-col sm:gap-1.5 gap-1 flex-wrap">
