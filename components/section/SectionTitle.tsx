@@ -13,11 +13,11 @@ const SectionTitle: React.FC<SectionTitleProps> = ({
                                                    }) => {
     return (
         <div className="flex flex-col gap-2 sm:gap-3 items-center mb-6">
-            <h2 className="text-2xl sm:text-3xl weight-700 pr-1 select-none">
+            <h2 className="text-white text-2xl sm:text-3xl weight-700 pr-1 select-none">
                 {emoji} {title}
             </h2>
             {subtitle && (
-                <p className="sm:text-xl weight-500 pl-3 select-none">{subtitle}</p>
+                <p className="text-white sm:text-xl weight-500 pl-3 select-none">{subtitle}</p>
             )}
             {showMoreLink && (
                 <Link

@@ -12,7 +12,7 @@ const StackCard: React.FC<StackCardProps> = ({ title, items }) => {
             <div className="flex flex-row gap-2 flex-wrap text-sm weight-400 sm:weight-500">
                 {items.map((item, index) => (
                     <div key={index} className="flex flex-col gap-2 rounded-md px-3 py-1.5 bg-black-05p h-fit border border-neutral-700">
-                        <span>{item}</span>
+                        <span className="text-white">{item}</span>
                     </div>
                 ))}
             </div>

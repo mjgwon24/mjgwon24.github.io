@@ -17,9 +17,9 @@ const LinkCard: React.FC<LinkCardProps> = ({ title, description, linkText, icon,
                         <img src={icon} alt={`${title} 아이콘`} className="w-4 h-4 sm:w-5 sm:h-5" /> :
                         icon
                     }
-                    <p className="weight-600 sm:text-xl">{title}</p>
+                    <p className="text-white weight-600 sm:text-xl">{title}</p>
                 </div>
-                <p className="text-xs sm:text-sm text-center weight-400">{description}</p>
+                <p className="text-white text-xs sm:text-sm text-center weight-400">{description}</p>
             </div>
             <div className="cursor-pointer flex flex-row gap-1 items-center border border-blue-400 border-solid rounded-md pl-6 pr-4 sm:pr-4.5 py-1.5
         bg-[linear-gradient(90deg,rgba(74,150,236,0.10)_4.14%,rgba(35,123,230,0.10)_97.19%)]

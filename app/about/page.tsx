@@ -11,7 +11,7 @@ export default function About() {
             />
             <div className="relative z-10 container mx-auto px-8 sm:px-10 md:px-20 lg:px-40 py-12 sm:py-20 flex flex-col items-center">
                 <div className="flex flex-col items-center mb-8 lg:mb-16 xl:mb-20 text-center">
-                    <h1 className="text-3xl sm:text-4xl weight-600 sm:weight-700 mb-4">
+                    <h1 className="text-white text-3xl sm:text-4xl weight-600 sm:weight-700 mb-4">
                         About Me
                     </h1>
                 </div>
@@ -27,7 +27,7 @@ export default function About() {
                     />
 
                     <p className="text-gray-200 leading-relaxed text-start">
-                        <span className="weight-700 text-blue-300 lg:text-lg">Step By Step, 포기하지 않는 개발자</span>
+                        <span className="weight-700 text-blue-300 lg:text-lg">Step By Step, 꾸준함을 아는 개발자</span>
                         <br/><br/>
                         4.5점 만점으로 학과 수석을 여러 차례 기록하며 기본기를 다졌고, 조교와 멘토링 활동을 하며 집단 전체의 성장을 위해 노력해왔습니다. 주말에는 동기들과 디스코드로 개발 스터디를 꾸준히 진행하며, 하루 평균 9시간 이상 개발에 몰입하는 생활을 꾸준히 이어가고 있습니다.<br/><br/>
                         높은 책임감이 요구되는 리더 역할도 자주 맡으면서, 협업 과정에서 발생하는 다양한 갈등 상황들을 직접해결해오며 업무 수행 역량을 키워오고 있습니다.<br/><br/>
@@ -36,7 +36,7 @@ export default function About() {
                 </div>
 
                 <div className="w-full flex flex-col mb-12">
-                    <h2 className="text-2xl weight-600 mt-4 mb-8 text-center">강점</h2>
+                    <h2 className="text-white text-2xl weight-600 mt-4 mb-8 text-center">강점</h2>
 
                     <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-10 lg:mb-20">
                         <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
@@ -70,7 +70,7 @@ export default function About() {
                     </div>
 
                     <div className="mt-12 flex flex-col items-center mb-10 lg:mb-20">
-                        <h2 className="text-2xl weight-600 mb-8 text-center">보유 경력 및 활동 (최신순)</h2>
+                        <h2 className="text-white text-2xl weight-600 mb-8 text-center">보유 경력 및 활동 (최신순)</h2>
 
                         <div className="w-full space-y-4">
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
@@ -142,7 +142,7 @@ export default function About() {
                     </div>
 
                     <div className="mt-12 flex flex-col items-center mb-10 lg:mb-20">
-                        <h2 className="text-2xl weight-600 mb-8 text-center">대외활동 및 수상 이력</h2>
+                        <h2 className="text-white text-2xl weight-600 mb-8 text-center">대외활동 및 수상 이력</h2>
 
                         <div className="w-full space-y-4">
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
@@ -184,12 +184,12 @@ export default function About() {
                     </div>
 
                     <div className="mt-8 flex flex-col items-center mb-10 lg:mb-20">
-                        <h2 className="text-2xl weight-600 mb-4 text-center">보유 자격증</h2>
+                        <h2 className="text-white text-2xl weight-600 mb-4 text-center">보유 자격증</h2>
                         <div className="flex gap-4 justify-center">
-                            <div className="bg-gray-800/60 rounded-xl px-6 py-2">
+                            <div className="text-white bg-gray-800/60 rounded-xl px-6 py-2">
                                 정보처리기사
                             </div>
-                            <div className="bg-gray-800/60 rounded-xl px-6 py-2">
+                            <div className="text-white bg-gray-800/60 rounded-xl px-6 py-2">
                                 SQLD
                             </div>
                         </div>

@@ -230,7 +230,7 @@ export default function Home() {
                      visibleSection.links ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
                  }`}>
               <div className="flex flex-col items-center mb-6">
-                <h2 className="text-2xl sm:text-3xl weight-700 pr-1 select-none">
+                <h2 className="text-white text-2xl sm:text-3xl weight-700 pr-1 select-none">
                   더 알고싶으신가요?
                 </h2>
               </div>
