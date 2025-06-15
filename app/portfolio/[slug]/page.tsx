@@ -87,7 +87,6 @@ export default function ProjectDetail() {
         setCurrentSlide((prev) => (prev === 0 ? allImages.length - 1 : prev - 1));
     };
 
-    // 통합 이미지 슬라이더 렌더링
     const renderIntegratedImageSlider = () => {
         if (!project || allImages.length === 0) return null;
 
@@ -154,7 +153,7 @@ export default function ProjectDetail() {
 
         return (
             <div className="max-w-5xl mx-auto mt-20">
-                <h2 className="text-2xl weight-600 sm:weight-700 mb-8 select-none">다른 프로젝트도 둘러보기</h2>
+                <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-8 select-none">다른 프로젝트도 둘러보기</h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {otherProjects.map((proj) => (
@@ -236,10 +235,12 @@ export default function ProjectDetail() {
                 </Link>
                 <div className="flex flex-col gap-0.5 sm:gap-2 sm:mb-5 max-w-3xl mx-auto">
                     <div                        className="flex flex-col-reverse md:flex-row gap-2 justify-between items-start md:items-center">
-                        <h1 className="text-2xl md:text-4xl weight-600 sm:weight-700">{project.title}</h1>
+                        <h1 className="text-white text-2xl md:text-4xl weight-600 sm:weight-700">{project.title}</h1>
                         <div className="sm:bg-gradient-to-r sm:from-blue-500/10 sm:to-blue-400/5 sm:backdrop-blur-sm sm:border sm:border-blue-500/20 rounded-md sm:px-2 sm:py-0.5">
                             <p className="text-xs sm:text-sm text-gray-300 sm:text-blue-400">{project.period}</p>
-                        </div>                    </div>                    <p className="sm:text-lg text-gray-400">{project.organization}</p>
+                        </div>
+                    </div>
+                    <p className="sm:text-lg text-gray-400">{project.organization}</p>
                 </div>
                 {renderIntegratedImageSlider()}
 
@@ -280,17 +281,19 @@ export default function ProjectDetail() {
                                         className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-colors duration-200 sm:text-[16px] text-xs"
                                     >
                                         <span>Visit Service</span>
-                                    </a>                                )}
+                                    </a>
+                                )}
                             </div>
-                        </div>                    )}
+                        </div>
+                    )}
 
                     <div className="mb-8">
-                        <h2 className="text-2xl weight-600 sm:weight-700 mb-4 select-none">서비스 개요</h2>
+                        <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">서비스 개요</h2>
                         <div className="flex flex-wrap gap-2 mb-4">
                             {project.tags.map((tag: string, index: number) => (
                                 <span
                                     key={index}
-                                    className="bg-black-10p px-3 py-1 rounded-md text-sm select-none"
+                                    className="text-white bg-black-10p px-3 py-1 rounded-md text-sm select-none"
                                 >
                   {tag}
                 </span>
@@ -299,7 +302,7 @@ export default function ProjectDetail() {
                         <p className="text-gray-300 whitespace-pre-wrap">{project.detailedDescription || project.description}</p>
                     </div>
                     <div className="mb-8">
-                        <h2 className="text-2xl weight-600 sm:weight-700 mb-4 select-none">역할 및 기여</h2>
+                        <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">역할 및 기여</h2>
                         <div className="flex flex-wrap gap-2 mb-4">
                             {project.roles.map((role: string, index: number) => (
                                 <span
@@ -335,7 +338,7 @@ export default function ProjectDetail() {
                     </div>
 
                     <div className="mb-8">
-                        <h2 className="text-2xl weight-600 sm:weight-700 mb-4 select-none">주요 성과</h2>
+                        <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">주요 성과</h2>
                         <div className="space-y-4">
                             {project.achievements ? (
                                 project.achievements.map((achievement, index) => (
@@ -352,7 +355,7 @@ export default function ProjectDetail() {
                         </div>
                     </div>
                     <div className="mb-8">
-                        <h2 className="text-2xl weight-600 sm:weight-700 mb-4 select-none">사용 기술</h2>
+                        <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">사용 기술</h2>
                         <div className="flex flex-wrap gap-2">
                             {project.techStacks.map((techStack: string, index: number) => (
                                 <span
@@ -365,7 +368,7 @@ export default function ProjectDetail() {
                         </div>
                     </div>
                     <div className="mb-32">
-                        <h2 className="text-2xl weight-600 sm:weight-700 mb-4 select-none">🔍 더 자세히 알아보기</h2>
+                        <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">🔍 더 자세히 알아보기</h2>
                         {project.links && (
                             <div className="mb-5">
                                 <div className="flex flex-wrap gap-2 sm:gap-4">
