@@ -150,7 +150,7 @@ const Header = () => {
 
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-                    <div className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 text-white rounded-md p-8 w-[350px] transform transition-all duration-300 scale-100">
+                    <div className="bg-gradient-to-br bg-black border border-gray-800 text-white rounded-md p-8 w-[350px] transform transition-all duration-300 scale-100">
                         <div className="flex justify-between items-center mb-6">
                             <h2 className="text-xl weight-700 text-white">CONTACT</h2>
 
