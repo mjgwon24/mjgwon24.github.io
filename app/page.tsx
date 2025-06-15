@@ -113,7 +113,7 @@ export default function Home() {
               ${visibleSection.intro ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}>
               <Image
                   className="rounded-full"
-                  src="/profile/profile-circle.svg"
+                  src="/profile/profile-circle.png"
                   alt="Profile picture"
                   width={120}
                   height={120}

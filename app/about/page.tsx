@@ -19,7 +19,7 @@ export default function About() {
                 <div className="w-full flex flex-col xl:flex-row gap-4 lg:gap-9 items-center xl:items-start mb-12 sm:mb-20 text-center">
                     <Image
                         className="w-[120px] sm:w-[160px] lg:w-[240px] rounded-sm"
-                        src="/profile/profile-rec.svg"
+                        src="/profile/profile-rec.png"
                         alt="Profile picture"
                         width={120}
                         height={120}
