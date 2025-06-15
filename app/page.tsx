@@ -93,25 +93,15 @@ export default function Home() {
 
   return (
       <div className="relative min-h-screen">
-        <div className="absolute inset-0 z-0 pointer-events-none select-none">
-          <svg
-              width="120%"
-              height="100%"
-              viewBox="0 0 390 844"
-              preserveAspectRatio="none"
-              style={{ position: 'absolute', width: '100%', height: '100%' }}
-              aria-hidden="true"
-              focusable="false"
-          >
-            <defs>
-              <radialGradient id="myGradient" cx="80%" cy="20%" r="70%" fx="80%" fy="20%">
-                <stop offset="0%" stopColor="rgba(73,149,236,0.3)" />
-                <stop offset="100%" stopColor="rgba(41,85,134,0)" />
-              </radialGradient>
-            </defs>
-            <rect x="0" y="-100" width="120%" height="100%" fill="url(#myGradient)" />
-          </svg>
-        </div>
+        <div
+            className="absolute inset-0 z-0 pointer-events-none select-none"
+            style={{
+              backgroundImage: "url('/background-blue.png')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat"
+            }}
+        />
 
         <div
             className="relative z-10 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]"
