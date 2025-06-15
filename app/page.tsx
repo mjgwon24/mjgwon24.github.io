@@ -94,12 +94,9 @@ export default function Home() {
   return (
       <div className="relative min-h-screen">
         <div
-            className="absolute inset-0 z-0 pointer-events-none select-none"
+            className="absolute inset-0 z-0"
             style={{
-              backgroundImage: "url('/background-blue.png')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat"
+              background: "radial-gradient(131.64% 30.74% at 97.42% 0%, rgba(73, 149, 236, 0.30) 0%, rgba(41, 85, 134, 0.00) 70%)"
             }}
         />
 
