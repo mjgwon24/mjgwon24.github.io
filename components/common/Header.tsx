@@ -168,21 +168,34 @@ const Header = () => {
                         <div className="space-y-5">
                             <div
                                 className="bg-gray-800/50 rounded-lg p-4 flex items-center gap-4 transition-colors hover:bg-gray-700/50 cursor-pointer"
+                                onClick={() => window.open('https://open.kakao.com/o/sxbzZ4Bh', '_blank')}
+                            >
+                                <div className="bg-gray-700 rounded-full p-2 flex items-center justify-center">
+                                    <svg width="16" height="16" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" className="text-blue-100">
+                                        <path fill="currentColor" d="M128 36C70.562 36 24 72.713 24 118c0 29.279 19.466 54.97 48.748 69.477-1.593 5.494-5.438 19.555-6.244 22.575-.996 3.783 1.47 3.71 3.088 2.701c1.225-.763 19.248-12.44 27.116-17.471a135.305 135.305 0 0 0 31.292 3.718c57.438 0 104-36.712 104-81.999C232 72.713 185.438 36 128 36z"/>
+                                    </svg>
+                                </div>
+                                <span className="weight-500 text-gray-200">오픈카톡 바로가기</span>
+                            </div>
+
+                            <div
+                                className="bg-gray-800/50 rounded-lg p-4 flex items-center gap-4 transition-colors hover:bg-gray-700/50 cursor-pointer"
                                 onClick={() => copyToClipboard('010-5513-2303')}
                             >
-                    <div className="bg-gray-700 rounded-full p-2 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div className="bg-gray-700 rounded-full p-2 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-blue-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 8V5z" />
                                     </svg>
                                 </div>
                                 <span className="weight-500 text-gray-200">010-5513-2303</span>
                             </div>
+
                             <div
                                 className="bg-gray-800/50 rounded-lg p-4 flex items-center gap-4 transition-colors hover:bg-gray-700/50 cursor-pointer"
                                 onClick={() => copyToClipboard('alswlchlrh8@naver.com')}
                             >
-                    <div className="bg-gray-700 rounded-full p-2 flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div className="bg-gray-700 rounded-full p-2 flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-blue-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                     </svg>
                                 </div>
