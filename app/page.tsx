@@ -92,7 +92,7 @@ export default function Home() {
   }, []);
 
   return (
-      <div className="relative min-h-screen">
+      <div className="relative min-h-screen w-full">
         <div
             className="absolute inset-0 z-0"
             style={{
@@ -101,7 +101,7 @@ export default function Home() {
         />
 
         <div
-            className="relative z-10 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]"
+            className="relative justify-center z-10 grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]"
             style={{ paddingTop: `${height / 4}px` }}
         >
           <main
