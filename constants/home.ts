@@ -607,3 +607,25 @@ export const linkCardsData = [
         href: 'https://github.com/mjgwon24'
     },
 ];
+
+export const aboutCardsData = [
+    {
+        title: '포트폴리오',
+        description: '진행한 프로젝트들을\n확인해보실 수 있습니다.',
+        linkText: '보러가기',
+        href: '/portfolio'
+    },
+    {
+        title: '기술 포스팅',
+        description: '사용했던 기술, 활동 회고와 관련된\n포스팅을 확인해보실 수 있습니다.',
+        linkText: '보러가기',
+        href: '/about'
+    },
+    {
+        title: 'Github',
+        icon: 'icon/github.svg',
+        description: '프로젝트 진행 과정, 관련 코드들을\n직접 확인해보실 수 있습니다.',
+        linkText: '깃허브',
+        href: 'https://github.com/mjgwon24'
+    },
+];

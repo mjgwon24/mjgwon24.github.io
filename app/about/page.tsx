@@ -1,4 +1,9 @@
+"use client";
+
 import Image from "next/image";
+import StackCard from "@/components/home/StackCard";
+import {aboutCardsData, linkCardsData, techStackData} from "@/constants/home";
+import LinkCard from "@/components/home/LinkCard";
 
 export default function About() {
     return (
@@ -29,9 +34,10 @@ export default function About() {
                     <p className="text-gray-200 leading-relaxed text-start">
                         <span className="weight-700 text-blue-300 lg:text-lg">Step By Step, 꾸준함을 아는 개발자</span>
                         <br/><br/>
-                        4.5점 만점으로 학과 수석을 여러 차례 기록하며 기본기를 다졌고, 조교와 멘토링 활동을 하며 집단 전체의 성장을 위해 노력해왔습니다. 주말에는 동기들과 디스코드로 개발 스터디를 꾸준히 진행하며, 하루 평균 9시간 이상 개발에 몰입하는 생활을 꾸준히 이어가고 있습니다.<br/><br/>
-                        높은 책임감이 요구되는 리더 역할도 자주 맡으면서, 협업 과정에서 발생하는 다양한 갈등 상황들을 직접해결해오며 업무 수행 역량을 키워오고 있습니다.<br/><br/>
-                        팀에 꼭 필요한 숙련된 개발자로 성장하여, 조직에 의미 있는 기여를 하는 것이 저의 최종 목표입니다.
+                        4.5점 만점으로 학과 수석을 여러 차례 기록하며 기본기를 다졌고, 조교와 멘토링 활동을 하며 집단 전체의 성장을 위해 노력해왔습니다.<br/><br/>
+                        주말에는 동기들과 디스코드로 개발 스터디를 꾸준히 진행하며, 하루 평균 9시간 이상 개발에 몰입하는 생활을 이어가고 있습니다.<br/><br/>
+                        코드를 작성하며 서비스가 점차 완성되어 가는 모습을 볼 때 가장 큰 행복을 느낍니다.<br/><br/>
+                        저의 인생 목표는 사람들이 원하는 서비스를 개발하여, 그들의 일상에 긍정적인 영향을 미치는 개발자가 되는 것입니다.<br/>
                     </p>
                 </div>
 
@@ -44,7 +50,7 @@ export default function About() {
                             <p className="text-gray-200 leading-relaxed">
                                 • 에러 발생 시, 플로우별 철저한 디버깅으로 문제 해결<br/>
                                 • 쿼리 최적화, 캐싱을 통한 대용량 데이터 성능 개선<br/>
-                                • UI/UX 직접 개선으로 이탈률 감소<br/>
+                                • UI/UX 개선으로 LCP 62% 단축<br/>
                                 • 입력값 검증, 인증/인가 로직 강화, 취약점 진단으로 보안 강화
                             </p>
                         </div>
@@ -70,7 +76,7 @@ export default function About() {
                     </div>
 
                     <div className="mt-12 flex flex-col items-center mb-10 lg:mb-20">
-                        <h2 className="text-white text-2xl weight-600 mb-8 text-center">보유 경력 및 활동 (최신순)</h2>
+                        <h2 className="text-white text-2xl weight-600 mb-8 text-center">보유 경력 및 활동 <span className="text-sm text-gray-400 font-normal ml-1">최신순</span></h2>
 
                         <div className="w-full space-y-4">
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
@@ -192,6 +198,49 @@ export default function About() {
                             <div className="text-white bg-gray-800/60 rounded-xl px-6 py-2">
                                 SQLD
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-8 flex flex-col items-center mb-20 lg:mb-32">
+                        <h2 className="text-white text-2xl weight-600 mb-4 text-center">기술 스택</h2>
+
+                        <div className="flex flex-col gap-4 items-center">
+                            <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
+                                <StackCard title="Languages" items={techStackData.languages} />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
+                                <StackCard title="Libraries & Frameworks" items={techStackData.frameworks} />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
+                                <StackCard title="Infra" items={techStackData.infrastructure} />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
+                                <StackCard title="Tools" items={techStackData.tools} />
+                            </div>
+
+                            <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
+                                <StackCard title="AI Assistants" items={techStackData.aiAssistants} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-8 flex flex-col items-center">
+                        <h2 className="text-white text-2xl weight-600 mb-4 text-center">더 알고 싶으신가요?</h2>
+
+                        <div className="flex flex-col gap-8 sm:gap-0 sm:flex-row justify-between sm:w-[680px]">
+                            {aboutCardsData.map((card, index) => (
+                                <LinkCard
+                                    key={index}
+                                    title={card.title}
+                                    description={card.description}
+                                    linkText={card.linkText}
+                                    icon={card.icon}
+                                    href={card.href}
+                                />
+                            ))}
                         </div>
                     </div>
 
