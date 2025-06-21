@@ -13,7 +13,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({
                                                    }) => {
     return (
         <div className="flex flex-col gap-2 sm:gap-3 items-center mb-6">
-            <h2 className="text-white text-2xl sm:text-3xl weight-700 pr-1 select-none">
+            <h2 className="text-white text-2xl text-center sm:text-3xl weight-700 pr-1 select-none">
                 {emoji} {title}
             </h2>
             {subtitle && (
