@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import StackCard from "@/components/home/StackCard";
-import {aboutCardsData, linkCardsData, techStackData} from "@/constants/home";
+import {aboutCardsData, techStackData} from "@/constants/home";
 import LinkCard from "@/components/home/LinkCard";
 
 export default function About() {
