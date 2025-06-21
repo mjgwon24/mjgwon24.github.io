@@ -150,50 +150,43 @@ const Header = () => {
 
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-                    <div className="bg-gray-900/90 border border-gray-800 rounded-lg shadow-lg p-6 w-[330px] flex flex-col items-center relative animate-fadein">
-                        <div className="bg-blue-900/20 rounded-full w-14 h-14 flex items-center justify-center mb-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                        </div>
+                    <div className="bg-black/90 border border-zinc-800 rounded-lg shadow-xl p-8 w-[350px] flex flex-col items-center relative animate-fadein">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-16 mb-3" viewBox="0 0 24 24" fill="#4A96EC" stroke="#4A96EC">
+                            <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 0 0-1.02.24l-2.2 2.2a15.045 15.045 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
+                        </svg>
 
-                        <div className="text-lg font-bold text-gray-100 mb-1 text-center">
+                        <div className="text-xl font-bold text-white mb-2 mt-2 text-center">
                             CONTACT
                         </div>
 
-                        <div className="text-[15px] text-gray-400 text-center mb-6 leading-relaxed">
+                        <div className="text-[15px] text-zinc-400 text-center mb-8 leading-relaxed">
                             언제든지 문의해 주세요
                         </div>
 
-                        <div className="flex flex-col gap-3 w-full mt-2">
+                        <div className="flex flex-col gap-4 w-full">
                             <button
-                                className="bg-gradient-to-r from-blue-500/30 to-blue-500/80 hover:from-blue-500 hover:to-blue-800 text-white font-medium rounded-md py-3 w-full transition-all duration-300 text-sm shadow-md hover:shadow-blue-500/10"
+                                className="bg-gradient-to-r from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-medium rounded-lg py-3.5 w-full transition-all duration-300 text-sm shadow-lg hover:shadow-blue-500/30 flex items-center justify-center"
                                 onClick={() => window.open('https://open.kakao.com/o/sxbzZ4Bh', '_blank')}
                             >
-                                <div className="flex items-center justify-center">
-                                    <svg width="16" height="16" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" className="mr-2">
-                                        <path fill="currentColor" d="M128 36C70.562 36 24 72.713 24 118c0 29.279 19.466 54.97 48.748 69.477-1.593 5.494-5.438 19.555-6.244 22.575-.996 3.783 1.47 3.71 3.088 2.701c1.225-.763 19.248-12.44 27.116-17.471a135.305 135.305 0 0 0 31.292 3.718c57.438 0 104-36.712 104-81.999C232 72.713 185.438 36 128 36z"/>
-                                    </svg>
-                                    카카오톡 문의
-                                </div>
+                                <svg width="18" height="18" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" className="mr-2">
+                                    <path fill="currentColor" d="M128 36C70.562 36 24 72.713 24 118c0 29.279 19.466 54.97 48.748 69.477-1.593 5.494-5.438 19.555-6.244 22.575-.996 3.783 1.47 3.71 3.088 2.701c1.225-.763 19.248-12.44 27.116-17.471a135.305 135.305 0 0 0 31.292 3.718c57.438 0 104-36.712 104-81.999C232 72.713 185.438 36 128 36z"/>
+                                </svg>
+                                카카오톡 문의
                             </button>
-
                             <button
-                                className="bg-transparent hover:bg-blue-900/20 text-blue-300 border border-blue-500/40 hover:border-blue-400 rounded-md py-3 w-full text-sm font-medium transition-all duration-300 backdrop-blur-sm"
+                                className="bg-transparent hover:bg-blue-200/10 text-blue-300 border border-blue-400 hover:border-blue-500 rounded-lg py-3.5 w-full text-sm font-medium transition-all duration-300 backdrop-blur-sm flex items-center justify-center"
                                 onClick={() => copyToClipboard('mjgwon24@gmail.com', '이메일이')}
                             >
-                                <div className="flex items-center justify-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                    이메일 문의
-                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4.5 w-4.5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                이메일 문의
                             </button>
                         </div>
 
                         <button
                             onClick={toggleModal}
-                            className="absolute top-3 right-3 text-gray-500 hover:text-gray-300 transition-colors"
+                            className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-300 transition-colors p-1 rounded-full hover:bg-zinc-800/50"
                             aria-label="Close modal"
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
