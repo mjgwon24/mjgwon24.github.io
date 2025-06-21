@@ -155,7 +155,7 @@ function ClubSection({ visible, refObj, onImageLoad }: { visible: boolean; refOb
         <div className="flex flex-col sm:flex-row gap-6 items-center justify-center w-full">
           <div className="relative w-full h-72 sm:h-96 rounded-xl overflow-hidden shadow-lg shadow-blue-900/20 transition-transform duration-300">
             <Image
-                src="/developer/developer-act1.jpg"
+                src="/developer/developer-act1.webp"
                 alt="개발 동아리 활동 사진 1"
                 fill
                 sizes="(max-width: 640px) 320px, 640px"
