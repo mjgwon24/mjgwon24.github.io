@@ -28,6 +28,8 @@ export default function Slider({
                                             imageGap = DEFAULT_IMAGE_GAP,
                                         }: Props) {
     const [slideBoxWidth, setSlideBoxWidth] = useState(0);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
+    const [loadingCount, setLoadingCount] = useState(images.length);
     const trackRef = useRef<HTMLDivElement>(null);
 
     const resizedImages = images.map(img => {
@@ -55,6 +57,8 @@ export default function Slider({
     }, [boxMaxWidth]);
 
     useEffect(() => {
+        if (!imagesLoaded) return;
+
         const start = Date.now();
         let animationFrameId: number;
         let current = 0;
@@ -69,7 +73,17 @@ export default function Slider({
         }
         animationFrameId = requestAnimationFrame(animate);
         return () => cancelAnimationFrame(animationFrameId);
-    }, [totalTrackWidth]);
+    }, [totalTrackWidth, imagesLoaded]);
+
+    const handleImageLoad = () => {
+        setLoadingCount(prev => {
+            const newCount = prev - 1;
+            if (newCount === 0) {
+                setImagesLoaded(true);
+            }
+            return newCount;
+        });
+    };
 
     return (
         <div
@@ -82,22 +96,24 @@ export default function Slider({
                 margin: '0 auto',
             }}
         >
+            {!imagesLoaded && (
+                <div className="absolute inset-0 bg-gray-800 animate-pulse rounded-xl z-10"/>
+            )}
             <div
                 ref={trackRef}
                 className="flex"
                 style={{
                     width: totalTrackWidth * 2,
+                    opacity: imagesLoaded ? 1 : 0,
                 }}
             >
                 {[...resizedImages, ...resizedImages].map((img, idx, arr) => (
                     <div
                         key={idx}
+                        className="flex flex-row items-center flex-shrink-0"
                         style={{
                             width: img.displayWidth,
                             height: img.displayHeight,
-                            display: 'flex',
-                            alignItems: 'center',
-                            flexShrink: 0,
                             marginRight: idx !== arr.length - 1 ? imageGap : 0,
                         }}
                     >
@@ -108,6 +124,7 @@ export default function Slider({
                             height={img.displayHeight}
                             style={{ display: 'block', borderRadius: '12px', objectFit: 'cover' }}
                             priority={idx === 0}
+                            onLoad={handleImageLoad}
                         />
                     </div>
                 ))}
