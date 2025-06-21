@@ -196,15 +196,15 @@ function StackNcutSection({ visible, refObj }: { visible: boolean; refObj: React
         <SectionTitle emoji="2024," title="스택네컷" subtitle="이벤트 행사를 위한 사진 촬영 서비스 출시" />
         <Slider images={STACK_IMAGES} fixedHeight={200} boxMaxWidth={760} />
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-4 w-full max-w-2xl mx-auto">
-            <span className="text-yellow-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
+            <span className="text-blue-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
               누적 사용자 200명 이상
             </span>
-              <span className="text-yellow-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
+              <span className="text-blue-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
               생성된 이미지 1,000장 이상
             </span>
         </div>
         <Link href="/portfolio/stack-snapshot" target="_blank" rel="noopener noreferrer" className="mt-4">
-          <button className="flex items-center gap-2 bg-yellow-500/30 hover:bg-yellow-800 text-yellow-200 py-2 px-5 rounded-lg transition-all duration-300 border border-yellow-400/30 hover:border-yellow-400/60 shadow-sm hover:shadow-md">
+            <button className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-blue-200 py-2 px-5 rounded-lg transition-all duration-300 border border-blue-400/30 hover:border-blue-400/50 shadow-sm hover:shadow-md">
             <span>프로젝트 상세 보기</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
