@@ -204,11 +204,11 @@ function StackNcutSection({ visible, refObj }: { visible: boolean; refObj: React
             </span>
         </div>
         <Link href="/portfolio/stack-snapshot" target="_blank" rel="noopener noreferrer" className="mt-4">
-            <button className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-blue-200 py-2 px-5 rounded-lg transition-all duration-300 border border-blue-400/30 hover:border-blue-400/50 shadow-sm hover:shadow-md">
-            <span>프로젝트 상세 보기</span>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
+            <button className="cursor-pointer flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-blue-200 py-2 px-5 rounded-lg transition-all duration-300 border border-blue-400/30 hover:border-blue-400/50 shadow-sm hover:shadow-md">
+                <span>프로젝트 상세 보기</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
           </button>
         </Link>
       </div>
@@ -256,7 +256,7 @@ function FISAwardSection({ visible, refObj }: { visible: boolean; refObj: React.
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <button className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-blue-200 py-2 px-5 rounded-lg transition-all duration-300 border border-blue-400/30 hover:border-blue-400/50 shadow-sm hover:shadow-md">
+                    <button className="cursor-pointer flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-blue-200 py-2 px-5 rounded-lg transition-all duration-300 border border-blue-400/30 hover:border-blue-400/50 shadow-sm hover:shadow-md">
                         <span>프로젝트 상세 보기</span>
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -331,14 +331,14 @@ function PortfolioSection({
         {projectsData.length > 6 && (
             <div className="mt-8 flex justify-center">
               <Link href="/portfolio">
-                <div className="group relative inline-flex items-center gap-0.5 pl-6 pr-4 py-2.5 bg-gray-800/90 hover:bg-gray-700/90 border border-blue-400 hover:border-blue-200 text-blue-200 rounded-full shadow-md hover:shadow-lg hover:shadow-blue-900/20 transition-all duration-300 cursor-pointer">
-              <span className="text-xs sm:text-sm font-medium">
-                +{projectsData.length - 6}개의 프로젝트 더보기
-              </span>
-                  <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </div>
+                  <button className="cursor-pointer flex items-center gap-1 bg-gray-800 hover:bg-gray-700 text-blue-200 py-2 pl-5 pr-3.5 rounded-lg transition-all duration-300 border border-blue-400/30 hover:border-blue-400/50 shadow-sm hover:shadow-md">
+                      <span className="text-xs sm:text-sm weight-500">
+                          +{projectsData.length - 6}개의 프로젝트 더보기
+                      </span>
+                      <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                  </button>
               </Link>
             </div>
         )}
@@ -355,7 +355,7 @@ function LinksSection({ visible, refObj }: { visible: boolean; refObj: React.Ref
   return (
       <div
           ref={refObj}
-          className={`flex flex-col gap-5 items-center transition-all duration-1000 mt-20 ${
+          className={`flex flex-col gap-5 items-center transition-all duration-1000 mt-28 ${
               visible ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'
           }`}
       >
