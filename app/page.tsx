@@ -194,7 +194,7 @@ function StackNcutSection({ visible, refObj }: { visible: boolean; refObj: React
           }`}
       >
         <SectionTitle emoji="2024," title="스택네컷" subtitle="이벤트 행사를 위한 사진 촬영 서비스 출시" />
-        <Slider images={FIS_AWARD_IMAGES} fixedHeight={200} boxMaxWidth={760} />
+        <Slider images={STACK_IMAGES} fixedHeight={200} boxMaxWidth={760} />
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-4 w-full max-w-2xl mx-auto">
             <span className="text-blue-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
               누적 사용자 200명 이상
