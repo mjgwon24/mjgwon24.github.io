@@ -18,7 +18,7 @@ const STACK_IMAGES = [
     height: 250,
   },
   {
-    src: '/portfolio/stack-snapshot/thumb/thumb13.jpg',
+    src: '/portfolio/stack-snapshot/thumb/thumb13.webp',
     alt: '스택네컷 서비스 현장2',
     width: 340,
     height: 250,
@@ -57,7 +57,6 @@ const FIS_AWARD_IMAGES = [
         height: 250,
     }
 ];
-
 
 /**
  * 브라우저 창 높이 추적 및 창 크기 변경 시 업데이트된 높이 반환 훅
