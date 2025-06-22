@@ -8,10 +8,11 @@ import LinkCard from "@/components/home/LinkCard";
 import ProjectCard from "@/components/project/ProjectCard";
 import ProjectCardSkeleton from "@/components/project/ProjectCardSkeleton";
 import Link from "next/link";
+import Slider from "@/components/home/Slider";
 
 const STACK_IMAGES = [
   {
-    src: '/portfolio/stack-snapshot/thumb/thumb12.gif',
+    src: '/portfolio/stack-snapshot/thumb/th1.png',
     alt: '스택네컷 서비스 현장',
     width: 320,
     height: 250,
@@ -34,25 +35,19 @@ const FIS_AWARD_IMAGES = [
     {
         src: '/fisa/award/fisa1.webp',
         alt: '우리FIS 최종 프로젝트 시상식 현장 1',
-        width: 340,
+        width: 300,
         height: 250,
     },
     {
         src: '/fisa/award/fisa2.webp',
         alt: '우리FIS 최종 프로젝트 시상식 현장 2',
-        width: 300,
-        height: 250,
-    },
-    {
-        src: '/fisa/award/fisa3.webp',
-        alt: '우리FIS 최종 프로젝트 시상식 현장 3',
-        width: 300,
+        width: 260,
         height: 250,
     },
     {
         src: '/fisa/award/fisa4.webp',
         alt: '우리FIS 최종 프로젝트 시상식 현장 4',
-        width: 300,
+        width: 260,
         height: 250,
     }
 ];
@@ -178,234 +173,6 @@ function ClubSection({ visible, refObj, onImageLoad }: { visible: boolean; refOb
   );
 }
 
-function StackNcutSlider() {
-    const fixedHeight = 200;
-    const boxMaxWidth = 760;
-    const imageGap = 16;
-
-    const [slideBoxWidth, setSlideBoxWidth] = useState(0);
-    const [imagesLoaded, setImagesLoaded] = useState(false);
-    const [loadingCount, setLoadingCount] = useState(STACK_IMAGES.length);
-    const trackRef = useRef<HTMLDivElement>(null);
-
-    const resizedImages = STACK_IMAGES.map(img => {
-        const aspectRatio = img.width / img.height;
-        return {
-            ...img,
-            displayHeight: fixedHeight,
-            displayWidth: Math.round(fixedHeight * aspectRatio),
-        };
-    });
-
-    const totalTrackWidth = resizedImages.reduce(
-        (sum, img, idx) => sum + img.displayWidth + (idx < resizedImages.length - 1 ? imageGap : 0),
-        0
-    );
-
-    useEffect(() => {
-        function updateWidth() {
-            const vw = window.innerWidth;
-            setSlideBoxWidth(Math.max(320, Math.min(vw * 0.9, boxMaxWidth)));
-        }
-        updateWidth();
-        window.addEventListener('resize', updateWidth);
-        return () => window.removeEventListener('resize', updateWidth);
-    }, [boxMaxWidth]);
-
-    useEffect(() => {
-        setImagesLoaded(false);
-        setLoadingCount(STACK_IMAGES.length);
-    }, [STACK_IMAGES.length]);
-
-    useEffect(() => {
-        if (!imagesLoaded) return;
-        const start = Date.now();
-        let animationFrameId: number;
-        let current = 0;
-        function animate() {
-            const now = Date.now();
-            const elapsed = now - start;
-            current = (elapsed * 0.07) % totalTrackWidth;
-            if (trackRef.current) {
-                trackRef.current.style.transform = `translateX(-${current}px)`;
-            }
-            animationFrameId = requestAnimationFrame(animate);
-        }
-        animationFrameId = requestAnimationFrame(animate);
-        return () => cancelAnimationFrame(animationFrameId);
-    }, [totalTrackWidth, imagesLoaded]);
-
-    const handleImageLoad = () => {
-        setLoadingCount(prev => {
-            const newCount = prev - 1;
-            if (newCount === 0) setImagesLoaded(true);
-            return newCount;
-        });
-    };
-
-    return (
-        <div
-            className="relative overflow-hidden flex items-center rounded-xl shadow-lg border border-gray-700 bg-gray-900 my-6"
-            style={{
-                width: slideBoxWidth,
-                height: fixedHeight,
-                minWidth: 320,
-                maxWidth: boxMaxWidth,
-                margin: '0 auto',
-            }}
-        >
-            {!imagesLoaded && (
-                <div className="absolute inset-0 bg-gray-800 animate-pulse rounded-xl z-10"/>
-            )}
-            <div
-                ref={trackRef}
-                className="flex"
-                style={{
-                    width: totalTrackWidth * 2,
-                    opacity: imagesLoaded ? 1 : 0,
-                }}
-            >
-                {[...resizedImages, ...resizedImages].map((img, idx, arr) => (
-                    <div
-                        key={idx}
-                        className="flex flex-row items-center flex-shrink-0"
-                        style={{
-                            width: img.displayWidth,
-                            height: img.displayHeight,
-                            marginRight: idx !== arr.length - 1 ? imageGap : 0,
-                        }}
-                    >
-                        <Image
-                            src={img.src}
-                            alt={img.alt}
-                            width={img.displayWidth}
-                            height={img.displayHeight}
-                            style={{ display: 'block', borderRadius: '12px', objectFit: 'cover' }}
-                            priority={idx === 0}
-                            onLoad={handleImageLoad}
-                            onError={handleImageLoad}
-                        />
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-function FISAwardSlider() {
-    const fixedHeight = 220;
-    const boxMaxWidth = 760;
-    const imageGap = 16;
-
-    const [slideBoxWidth, setSlideBoxWidth] = useState(0);
-    const [imagesLoaded, setImagesLoaded] = useState(false);
-    const [loadingCount, setLoadingCount] = useState(FIS_AWARD_IMAGES.length);
-    const trackRef = useRef<HTMLDivElement>(null);
-
-    const resizedImages = FIS_AWARD_IMAGES.map(img => {
-        const aspectRatio = img.width / img.height;
-        return {
-            ...img,
-            displayHeight: fixedHeight,
-            displayWidth: Math.round(fixedHeight * aspectRatio),
-        };
-    });
-
-    const totalTrackWidth = resizedImages.reduce(
-        (sum, img, idx) => sum + img.displayWidth + (idx < resizedImages.length - 1 ? imageGap : 0),
-        0
-    );
-
-    useEffect(() => {
-        function updateWidth() {
-            const vw = window.innerWidth;
-            setSlideBoxWidth(Math.max(320, Math.min(vw * 0.9, boxMaxWidth)));
-        }
-        updateWidth();
-        window.addEventListener('resize', updateWidth);
-        return () => window.removeEventListener('resize', updateWidth);
-    }, [boxMaxWidth]);
-
-    useEffect(() => {
-        setImagesLoaded(false);
-        setLoadingCount(FIS_AWARD_IMAGES.length);
-    }, [FIS_AWARD_IMAGES.length]);
-
-    useEffect(() => {
-        if (!imagesLoaded) return;
-        const start = Date.now();
-        let animationFrameId: number;
-        let current = 0;
-        function animate() {
-            const now = Date.now();
-            const elapsed = now - start;
-            current = (elapsed * 0.07) % totalTrackWidth;
-            if (trackRef.current) {
-                trackRef.current.style.transform = `translateX(-${current}px)`;
-            }
-            animationFrameId = requestAnimationFrame(animate);
-        }
-        animationFrameId = requestAnimationFrame(animate);
-        return () => cancelAnimationFrame(animationFrameId);
-    }, [totalTrackWidth, imagesLoaded]);
-
-    const handleImageLoad = () => {
-        setLoadingCount(prev => {
-            const newCount = prev - 1;
-            if (newCount === 0) setImagesLoaded(true);
-            return newCount;
-        });
-    };
-
-    return (
-        <div
-            className="relative overflow-hidden flex items-center rounded-xl shadow-lg border border-gray-700 bg-gray-900 my-6"
-            style={{
-                width: slideBoxWidth,
-                height: fixedHeight,
-                minWidth: 320,
-                maxWidth: boxMaxWidth,
-                margin: '0 auto',
-            }}
-        >
-            {!imagesLoaded && (
-                <div className="absolute inset-0 bg-gray-800 animate-pulse rounded-xl z-10"/>
-            )}
-            <div
-                ref={trackRef}
-                className="flex"
-                style={{
-                    width: totalTrackWidth * 2,
-                    opacity: imagesLoaded ? 1 : 0,
-                }}
-            >
-                {[...resizedImages, ...resizedImages].map((img, idx, arr) => (
-                    <div
-                        key={idx}
-                        className="flex flex-row items-center flex-shrink-0"
-                        style={{
-                            width: img.displayWidth,
-                            height: img.displayHeight,
-                            marginRight: idx !== arr.length - 1 ? imageGap : 0,
-                        }}
-                    >
-                        <Image
-                            src={img.src}
-                            alt={img.alt}
-                            width={img.displayWidth}
-                            height={img.displayHeight}
-                            style={{ display: 'block', borderRadius: '12px', objectFit: 'cover' }}
-                            priority={idx === 0}
-                            onLoad={handleImageLoad}
-                            onError={handleImageLoad}
-                        />
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
-
 /**
  * 스택네컷 섹션 컴포넌트
  * @param visible 섹션 가시성 여부
@@ -420,23 +187,23 @@ function StackNcutSection({ visible, refObj }: { visible: boolean; refObj: React
           }`}
       >
         <SectionTitle emoji="2024," title="스택네컷" subtitle="이벤트 행사를 위한 사진 촬영 서비스 출시" />
-          <StackNcutSlider />
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-4 w-full max-w-2xl mx-auto">
+        <Slider images={STACK_IMAGES} fixedHeight={200} boxMaxWidth={760} />
+        <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-4 w-full max-w-2xl mx-auto">
             <span className="text-blue-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
               누적 사용자 200명 이상
             </span>
               <span className="text-blue-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
               생성된 이미지 1,000장 이상
             </span>
-          </div>
-          <Link href="/portfolio/stack-snapshot" target="_blank" rel="noopener noreferrer" className="mt-4">
-              <button className="cursor-pointer flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-blue-200 py-2 px-5 rounded-lg transition-all duration-300 border border-blue-400/30 hover:border-blue-400/50 shadow-sm hover:shadow-md">
-                  <span>프로젝트 상세 보기</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-              </button>
-          </Link>
+        </div>
+        <Link href="/portfolio/stack-snapshot" target="_blank" rel="noopener noreferrer" className="mt-4">
+            <button className="cursor-pointer flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-blue-200 py-2 px-5 rounded-lg transition-all duration-300 border border-blue-400/30 hover:border-blue-400/50 shadow-sm hover:shadow-md">
+                <span>프로젝트 상세 보기</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+          </button>
+        </Link>
       </div>
   );
 }
@@ -460,7 +227,7 @@ function FISAwardSection({ visible, refObj }: { visible: boolean; refObj: React.
                 subtitle="소비 데이터 기반 동적 금리 대출 서비스 구현"
             />
 
-            <FISAwardSlider />
+            <Slider images={FIS_AWARD_IMAGES} fixedHeight={220} boxMaxWidth={760} />
             <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-4 w-full max-w-2xl mx-auto">
                 <span className="text-blue-200 weight-500 text-base whitespace-nowrap"
                       style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
@@ -596,9 +363,6 @@ function LinksSection({ visible, refObj }: { visible: boolean; refObj: React.Ref
       </div>
   );
 }
-
-
-
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
