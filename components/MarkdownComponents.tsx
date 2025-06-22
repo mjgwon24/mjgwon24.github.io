@@ -14,7 +14,6 @@ const components: Components = {
     em: (props: React.HTMLAttributes<HTMLElement>) => <em className="italic" {...props} />,
     code: ({ className, children, ...props }: React.HTMLAttributes<HTMLElement> & { className?: string; children?: ReactNode }) => {
         const isCodeBlock = className?.startsWith('language-');
-        // 언어 추출 (예: language-java -> java)
         const match = /language-(\w+)/.exec(className || '');
         const language = match ? match[1] : '';
 
@@ -36,7 +35,7 @@ const components: Components = {
                 </SyntaxHighlighter>
             );
         }
-        // 인라인 코드 처리
+
         return (
             <code
                 className="bg-gray-800 text-blue-300 px-1 py-0.5 rounded text-sm"

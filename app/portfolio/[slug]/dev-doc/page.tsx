@@ -59,21 +59,21 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
     };
 
     return (
-        <div
-            className="relative min-h-screen pt-28 py-24 bg-gradient-to-b from-gray-900 to-black"
-            style={{ scrollBehavior: 'smooth' }}
-        >
+        <div className="relative min-h-screen pt-28 py-24 bg-gradient-to-b from-gray-900 to-black"
+             style={{ scrollBehavior: 'smooth' }}>
             <div className="space-y-24 max-w-3xl mx-auto">
 
                 <div className="relative container mx-auto px-4 flex flex-col items-center">
                     <div className="absolute top-4 left-4">
-                        <button                            type="button"
-                                                           onClick={() => window.history.back()}
-                                                           className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-800/60 text-white transition-all duration-300 cursor-pointer shadow-md"
-                                                           aria-label="뒤로 가기"
+                        <button
+                            type="button"
+                            onClick={() => window.history.back()}
+                            className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-800/60 text-white transition-all duration-300 cursor-pointer shadow-md"
+                            aria-label="뒤로 가기"
                         >
                             <IoArrowBack className="text-xl" />
-                        </button>                    </div>
+                        </button>
+                    </div>
                     <header className="text-center my-8 sm:my-12">
                         <h1 className="text-3xl sm:text-4xl weight-600 text-white mb-2 sm:mb-4">{projectDoc.projectName} 개발 문서</h1>
                         <p className="text-lg text-gray-300">{projectDoc.subtitle}</p>
@@ -101,7 +101,8 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
                                     </a>
                                 ))}
                             </nav>
-                        </div>                    </div>
+                        </div>
+                    </div>
                     {sections.map((section, index) => {
                         const sectionData = projectDoc.sections[section.id as keyof typeof projectDoc.sections];
                         if (!sectionData) {
@@ -111,8 +112,9 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
 
                         return (
                             <section key={section.id} id={section.id} className="scroll-mt-32 w-full max-w-3xl mx-auto my-6">
-                                <h2                                    onClick={() => setIsExpanded(!isExpanded)}
-                                                                       className="text-xl sm:text-2xl weight-600 mb-5 flex items-center space-x-3 select-none cursor-pointer hover:text-blue-300 transition-colors"
+                                <h2
+                                    onClick={() => setIsExpanded(!isExpanded)}
+                                    className="text-xl sm:text-2xl weight-600 mb-5 flex items-center space-x-3 select-none cursor-pointer hover:text-blue-300 transition-colors"
                                 >
                                     <div className="flex flex-row items-center justify-between w-full">
                                         <div className="flex flex-row items-center gap-2">
@@ -124,7 +126,8 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
                                         <span className="text-gray-400 ml-2 text-xs pr-2">
                                         {isExpanded ? '▲' : '▼'}
                                     </span>
-                                    </div>                                </h2>
+                                    </div>
+                                </h2>
                                 {isExpanded && (
                                     <div className="bg-gray-800/30 sm:p-8 p-6 rounded-xl transition-all duration-300">
                                         <div className="text-gray-200 weight-400 prose prose-invert prose-pre:bg-gray-800/50 prose-pre:border prose-pre:border-gray-700 max-w-none">
@@ -140,19 +143,24 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
 
                                             {sectionData.link && (
                                                 <div className="flex flex-row justify-center">
-                                                    <a                                                        href={sectionData.link.href}
-                                                                                                              target="_blank"
-                                                                                                              rel="noopener noreferrer"
-                                                                                                              className="group inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-900/60 to-blue-800/40 hover:from-blue-800/60 hover:to-blue-700/40 border border-blue-700/30 rounded-lg text-blue-200 hover:text-blue-100 text-sm transition-all duration-300 shadow-lg hover:shadow-blue-900/20"
+                                                    <a
+                                                        href={sectionData.link.href}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="group inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-900/60 to-blue-800/40 hover:from-blue-800/60 hover:to-blue-700/40 border border-blue-700/30 rounded-lg text-blue-200 hover:text-blue-100 text-sm transition-all duration-300 shadow-lg hover:shadow-blue-900/20"
                                                     >
                                                         {sectionData.link.text}
                                                         <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                                                        </svg>                                                    </a>                                                </div>                                            )}
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            )}
 
                                             {sectionData.image && <ImageModal image={{ ...sectionData.image, width: sectionData.image.width ?? 0, height: sectionData.image.height ?? 0 }} />}
                                         </div>
-                                    </div>                                )}
+                                    </div>
+                                )}
                             </section>
                         );
                     })}
@@ -165,9 +173,11 @@ const ProjectDetailPage = ({ params }: RouteParams) => {
                         aria-label="최상단으로 이동"
                     >
                         <FaArrowUp className="text-lg group-hover:animate-pulse" />
-                    </button>                )}
+                    </button>
+                )}
             </div>
-        </div>    );
+        </div>
+    );
 };
 
 export default ProjectDetailPage;
