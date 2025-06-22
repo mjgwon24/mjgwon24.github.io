@@ -47,6 +47,11 @@ export default function Slider({
     );
 
     useEffect(() => {
+        setImagesLoaded(false);
+        setLoadingCount(images.length);
+    }, [images]);
+
+    useEffect(() => {
         function updateWidth() {
             const vw = window.innerWidth;
             setSlideBoxWidth(Math.max(320, Math.min(vw * 0.9, boxMaxWidth)));
@@ -125,7 +130,6 @@ export default function Slider({
                             style={{ display: 'block', borderRadius: '12px', objectFit: 'cover' }}
                             priority={idx === 0}
                             onLoad={handleImageLoad}
-                            onError={handleImageLoad}
                         />
                     </div>
                 ))}
