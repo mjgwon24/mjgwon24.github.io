@@ -125,6 +125,7 @@ export default function Slider({
                             style={{ display: 'block', borderRadius: '12px', objectFit: 'cover' }}
                             priority={idx === 0}
                             onLoad={handleImageLoad}
+                            onError={handleImageLoad}
                         />
                     </div>
                 ))}
