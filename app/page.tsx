@@ -33,25 +33,25 @@ const STACK_IMAGES = [
 
 const FIS_AWARD_IMAGES = [
     {
-        src: '/fisa/award/fisa1.png',
+        src: '/fisa/award/fisa1.webp',
         alt: '우리FIS 최종 프로젝트 시상식 현장 1',
         width: 340,
         height: 250,
     },
     {
-        src: '/fisa/award/fisa2.png',
+        src: '/fisa/award/fisa2.webp',
         alt: '우리FIS 최종 프로젝트 시상식 현장 2',
         width: 300,
         height: 250,
     },
     {
-        src: '/fisa/award/fisa3.png',
+        src: '/fisa/award/fisa3.webp',
         alt: '우리FIS 최종 프로젝트 시상식 현장 3',
         width: 300,
         height: 250,
     },
     {
-        src: '/fisa/award/fisa4.png',
+        src: '/fisa/award/fisa4.webp',
         alt: '우리FIS 최종 프로젝트 시상식 현장 4',
         width: 300,
         height: 250,
