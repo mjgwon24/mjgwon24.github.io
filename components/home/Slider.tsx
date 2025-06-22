@@ -80,6 +80,11 @@ export default function Slider({
         return () => cancelAnimationFrame(animationFrameId);
     }, [totalTrackWidth, imagesLoaded]);
 
+    useEffect(() => {
+        setLoadingCount(images.length);
+        setImagesLoaded(false);
+    }, [images]);
+
     const handleImageLoad = () => {
         setLoadingCount(prev => {
             const newCount = prev - 1;
@@ -102,7 +107,7 @@ export default function Slider({
             }}
         >
             {!imagesLoaded && (
-                <div className="absolute inset-0 bg-gray-800 animate-pulse rounded-xl z-10"/>
+                <div className="absolute inset-0 bg-gray-800 animate-pulse rounded-xl z-10" />
             )}
             <div
                 ref={trackRef}
@@ -130,6 +135,7 @@ export default function Slider({
                             style={{ display: 'block', borderRadius: '12px', objectFit: 'cover' }}
                             priority={idx === 0}
                             onLoad={handleImageLoad}
+                            onError={handleImageLoad}
                         />
                     </div>
                 ))}
