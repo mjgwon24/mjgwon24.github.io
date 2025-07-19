@@ -124,7 +124,7 @@ export const projectsData = [
     },{
         image: '/portfolio/secubox.png',
         title: '보안 교육 시뮬레이션 개발',
-        period: '25.02~pause',
+        period: '25.02~25.04',
         organization: '정보보안 SW 웹/앱 개발 공모전',
         description: '차세대 산업 보안 시뮬레이터 웹 플랫폼, SECUBOX입니다. 드래그 앤 드롭을 통해 쉽게 커스텀 네트워크 환경을 구성할 수 있으며, 공격 및 방어 시뮬레이션을 실행해 직접 보안 테스트를 진행할 수 있습니다.',
         detailedDescription: '산업별 사이버 위협이 증가하는 가운데, 이론 중심의 기존 보안 교육은 실전 대응력이 부족합니다. ' +
@@ -136,21 +136,42 @@ export const projectsData = [
             '• 금융, 제조, 스마트 시티 등 특화된 시나리오 제공하여 산업별 맞춤형 보안 훈련 가능\n' +
             '• 다양한 공격 및 방어 모듈을 활용한 실전 시뮬레이션 실습 가능\n' +
             '• 별도 구축 없이 언제 어디서나 보안 훈련을 수행할 수 있는 웹 기반 환경',
-        roles: ['Back', 'Front', 'Design'],
+        roles: ['Back', 'Front', 'Infra', 'Design'],
         tags: ['WEB', 'Security', 'Education'],
-        techStacks: ['Spring Boot', 'React', 'MySQL', 'Docker', 'JavaScript', 'HTML/CSS', 'Node.js', 'Git'],
+        techStacks: ['Spring Boot', 'QueryDSL', 'WebSocket', 'React', 'Redux', 'MySQL', 'AWS', 'Docker', 'Kubernetes', 'Jenkins', 'Git'],
         rolesAndContributions: [
             {
                 role: 'Backend',
                 contributions:`
-- 보안 시뮬레이션을 위한 공격, 방어 모듈 개발 및 관리
+- 사용자 커스텀 네트워크 구성 정보 구조화 및 관리
+- 실시간 공격/방어 시나리오 실행 로직 구현
+- SYN flood, DDoS 보안 이벤트 탐지 및 실시간 알림 시스템 개발
+- 네트워크 객체 및 이벤트 이력 데이터 조회 \`QueryDSL\` 기반 최적화
+- 운영 로그 및 감사 이력 관리
+- \`DTO\`/\`Mapper\` 표준화
 - 사용자 인증 및 권한 관리 기능 구현
+- \`Builder\`/\`record\` 기반 DTO, \`CQRS\` 구조, 테스트 자동화 적용
                 `
             },
             {
                 role: 'Frontend',
                 contributions: `
-- 사용자 인증 및 권한 관리
+- 네트워크 시각화 엔진 및 Drag&Drop UI 설계/구현
+- 공격/방어 시나리오 실행 패널 및 실시간 로그 뷰어 개발
+- \`Redux\` 기반 대규모 상태관리 구조 설계 및 퍼포먼스 최적화
+- 백엔드와의 실시간 \`WebSocket\` 연동 및 에러 핸들링
+- 사용자 중심 시나리오 선택/환경 저장 기능 개발
+- 교육 효과를 높이기 위한 UX 설계 및 인터랙션 강화
+                `
+            },
+            {
+                role: 'Infra',
+                contributions:`
+- AWS 기반 클라우드 인프라 설계 및 IaC(Terraform, CDK)로 자동화 구축
+- \`Docker\`/\`Kubernetes\` 기반 격리된 네트워크 환경 제공, 실습 시나리오별 동적 리소스 할당
+- \`Prometheus\`, \`ELK\`, \`Grafana\`로 실시간 모니터링 및 경보 시스템 구축
+- \`Spring Security\`, \`HTTPS\` 인증/인가 및 데이터 보안 강화
+- \`GitHub Actions\`, \`Jenkins\` 기반 CI/CD 및 배포 자동화 파이프라인 구축
                 `
             },
             {
@@ -161,6 +182,13 @@ export const projectsData = [
             }
         ],
         slug: 'secubox',
+        achievements: [
+            {
+                title: '정보보안 SW 웹/앱 개발 공모전 본선 진출',
+                description: '정보보안 SW 웹/앱 개발 공모전 본선 진출',
+                date: '2025.04',
+            }
+        ],
         detailImages: [
             '/portfolio/details/secubox-detail1.png',
             '/portfolio/details/secubox-detail2.png',
@@ -517,47 +545,48 @@ export const projectsData = [
             '/portfolio/gyeongju-night/thumb/thumb7.png',
             '/portfolio/gyeongju-night/thumb/thumb8.png'
         ]
-    },{
-        image: '/portfolio/developer.png',
-        title: '개발동아리 사이트 개발',
-        period: '24.07~24.12',
-        organization: 'DEVELOPER',
-        description: '동국대학교 개발 동아리 DEVELOPER의 공식 사이트입니다. 동아리 성과, 활동 내용, 부원 현황 등의 동아리 관련 정보를 제공해줍니다.',
-        roles: ['Front', 'Planning', 'Design'],
-        tags: ['WEB', 'Community'],
-        techStacks: ['React', 'JavaScript', 'HTML/CSS', 'Node.js', 'Tailwind CSS', 'Git'],
-        rolesAndContributions: [
-            {
-                role: 'Frontend',
-                contributions:`
-SPA 기반 동적 웹 페이지 개발
-                `
-            },
-            {
-                role: 'Designer',
-                contributions: `
-동아리 로고 및 웹사이트 디자인
-                `
-            }
-        ],
-        achievements: [
-            {
-                title: 'IT동아리 DEVELOPER 공식 사이트',
-                description: '동국대학교 IT동아리 DEVELOPER 공식 사이트로 사용중',
-                date: '2024.12.01',
-            }
-        ],
-        slug: 'developer',
-        links: {
-            github: 'https://github.com/mjgwon24/developer2023-web',
-            live: 'https://www.developer2023.com/',
-        },
-        detailImages: [
-            '/portfolio/details/developer/developer-detail1.png',
-            '/portfolio/details/developer/developer-detail2.png',
-            '/portfolio/details/developer/developer-detail3.png'
-        ]
-    }
+    },
+//     {
+//         image: '/portfolio/developer.png',
+//         title: '개발동아리 사이트 개발',
+//         period: '24.07~24.12',
+//         organization: 'DEVELOPER',
+//         description: '동국대학교 개발 동아리 DEVELOPER의 공식 사이트입니다. 동아리 성과, 활동 내용, 부원 현황 등의 동아리 관련 정보를 제공해줍니다.',
+//         roles: ['Front', 'Planning', 'Design'],
+//         tags: ['WEB', 'Community'],
+//         techStacks: ['React', 'JavaScript', 'HTML/CSS', 'Node.js', 'Tailwind CSS', 'Git'],
+//         rolesAndContributions: [
+//             {
+//                 role: 'Frontend',
+//                 contributions:`
+// SPA 기반 동적 웹 페이지 개발
+//                 `
+//             },
+//             {
+//                 role: 'Designer',
+//                 contributions: `
+// 동아리 로고 및 웹사이트 디자인
+//                 `
+//             }
+//         ],
+//         achievements: [
+//             {
+//                 title: 'IT동아리 DEVELOPER 공식 사이트',
+//                 description: '동국대학교 IT동아리 DEVELOPER 공식 사이트로 사용중',
+//                 date: '2024.12.01',
+//             }
+//         ],
+//         slug: 'developer',
+//         links: {
+//             github: 'https://github.com/mjgwon24/developer2023-web',
+//             live: 'https://www.developer2023.com/',
+//         },
+//         detailImages: [
+//             '/portfolio/details/developer/developer-detail1.png',
+//             '/portfolio/details/developer/developer-detail2.png',
+//             '/portfolio/details/developer/developer-detail3.png'
+//         ]
+//     }
 ];
 
 export const linkCardsData = [
