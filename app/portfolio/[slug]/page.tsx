@@ -101,14 +101,15 @@ export default function ProjectDetail() {
                                        ${idx === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
                                 onClick={() => openImageModal(imgSrc)}
                             >
-                                <Image                                    src={imgSrc}
-                                                                          alt={`${project.title} ${idx === 0 ? '대표 이미지' : `스크린샷 ${idx}`}`}
-                                                                          fill
-                                                                          className="object-contain"
-                                                                          style={{borderRadius: '0.5rem'}}
-                                                                          priority={idx === 0} // 첫 번째 이미지 우선 로딩
+                                <Image src={imgSrc}
+                                       alt={`${project.title} ${idx === 0 ? '대표 이미지' : `스크린샷 ${idx}`}`}
+                                       fill
+                                       className="object-contain"
+                                       style={{borderRadius: '0.5rem'}}
+                                       priority={idx === 0} // 첫 번째 이미지 우선 로딩
                                 />
-                            </div>                        ))}
+                            </div>
+                        ))}
 
                         {allImages.length > 1 && (
                             <div className="absolute bottom-4 left-0 right-0 z-20 flex justify-center gap-2">
@@ -129,19 +130,21 @@ export default function ProjectDetail() {
 
                     {allImages.length > 1 && (
                         <>
-                            <button                                onClick={prevSlide}
-                                                                   className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-black/10 hover:bg-blue-500/20 text-gray-400 hover:text-blue-400 p-2 rounded-full transition-all duration-200"
-                                                                   aria-label="이전 이미지"
-                            >
+                            <button onClick={prevSlide}
+                                    className="absolute left-2 top-1/2 -translate-y-1/2 z-20 bg-black/10 hover:bg-blue-500/20 text-gray-400 hover:text-blue-400 p-2 rounded-full transition-all duration-200"
+                                    aria-label="이전 이미지">
                                 <ChevronLeft size={24} />
-                            </button>                            <button                                onClick={nextSlide}
-                                                                                                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-black/10 hover:bg-blue-500/20 text-gray-400 hover:text-blue-400 p-2 rounded-full transition-all duration-200"
-                                                                                                        aria-label="다음 이미지"
-                        >
-                            <ChevronRight size={24} />
-                        </button>                        </>                    )}
+                            </button>
+                            <button onClick={nextSlide}
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 z-20 bg-black/10 hover:bg-blue-500/20 text-gray-400 hover:text-blue-400 p-2 rounded-full transition-all duration-200"
+                                    aria-label="다음 이미지">
+                                <ChevronRight size={24} />
+                            </button>
+                        </>
+                    )}
                 </div>
-            </div>        );
+            </div>
+        );
     };
 
     const renderOtherProjects = () => {
@@ -181,25 +184,31 @@ export default function ProjectDetail() {
                                         ))}
                                     </div>
                                     <h3 className="text-lg font-semibold text-white">{proj.title}</h3>
-                                </div>                            </div>                            <div className="p-4">
-                            <p className="text-sm text-gray-400 line-clamp-2">{proj.description}</p>
-                            <div className="flex items-center justify-between mt-4">
-                                <div className="flex gap-1.5">
-                                    {proj.roles.slice(0, 2).map((role, idx) => (
-                                        <span
-                                            key={idx}
-                                            className="bg-green-500/10 text-green-400 px-2 py-0.5 rounded-md text-xs"
-                                        >
-                                            {role}
-                                        </span>
-                                    ))}
-                                    {proj.roles.length > 2 && (
-                                        <span className="text-xs text-gray-500 self-center">+{proj.roles.length - 2}</span>
-                                    )}
                                 </div>
-                            </div>                            </div>                        </Link>                    ))}
+                            </div>
+                            <div className="p-4">
+                                <p className="text-sm text-gray-400 line-clamp-2">{proj.description}</p>
+                                <div className="flex items-center justify-between mt-4">
+                                    <div className="flex gap-1.5">
+                                        {proj.roles.slice(0, 2).map((role, idx) => (
+                                            <span
+                                                key={idx}
+                                                className="bg-green-500/10 text-green-400 px-2 py-0.5 rounded-md text-xs"
+                                            >
+                                                {role}
+                                            </span>
+                                        ))}
+                                        {proj.roles.length > 2 && (
+                                            <span className="text-xs text-gray-500 self-center">+{proj.roles.length - 2}</span>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
-            </div>        );
+            </div>
+        );
     };
 
     if (loading) {
@@ -210,31 +219,31 @@ export default function ProjectDetail() {
         return (
             <div className="flex flex-col items-center justify-center min-h-screen pt-28">
                 <h1 className="text-3xl weight-600 sm:weight-700 mb-4">프로젝트를 찾을 수 없습니다</h1>
-                <Link                    href="/portfolio"
-                                         className="flex items-center gap-2 text-blue-500 hover:text-blue-400 transition-colors"
-                >
+                <Link href="/portfolio"
+                      className="flex items-center gap-2 text-blue-500 hover:text-blue-400 transition-colors">
                     <ArrowLeft size={16} />
                     <span>포트폴리오로 돌아가기</span>
-                </Link>            </div>        );
+                </Link>
+            </div>
+        );
     }
 
     return (
         <div className="relative min-h-screen pt-28 pb-20">
-            <div                className="absolute inset-0 z-0"
-                                style={{
-                                    background: "radial-gradient(131.64% 50.74% at 97.42% 14.64%, rgba(73, 149, 236, 0.30) 0%, rgba(41, 85, 134, 0.00) 70%)"
-                                }}
+            <div className="absolute inset-0 z-0"
+                 style={{
+                     background: "radial-gradient(131.64% 50.74% at 97.42% 14.64%, rgba(73, 149, 236, 0.30) 0%, rgba(41, 85, 134, 0.00) 70%)"
+                 }}
             />
 
             <div className="relative z-10 container mx-auto px-4 py-8">
-                <Link                    href="/portfolio"
-                                         className="inline-flex items-center gap-2 mb-6 text-gray-300 hover:text-blue-500 transition-colors"
-                >
+                <Link href="/portfolio"
+                      className="inline-flex items-center gap-2 mb-6 text-gray-300 hover:text-blue-500 transition-colors">
                     <ArrowLeft size={16} />
                     <span>포트폴리오로 돌아가기</span>
                 </Link>
                 <div className="flex flex-col gap-0.5 sm:gap-2 sm:mb-5 max-w-3xl mx-auto">
-                    <div                        className="flex flex-col-reverse md:flex-row gap-2 justify-between items-start md:items-center">
+                    <div className="flex flex-col-reverse md:flex-row gap-2 justify-between items-start md:items-center">
                         <h1 className="text-white text-2xl md:text-4xl weight-600 sm:weight-700">{project.title}</h1>
                         <div className="sm:bg-gradient-to-r sm:from-blue-500/10 sm:to-blue-400/5 sm:backdrop-blur-sm sm:border sm:border-blue-500/20 rounded-md sm:px-2 sm:py-0.5">
                             <p className="text-xs sm:text-sm text-gray-300 sm:text-blue-400">{project.period}</p>
@@ -253,11 +262,11 @@ export default function ProjectDetail() {
                                         href={`/portfolio/${project.slug}/dev-doc`}
                                         className="flex items-center gap-1.5 sm:gap-2 sm:px-5 sm:py-2.5 px-3 py-1 rounded-lg border border-green-900 bg-green-500/10 text-green-400 hover:bg-green-500/20 transition-colors duration-200"
                                     >
-                                        <LucideFileText                                            size={20}
-                                                                                                   className="opacity-80 text-green-200"
-                                        />
-                                        <span                                            className="text-green-200 sm:text-[16px] text-xs">Development Document</span>
-                                    </a>                                )}
+                                        <LucideFileText size={20}
+                                                        className="opacity-80 text-green-200"/>
+                                        <span className="text-green-200 sm:text-[16px] text-xs">Development Document</span>
+                                    </a>
+                                )}
                                 {project.links.github && (
                                     <a
                                         href={project.links.github}
@@ -265,11 +274,11 @@ export default function ProjectDetail() {
                                         rel="noopener noreferrer"
                                         className="flex items-center gap-1.5 sm:gap-2 sm:px-5 sm:py-2.5 px-3 py-1 rounded-lg border border-gray-700 bg-black-05p hover:bg-black-10p transition-colors duration-200"
                                     >
-                                        <Image                                            src="/icon/github.svg"
-                                                                                          width={20}
-                                                                                          height={20}
-                                                                                          alt="GitHub"
-                                                                                          className="opacity-80"
+                                        <Image src="/icon/github.svg"
+                                               width={20}
+                                               height={20}
+                                               alt="GitHub"
+                                               className="opacity-80"
                                         />
                                         <span className="text-gray-200 sm:text-[16px] text-xs">GitHub</span>
                                     </a>                                )}
@@ -321,20 +330,23 @@ export default function ProjectDetail() {
                                          className="bg-black-05p rounded-lg border border-gray-800/50 px-5 pt-3 pb-4">
                                         <h3 className="text-lg font-semibold mb-2 sm:mb-3 pl-1 text-blue-400">{item.role}</h3>
                                         <div className="pl-1 text-gray-300 space-y-2">
-                                            <ReactMarkdown                                                remarkPlugins={[remarkGfm]}
-                                                                                                          rehypePlugins={[rehypeRaw, rehypeHighlight]}
-                                                                                                          components={{ ...components }}
+                                            <ReactMarkdown remarkPlugins={[remarkGfm]}
+                                                           rehypePlugins={[rehypeRaw, rehypeHighlight]}
+                                                           components={{ ...components }}
                                             >
                                                 {item.contributions}
                                             </ReactMarkdown>
-                                        </div>                                    </div>                                ))}
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         ) : (
                             <ul className="list-disc pl-5 text-gray-300 space-y-2">
                                 <li>프로젝트의 아키텍처 설계 및 핵심 기능 구현</li>
                                 <li>팀원들과의 협업을 통한 효율적인 개발 프로세스 구축</li>
                                 <li>사용자 피드백을 반영한 지속적인 개선 작업</li>
-                            </ul>                        )}
+                            </ul>
+                        )}
                     </div>
 
                     <div className="mb-8">
@@ -362,8 +374,8 @@ export default function ProjectDetail() {
                                     key={index}
                                     className="bg-blue-900/20 text-blue-300 px-3 py-1 rounded-md text-sm select-none"
                                 >
-                {techStack}
-            </span>
+                                    {techStack}
+                                </span>
                             ))}
                         </div>
                     </div>
@@ -379,11 +391,12 @@ export default function ProjectDetail() {
                                             href={`/portfolio/${project.slug}/dev-doc`}
                                             className="flex items-center gap-1.5 sm:gap-2 sm:px-5 sm:py-2.5 px-3 py-1 rounded-lg border border-green-900 bg-green-500/10 text-green-400 hover:bg-green-500/20 transition-colors duration-200"
                                         >
-                                            <LucideFileText                                                size={20}
-                                                                                                           className="opacity-80 text-green-200"
+                                            <LucideFileText size={20}
+                                                            className="opacity-80 text-green-200"
                                             />
-                                            <span                                                className="text-green-200 sm:text-[16px] text-xs">Development Document</span>
-                                        </a>                                    )}
+                                            <span className="text-green-200 sm:text-[16px] text-xs">Development Document</span>
+                                        </a>
+                                    )}
                                     {project.links.github && (
                                         <a
                                             href={project.links.github}
@@ -391,11 +404,11 @@ export default function ProjectDetail() {
                                             rel="noopener noreferrer"
                                             className="flex items-center gap-1.5 sm:gap-2 sm:px-5 sm:py-2.5 px-3 py-1 rounded-lg border border-gray-700 bg-black-05p hover:bg-black-10p transition-colors duration-200"
                                         >
-                                            <Image                                                src="/icon/github.svg"
-                                                                                                  width={20}
-                                                                                                  height={20}
-                                                                                                  alt="GitHub"
-                                                                                                  className="opacity-80"
+                                            <Image src="/icon/github.svg"
+                                                   width={20}
+                                                   height={20}
+                                                   alt="GitHub"
+                                                   className="opacity-80"
                                             />
                                             <span className="text-gray-200 sm:text-[16px] text-xs">GitHub</span>
                                         </a>                                    )}
@@ -407,9 +420,11 @@ export default function ProjectDetail() {
                                             className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-blue-500/10 text-blue-400 hover:bg-blue-500/20 transition-colors duration-200 sm:text-[16px] text-xs"
                                         >
                                             <span>Visit Service</span>
-                                        </a>                                    )}
+                                        </a>
+                                    )}
                                 </div>
-                            </div>                        )}
+                            </div>
+                        )}
                     </div>
 
                     {renderOtherProjects()}
@@ -419,28 +434,36 @@ export default function ProjectDetail() {
                             className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
                             onClick={closeImageModal}
                         >
-                            <div className="relative max-w-4xl max-h-[90vh] w-full">
-                                <button                                    className="absolute -top-12 right-0 text-white p-2 rounded-full hover:bg-gray-800/50"
-                                                                           onClick={closeImageModal}
+                            <div className="relative top-5 max-w-4xl max-h-[90vh] w-full">
+                                <button className="absolute -top-12 right-0 text-white p-2 rounded-full hover:bg-gray-800/50"
+                                        onClick={closeImageModal}
                                 >
                                     <X size={24}/>
-                                </button>                                <Image                                    src={selectedImage}
-                                                                                                                   alt="확대된 이미지"
-                                                                                                                   width={1200}
-                                                                                                                   height={800}
-                                                                                                                   className="w-full h-auto object-contain rounded-lg"
-                                                                                                                   onClick={(e) => e.stopPropagation()}
-                            />
-                            </div>                        </div>                    )}
+                                </button>
+                                <Image src={selectedImage}
+                                       alt="확대된 이미지"
+                                       width={1200}
+                                       height={800}
+                                       className="w-full h-auto max-w-full max-h-full object-contain rounded-lg"
+                                       style={{
+                                           maxWidth: '90vw',
+                                           maxHeight: '80vh',
+                                       }}
+                                       onClick={closeImageModal}
+                                />
+                            </div>
+                        </div>
+                    )}
                 </div>
             </div>
 
-            <div                className="absolute bottom-0 left-0 right-0 h-60 z-0"
-                                style={{
-                                    background: "linear-gradient(180deg, rgba(41, 85, 134, 0.00) 0%, rgba(73, 149, 236, 0.30) 100%)"
-                                }}
+            <div className="absolute bottom-0 left-0 right-0 h-60 z-0"
+                 style={{
+                     background: "linear-gradient(180deg, rgba(41, 85, 134, 0.00) 0%, rgba(73, 149, 236, 0.30) 100%)"
+                 }}
             />
-        </div>    );
+        </div>
+    );
 }
 
 const ProjectDetailSkeleton = () => {
@@ -453,20 +476,24 @@ const ProjectDetailSkeleton = () => {
                     <div className="flex flex-col md:flex-row gap-6 justify-between items-start md:items-center mb-6">
                         <div className="h-10 w-64 bg-gray-700/30 rounded"/>
                         <div className="h-8 w-28 bg-gray-700/30 rounded"/>
-                    </div>                    <div className="h-6 w-48 bg-gray-700/30 rounded"/>
+                    </div>
+                    <div className="h-6 w-48 bg-gray-700/30 rounded"/>
                 </div>
                 <div className="rounded-lg overflow-hidden mb-5 w-full max-w-3xl mx-auto">
                     <div className="relative h-[250px] sm:h-[450px] bg-gray-700/30 rounded-lg">
                         <div className="absolute top-1/2 -translate-y-1/2 left-2">
                             <div className="w-10 h-10 rounded-full bg-gray-700/40"/>
-                        </div>                        <div className="absolute top-1/2 -translate-y-1/2 right-2">
+                        </div>
+                        <div className="absolute top-1/2 -translate-y-1/2 right-2">
                         <div className="w-10 h-10 rounded-full bg-gray-700/40"/>
                     </div>
                         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
                             <div className="w-4 h-2 rounded-full bg-gray-700/40"/>
                             <div className="w-2 h-2 rounded-full bg-gray-700/40"/>
                             <div className="w-2 h-2 rounded-full bg-gray-700/40"/>
-                        </div>                    </div>                </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="max-w-3xl mx-auto">
                     <div className="mb-5">
                         <div className="h-8 w-48 bg-gray-700/30 rounded mb-4"/>
@@ -479,7 +506,8 @@ const ProjectDetailSkeleton = () => {
                         <div className="flex gap-2 mb-4">
                             <div className="h-8 w-20 bg-gray-700/30 rounded"/>
                             <div className="h-8 w-20 bg-gray-700/30 rounded"/>
-                        </div>                        <div className="h-4 w-full bg-gray-700/30 rounded mb-2"/>
+                        </div>
+                        <div className="h-4 w-full bg-gray-700/30 rounded mb-2"/>
                         <div className="h-4 w-full bg-gray-700/30 rounded mb-2"/>
                         <div className="h-4 w-3/4 bg-gray-700/30 rounded"/>
                     </div>
@@ -489,13 +517,17 @@ const ProjectDetailSkeleton = () => {
                             <div className="h-8 w-16 bg-gray-700/30 rounded"/>
                             <div className="h-8 w-16 bg-gray-700/30 rounded"/>
                             <div className="h-8 w-16 bg-gray-700/30 rounded"/>
-                        </div>                    </div>                </div>            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="max-w-3xl mx-auto mt-8">
                 <div className="h-8 w-48 bg-gray-700/30 rounded mb-6"/>
                 <div className="relative h-[300px] sm:h-[400px] bg-gray-700/30 rounded-lg">
                     <div className="absolute inset-y-0 left-2 flex items-center">
                         <div className="w-10 h-10 rounded-full bg-gray-700/40"/>
-                    </div>                    <div className="absolute inset-y-0 right-2 flex items-center">
+                    </div>
+                    <div className="absolute inset-y-0 right-2 flex items-center">
                     <div className="w-10 h-10 rounded-full bg-gray-700/40"/>
                 </div>
                     <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
@@ -503,7 +535,9 @@ const ProjectDetailSkeleton = () => {
                         <div className="w-2 h-2 rounded-full bg-gray-700/40"/>
                         <div className="w-2 h-2 rounded-full bg-gray-700/40"/>
                         <div className="w-2 h-2 rounded-full bg-gray-700/40"/>
-                    </div>                </div>            </div>
+                    </div>
+                </div>
+            </div>
             <div className="max-w-5xl mx-auto mt-20">
                 <div className="h-8 w-48 bg-gray-700/30 rounded mb-8"/>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -514,16 +548,25 @@ const ProjectDetailSkeleton = () => {
                                     <div className="flex gap-2 mb-2">
                                         <div className="h-5 w-16 bg-gray-700/40 rounded"/>
                                         <div className="h-5 w-16 bg-gray-700/40 rounded"/>
-                                    </div>                                    <div className="h-6 w-36 bg-gray-700/40 rounded"/>
-                                </div>                            </div>                            <div className="p-4">
-                            <div className="h-4 w-full bg-gray-700/30 rounded mb-2"/>
-                            <div className="h-4 w-2/3 bg-gray-700/30 rounded mb-4"/>
-                            <div className="flex items-center justify-between">
-                                <div className="flex gap-1">
-                                    <div className="h-5 w-16 bg-gray-700/40 rounded"/>
-                                    <div className="h-5 w-16 bg-gray-700/40 rounded"/>
-                                </div>                                    <div className="h-4 w-16 bg-gray-700/40 rounded"/>
-                            </div>                            </div>                        </div>                    ))}
+                                    </div>
+                                    <div className="h-6 w-36 bg-gray-700/40 rounded"/>
+                                </div>
+                            </div>
+                            <div className="p-4">
+                                <div className="h-4 w-full bg-gray-700/30 rounded mb-2"/>
+                                <div className="h-4 w-2/3 bg-gray-700/30 rounded mb-4"/>
+                                <div className="flex items-center justify-between">
+                                    <div className="flex gap-1">
+                                        <div className="h-5 w-16 bg-gray-700/40 rounded"/>
+                                        <div className="h-5 w-16 bg-gray-700/40 rounded"/>
+                                    </div>
+                                    <div className="h-4 w-16 bg-gray-700/40 rounded"/>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            </div>        </div>    );
+            </div>
+        </div>
+    );
 };
