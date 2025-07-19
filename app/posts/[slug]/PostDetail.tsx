@@ -144,7 +144,7 @@ export default function PostDetail({ slug }: { slug: string }) {
 
         return (
             <div className="bg-black-05p border border-gray-800/50 rounded-xl p-5">
-                <h3 className="text-lg font-semibold mb-4">목차</h3>
+                <h3 className="text-white text-lg font-semibold mb-4">목차</h3>
                 <nav>
                     <ul className="space-y-2">
                         {toc.map(item => (
@@ -214,7 +214,7 @@ export default function PostDetail({ slug }: { slug: string }) {
                                 post.category === 'cs' ? 'CS 지식' : '알고리즘'}
                         </div>
 
-                        <h1 className="text-3xl md:text-4xl weight-700 mb-4">{post.title}</h1>
+                        <h1 className="text-white text-3xl md:text-4xl weight-700 mb-4">{post.title}</h1>
                         <p className="text-gray-300 text-lg mb-6">{post.description}</p>
 
                         <div className="flex flex-row justify-between items-center w-full mb-4">
@@ -262,7 +262,7 @@ export default function PostDetail({ slug }: { slug: string }) {
                         </div>
 
                         <div className="mb-10">
-                            <div className="prose prose-invert prose-blue max-w-none">
+                            <div className="text-white prose prose-invert prose-blue max-w-none">
                                 <ReactMarkdown
                                     remarkPlugins={[remarkGfm]}
                                     rehypePlugins={[rehypeRaw]}
