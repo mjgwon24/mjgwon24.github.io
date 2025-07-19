@@ -578,7 +578,7 @@ export const linkCardsData = [
         title: '기술 포스팅',
         description: '사용했던 기술, 활동 회고와 관련된\n포스팅을 확인해보실 수 있습니다.',
         linkText: '보러가기',
-        href: '/about'
+        href: '/posts'
     },
     {
         title: 'Github',
@@ -600,7 +600,7 @@ export const aboutCardsData = [
         title: '기술 포스팅',
         description: '사용했던 기술, 활동 회고와 관련된\n포스팅을 확인해보실 수 있습니다.',
         linkText: '보러가기',
-        href: '/about'
+        href: '/posts'
     },
     {
         title: 'Github',
