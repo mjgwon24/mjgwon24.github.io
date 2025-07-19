@@ -34,8 +34,8 @@ export default function About() {
                     <p className="text-gray-200 leading-relaxed text-start">
                         <span className="weight-700 text-blue-300 lg:text-lg">Step By Step, 꾸준함을 아는 개발자</span>
                         <br/><br/>
-                        4.5점 만점으로 학과 수석을 여러 차례 기록하며 기본기를 다졌고, 조교와 멘토링 활동을 하며 집단 전체의 성장을 위해 노력해왔습니다.<br/><br/>
-                        주말에는 동기들과 디스코드로 개발 스터디를 꾸준히 진행하며, 하루 평균 9시간 이상 개발에 몰입하는 생활을 이어가고 있습니다.<br/><br/>
+                        4.5점 만점으로 학과 수석을 여러 차례 기록하며 기본기를 다졌고, 개발동아리를 설립해 멘토링 활동을 하며 집단 전체의 성장을 위해 노력해왔습니다.<br/><br/>
+                        매일 온라인 개발 스터디를 꾸준히 진행하며, 하루 평균 9시간 이상 개발에 몰입하는 생활을 이어가고 있습니다.<br/><br/>
                         코드를 작성하며 서비스가 점차 완성되어 가는 모습을 볼 때 가장 큰 행복을 느낍니다.<br/><br/>
                         저의 인생 목표는 사람들이 원하는 서비스를 개발하여, 그들의 일상에 긍정적인 영향을 미치는 개발자가 되는 것입니다.<br/>
                     </p>
@@ -68,7 +68,7 @@ export default function About() {
                         <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
                             <h3 className="text-lg weight-600 mb-3 text-blue-300">AI 활용</h3>
                             <p className="text-gray-200 leading-relaxed">
-                                • 문서 자동화 및 테스트 시나리오, 코드 도출<br/>
+                                • 문서 자동화 및 테스트 시나리오 도출<br/>
                                 • 코파일럿 AI 코드리뷰를 통해 PR 승인 속도를 높여 개발 생산성 향상<br/>
                                 • 할루시네이션 현상 최소화를 위한 결과 교차 검증 및 공식 문서 기반 재확인
                             </p>
@@ -118,7 +118,7 @@ export default function About() {
                                 </div>
                                 <ul className="text-gray-200 leading-relaxed list-disc pl-5 space-y-1">
                                     <li>구매, 영업, 생산, 원가, 외주를 포함하는 총 201개의 메뉴에 대한 출력물 표준 템플릿 개발 및 적용</li>
-                                    <li>매일 하루 3번 Git, FileZilla, 쉘 스크립트를 통해 개발 코드 AWS EC2에 배포</li>
+                                    <li>매일 하루 3번 Git, FileZilla, 쉘 스크립트를 통해 개발 코드 배포</li>
                                     <li>코드 검토 및 빌드 테스트 진행</li>
                                     <li>매주 &#39;ERP개발부서 개발 역량 강화를 위한 지식 공유&#39; 발표 진행 (SpringBoot, JPA, SQL 튜닝, React)</li>
                                 </ul>
@@ -130,7 +130,7 @@ export default function About() {
                                     <span className="text-gray-400 text-sm">2023.06 ~ 2024.12</span>
                                 </div>
                                 <ul className="text-gray-200 leading-relaxed list-disc pl-5 space-y-1">
-                                    <li>IT 동아리 DEVELOPER 사이트 제작 및 유지보수</li>
+                                    <li>개발 지식 멘토링</li>
                                     <li>하위 팀 구성 및 프로젝트 진척사항 관리, 운영</li>
                                 </ul>
                             </div>
