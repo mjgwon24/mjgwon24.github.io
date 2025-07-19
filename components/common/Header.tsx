@@ -43,7 +43,7 @@ const Header = () => {
         try {
             document.execCommand('copy');
             showToast(`클립보드에 ${message} 복사되었습니다`);
-        } catch (err) {
+        } catch {
             showToast(`${message} 복사에 실패했습니다`);
         }
 
@@ -145,10 +145,6 @@ const Header = () => {
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
                     <div className="bg-black/90 border border-zinc-800 rounded-lg shadow-xl p-8 w-[350px] flex flex-col items-center relative animate-fadein">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-16 mb-3" viewBox="0 0 24 24" fill="#4A96EC" stroke="#4A96EC">
-                            <path d="M20 15.5c-1.25 0-2.45-.2-3.57-.57a1.02 1.02 0 0 0-1.02.24l-2.2 2.2a15.045 15.045 0 0 1-6.59-6.59l2.2-2.21a.96.96 0 0 0 .25-1A11.36 11.36 0 0 1 8.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z"/>
-                        </svg>
-
                         <div className="text-xl font-bold text-white mb-2 mt-2 text-center">
                             CONTACT
                         </div>
