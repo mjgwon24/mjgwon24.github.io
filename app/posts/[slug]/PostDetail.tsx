@@ -287,7 +287,7 @@ export default function PostDetail({ slug }: { slug: string }) {
                                         <ChevronLeft size={16} />
                                         <span>이전 포스트</span>
                                     </div>
-                                    <h4 className="font-medium group-hover:text-blue-400 transition-colors line-clamp-2">
+                                    <h4 className="weight-500 text-white group-hover:text-blue-400 transition-colors line-clamp-2">
                                         {prev.title}
                                     </h4>
                                 </Link>
@@ -302,7 +302,7 @@ export default function PostDetail({ slug }: { slug: string }) {
                                         <span>다음 포스트</span>
                                         <ChevronRight size={16} />
                                     </div>
-                                    <h4 className="font-medium group-hover:text-blue-400 transition-colors line-clamp-2">
+                                    <h4 className="weight-500 text-white group-hover:text-blue-400 transition-colors line-clamp-2">
                                         {next.title}
                                     </h4>
                                 </Link>
@@ -311,7 +311,7 @@ export default function PostDetail({ slug }: { slug: string }) {
 
                         {relatedPosts.length > 0 && (
                             <div className="mb-12">
-                                <h3 className="text-xl weight-600 mb-6">관련 포스트</h3>
+                                <h3 className="text-white text-xl weight-600 mb-6">관련 포스트</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     {relatedPosts.map((relatedPost) => (
                                         <Link
@@ -333,7 +333,7 @@ export default function PostDetail({ slug }: { slug: string }) {
                                                     </div>                                                )}
                                             </div>
                                             <div className="flex-grow">
-                                                <h4 className="text-sm weight-500 line-clamp-2 group-hover:text-blue-400 transition-colors">
+                                                <h4 className="text-sm weight-500 line-clamp-2 text-white group-hover:text-blue-400 transition-colors">
                                                     {relatedPost.title}
                                                 </h4>
                                                 <div className="text-xs text-gray-400 mt-1">
