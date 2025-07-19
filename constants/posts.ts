@@ -15,17 +15,16 @@ export const postsData: Post[] = [
     {
         id: '1',
         title: 'Global Exception으로 일관된 예외 응답 처리',
-        description: 'FLEXRATE 프로젝트에서 사용한 전역 예외 처리 도입에 대해 다룹니다.',
+        description: '커스텀 예외와 글로벌 핸들러를 통해 일관된 에러 응답 구조를 구현하는 방법에 대해 다룹니다.',
         category: 'development',
-        tags: ['FLEXRATE', 'Global Exception', '예외 처리', 'Spring Boot'],
+        tags: ['Global Exception', '예외 처리', 'Spring Boot', 'FLEXRATE'],
         date: '2025-04-26',
         thumbnail: '/posting/globalException/flow.png',
         readingTime: '4분',
         slug: 'global-exception-handling',
         content: `
-안녕하세요. FLEXRATE 프로젝트의 백엔드 팀장으로 참여한 권민지입니다.<br><br>
 API를 개발할때 응답의 일관성은 서비스에 대한 신뢰도, 유지보수성 그리고 클라이언트 개발자들의 생산성까지 영향을 미치는 중요한 요소입니다. 만약 API마다 에러 응답 구조가 매번 달라진다면, 프론트엔드와의 협업 과정에서 혼란이 발생하고 운영 중 오류 추적과 대응 역시 어렵게 됩니다. 이는 단순히 보기 불편한 수준을 넘어 개발 시간의 증가와 확장성 저하를 가져올 수 있으며, 결국 서비스 품질 악화로 이어질 수 있습니다.<br><br>
-이러한 상황을 방지하고자, 저희 팀은 초기 설계 단계부터 체계적인 예외 처리 구조를 도입하기로 결정했습니다. 이번 글에서는 왜 일관된 예외 응답이 필요한지, 그리고 저희가 \`GlobalExceptionHandler\`와 커스텀 예외 구조를 어떻게 적용했는지 그 경험을 공유해보고자 합니다.
+이러한 상황을 방지하고자, 저는 프로젝트 초기 설계 단계부터 체계적인 예외 처리 구조를 도입하기로 결정했습니다. 이번 글에서는 왜 일관된 예외 응답이 필요한지, 그리고 프로젝트에 \`GlobalExceptionHandler\`와 커스텀 예외 구조를 어떻게 적용했는지 그 경험을 공유해보고자 합니다.
 <br>
 <br>
 
@@ -253,7 +252,7 @@ public class GlobalExceptionHandler {
 <hr />
 
 # 5. 적용 후기
-이전 프로젝트에서는 일관된 에러 구조 없이 개발하여 프론트엔드와 소통하는데도 원활하지 못했고 에러 원인 파악에도 많은 시간이 걸렸었습니다. 하지만 이번 FLEXRATE 프로젝트에서는 에러 코드 기반의 일관된 구조 덕분에 프론트엔드에서 코드로 분기 처리를 하거나 사용자 메시지를 전달하는데 큰 도움이 되었습니다. 또한, 에러 발생 시 로그에서 코드로 빠른 검색이 가능했고, 운영 중 장애 대응 속도도 확연하게 단축되었습니다.
+이전 프로젝트에서는 일관된 에러 구조 없이 개발하여 프론트엔드와 소통하는데도 원활하지 못했고 에러 원인 파악에도 많은 시간이 걸렸었습니다. 하지만 일관된 에러 응답을 정의한 프로젝트에서는 에러 코드 기반의 일관된 구조 덕분에 프론트엔드에서 코드로 분기 처리를 하거나 사용자 메시지를 전달하는데 큰 도움이 되었습니다. 또한, 에러 발생 시 로그에서 코드로 빠른 검색이 가능했고, 운영 중 장애 대응 속도도 확연하게 단축되었습니다.
 <br/><br/>
 <hr />
 
@@ -268,6 +267,380 @@ public class GlobalExceptionHandler {
 <br><br>
 
 `
+    },
+    {
+        id: '2',
+        title: '정교한 이슈 트래킹을 위한 ELK 도입',
+        description: '운영 환경에서의 실시간 로그 분석과 이슈 트래킹을 위한 ELK 스택의 도입과 활용 방법에 대해 다룹니다.',
+        category: 'development',
+        tags: ['ELK', '로그 분석', '장애 추적', 'FLEXRATE', 'SOFTCAT'],
+        date: '2025-05-01',
+        thumbnail: '/posting/elk/kibana.png',
+        readingTime: '6분',
+        slug: 'elk-implementation',
+        content: `
+서비스를 운영함에 있어서 장애나 이슈의 원인을 빠르고 정확하게 파악하는 것은 언제나 중요합니다.<br/>
+단순히 로그 파일을 서버에서 열어보는 방식으로는 분산된 여러 서비스의 상태를 종합적으로 파악하기 어렵고, 문제 발생 시 실시간으로 대응하는 것도 제한적입니다.<br/>
+그래서 최근 많은 IT 서비스에서는 로그의 중앙 집중화와 실시간 모니터링을 위해 \`ELK\`(Elasticsearch, Logstash, Kibana) 스택을 채택하고 있습니다.<br><br>
+
+저 또한 \`ELK\`를 채택하였고, 이번 글에서는 \`ELK\`를 도입한 이유, \`Docker\` 기반 환경에서의 환경 구축 방법, 그리고 각 구성요소별 설정 방법을 자세히 다뤄보려고 합니다.<br/><br/>
+<hr />
+
+# 1. ELK를 도입하게 된 이유
+<br>
+
+\`ELK\`를 도입한 프로젝트는 \`Spring Boot\` 기반의 백엔드와 여러 인프라가 컨테이너 환경에서 돌아가는 구조입니다.<br/>
+
+이런 구조에서 발생하는 다양한 로그를 한 곳에 모으고, 실시간으로 모니터링하며, 장애 발생 시 신속하게 원인을 분석할 필요가 있었습니다.<br/><br/>
+
+특히, 에러, 경고 등 중요한 이벤트를 실시간으로 감지하여 빠르게 대응하고자 했으며, 로그 검색, 집계, 시각화를 통해 운영 효율성과 데이터 기반 인사이트를 얻고자 하여 \`ELK\` 도입을 결정하게 되었습니다.
+<br/><br/>
+<hr />
+
+# 2. ELK란 무엇이고, 어떻게 동작하는걸까?
+먼저, \`ELK\`에 대한 간단한 설명과 작동 원리에 대해 알아보고 가도록 하겠습니다.<br/><br/>
+\`ELK\`란, \`Elasticsearch\`, \`Logstash\`, \`Kibana\` 세 가지 오픈소스 솔루션의 약자입니다.<br/>
+\`Elasticsearch\`는 검색과 분석 엔진을 담당하고, \`Logstash\`는 로그 수집, 가공, 전송의 역할을 담당하며, \`Kibana\`는 시각화와 대시보드를 담당하고 있습니다.<br/><br/>
+
+<img src="/posting/elk/elk-flow.png" alt="ELK Stack Flow" class="w-full rounded-md">
+<br/>
+
+먼저, \`Spring Boot\`에서 발생한 로그를 \`Filebeat\`를 통해 \`Logstash\`가 수집하고, 필요에 따라 가공한 뒤, \`Elasticsearch\`에 저장합니다.<br/>
+\`Kibana\`는 \`Elasticsearch\`에 저장된 로그를 웹 UI로 시각화하고, 실시간 검색/대시보드를 제공합니다.<br/>
+이러한 \`ELK\`의 구조 덕분에 웹에서 모든 로그를 한눈에 확인하여, 필요한 정보를 빠르게 찾을 수 있습니다.
+<br/><br/>
+<hr />
+
+# 3. Docker 기반 환경 구축
+\`ELK\` 스택을 효율적으로 관리하기 위해 개발과 운영 환경 간의 설정, 환경 일관성을 보장하고, 배포를 더 원활하게 해주기 위해서 \`Docker\`를 활용한 컨테이너 기반 환경을 구축하였습니다.<br/><br/>
+여기서 로그 파일을 효율적으로 수집하기 위해 \`Filebeat\`를 함께 사용해주었습니다.<br/>
+\`Filebeat\`는 경량화된 로그 수집기로, 로그 파일을 모니터링하고 변경 사항을 감지하여 \`Logstash\`나 \`Elasticsearch\`로 전송하는 역할을 담당합니다.<br/> 이는 특히 컨테이너 환경에서 로그 파일이 여러 곳에 분산되어 있을 때 유용합니다.<br/><br/>
+이제 \`ELK\`를 사용하기 위한 환경 구축 과정을 본격적으로 살펴보겠습니다.
+
+<br/><br/>
+
+## 3.1 Elasticsearch, filebeat, Logstash, Kibana 기본 설정
+가장 첫 번째로, 컨테이너 환경에서 \`ELK\`를 구성하기 위해 루트 경로에 \`docker-compose.yml\`을 작성해줍니다.<br/><br/>
+
+\`\`\`yaml
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "8080:8080"
+\tdepends_on:
+      - mysql
+      - redis
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      MYSQL_URL: \${MYSQL_URL_PROD}
+      MYSQL_USERNAME: \${MYSQL_USERNAME_PROD}
+      MYSQL_PASSWORD: \${MYSQL_PASSWORD_PROD}
+      REDIS_HOST: \${REDIS_HOST_PROD}
+      REDIS_PORT: \${REDIS_PORT_PROD}
+      ELASTICSEARCH_HOST: \${ELASTICSEARCH_HOST}
+      ELASTICSEARCH_PORT: \${ELASTICSEARCH_PORT}
+      LOG_PATH: \${LOG_PATH}
+      LOGSTASH_HOST_PROD: \${LOGSTASH_HOST_PROD}
+      LOGSTASH_PORT_PROD: \${LOGSTASH_PORT_PROD}
+    restart: always
+    volumes:
+      - backend-logs:/logs
+    env_file:
+      - ./.env
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.13.2
+    container_name: logstash
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro
+    depends_on:
+      - elasticsearch
+    restart: always
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+  - ES_JAVA_OPTS=-Xms2g -Xmx2g
+    ports:
+      - "9200:9200"
+    restart: always
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.13.2
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_SERVICEACCOUNTTOKEN=\${KIBANA_ELASTICSEARCH_SERVICEACCOUNTTOKEN}
+    depends_on:
+      - elasticsearch
+  restart: always
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.13.2
+    container_name: filebeat
+    user: root
+    depends_on:
+      - elasticsearch
+      - backend
+    volumes:
+      - ./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - backend-logs:/logs:ro
+  restart: always
+
+
+volumes:
+  backend-logs:
+\`\`\`
+
+\`filebeat\`는 로그 파일을 모니터링하고 변경 사항을 감지하여 \`Logstash\`로 전송합니다.<br/> 컨테이너 환경에서 로그 파일에 접근할 수 있도록 \`backend-logs\` 볼륨을 공유하도록 설정하였습니다.<br/><br/>
+\`Elasticsearch\`는 단일 노드(single-node)로 구성되어 있습니다.<br/>
+저희 서비스는 소규모 운영 환경이기 때문에 관리를 간편하게 하고자 이를 사용했지만, 실제 프로덕션 환경에서는 데이터 신뢰성과 가용성을 위해 클러스터(다중 노드) 구성을 권장합니다.<br/><br/>
+추가로, JVM 메모리를 2GB로 할당하여 대량의 로그 데이터 처리 시 메모리 부족으로 인한 성능 저하를 방지하도록 설정하였습니다.<br/>
+\`Logstash\`는 5000번 포트를 통해 로그를 수신하며, 커스텀 파이프라인 설정 파일을 볼륨으로 마운트하여 로그 처리 로직을 정의합니다.<br/>
+\`Kibana\`는 \`Elasticsearch\`와 연결하여 웹 인터페이스를 통해 로그 데이터를 시각화합니다. 보안을 위해 서비스 계정 토큰은 환경 변수로 설정해주었습니다.
+
+<br/><br/>
+
+## 3.2 Spring Boot 로그를 Logstash로 전송하기 위한 Logback 설정
+\`Spring Boot\`에서 생성되는 로그를 \`Logstash\`로 전송하기 위해서는 \`Logback\` 설정이 우선적으로 필요합니다.<br/> 이를 위해 \`logback-spring.xml\` 파일을 구성해야 합니다.<br/> 이 파일은 애플리케이션의 로그 형식과 출력 대상을 정의합니다.<br/><br/>
+
+먼저, \`Logstash\`로 로그를 전송하기 위해 \`logstash-logback-encoder\` 라이브러리를 프로젝트에 추가해야 합니다. <br/>이 라이브러리는 \`Logback\`에서 생성된 로그를 JSON 형식으로 변환하여 \`Logstash\`로 전송하는 기능을 제공합니다. <br/>아래와 같이 \`build.gradle\` 파일에 의존성을 추가하여 라이브러리를 사용할 수 있습니다.<br/><br/>
+
+\`\`\`
+implementation 'net.logstash.logback:logstash-logback-encoder:7.4'
+\`\`\`
+<br/>
+
+이제 \`logback-spring.xml\` 파일을 다음과 같이 작성합니다.<br/>
+
+\`\`\`xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <property name="LOG_PATH" value="\${LOG_PATH:logs}"/>
+
+    <!-- prod profile -->
+    <springProfile name="prod">
+        <property name="LOGSTASH_HOST" value="\${LOGSTASH_HOST_PROD:logstash}"/>
+        <property name="LOGSTASH_PORT" value="\${LOGSTASH_PORT_PROD:5000}"/>
+    </springProfile>
+
+    <!-- local profile -->
+    <springProfile name="!prod">
+        <property name="LOGSTASH_HOST" value="\${LOGSTASH_HOST:localhost}"/>
+        <property name="LOGSTASH_PORT" value="\${LOGSTASH_PORT:5000}"/>
+    </springProfile>
+
+    <!-- Logstash로 로그 전송하는 appender(로그 메시지를 출력할 위치를 결정하는 컴포넌트) 설정 -->
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>\${LOGSTASH_HOST_PROD}:\${LOGSTASH_PORT_PROD}</destination>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <fieldName>@timestamp</fieldName>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                            "level": "%level",
+                            "logger": "%logger",
+                            "thread": "%thread",
+                            "message": "%replace(%message){'(?i)(password\\\\\\\\s*[:=]\\\\\\\\s*)[^,\\\\\\\\s\\\\"]+', '$1****'}",
+                            "exception": "%replace(%exception){'(?i)(password\\\\\\\\s*[:=]\\\\\\\\s*)[^,\\\\\\\\s\\\\"]+', '$1****'}"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- JSON 파일 로그 (ELK 연동용) -->
+    <appender name="JSON_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>\${LOG_PATH}/app-log.json</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>\${LOG_PATH}/app-log-%d{yyyy-MM-dd}.json</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <fieldName>timestamp</fieldName>
+                    <pattern>yyyy-MM-dd'T'HH:mm:ss.SSSZ</pattern>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                            "level": "%level",
+                            "logger": "%logger",
+                            "thread": "%thread",
+                            "message": "%replace(%message){'(?i)(password\\\\\\\\s*[:=]\\\\\\\\s*)[^,\\\\\\\\s\\\\"]+', '$1****'}",
+                            "exception": "%replace(%exception){'(?i)(password\\\\\\\\s*[:=]\\\\\\\\s*)[^,\\\\\\\\s\\\\"]+', '$1****'}"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- 로그 레벨 및 Appender 지정 -->
+    <root level="INFO">
+        <appender-ref ref="LOGSTASH"/>
+        <appender-ref ref="JSON_FILE"/>
+    </root>
+</configuration>
+\`\`\`
+
+Profile은 개발 환경(local)과 운영 환경(prod)에 따라 다른 \`Logstash\` 호스트와 포트를 사용할 수 있도록 설정했습니다.<br/> 이를 통해 환경별로 유연하게 로그 전송 대상을 변경할 수 있습니다.<br/><br/>
+\`LOGSTASH Appender\`는 TCP 소켓을 통해 \`Logstash\`로 로그를 직접 전송하는 Appender입니다.<br/> JSON 형식으로 로그를 인코딩하며, 민감한 정보(ex. 비밀번호)는 마스킹 처리하도록 설정했습니다.<br/><br/>
+\`JSON_FILE Appender\`는 로그를 JSON 형식으로 파일에 저장하는 Appender입니다.<br/> 이는 \`Filebeat\`가 수집할 수 있도록 하며, 일별로 로그 파일을 롤링하고 30일간 보관하도록 설정했습니다.<br/><br/>
+
+이러한 \`Logback\` 설정을 통해 \`Spring Boot\` 애플리케이션에서 생성되는 로그는 두 가지 방식으로 ELK 스택에 전달됩니다.<br/>
+
+1. TCP 소켓을 통해 Logstash로 직접 전송
+2. JSON 파일로 저장 후 Filebeat를 통해 수집
+<br/><br/>
+
+이러한 이중 전송 방식을 통해 로그 손실 가능성을 최소화하고, 네트워크 문제가 발생해도 로그를 안정적으로 수집할 확률을 높여줍니다.
+
+<br/><br/>
+
+## 3.3 filebeat, Logstash 파이프라인 설정
+이제 로그 수집의 시작점인 \`Filebeat\`의 설정을 해줍니다.<br/> \`Filebeat\`는 애플리케이션의 로그 파일을 실시간으로 모니터링하고, 변경 사항이 발생하면 이를 \`Logstash\`로 전송하는 역할을 합니다.<br/><br/>
+
+\`\`\`xml
+filebeat.inputs:
+  - type: filestream
+    id: backend-logs
+    enabled: true
+    paths:
+      - /logs/*.log
+      - /logs/*.json
+    parsers:
+      - ndjson:
+          keys_under_root: true
+          overwrite_keys: true
+
+output.logstash:
+  hosts: ["logstash:5000"]
+\`\`\`
+
+설정 파일에서는 \`/logs\` 디렉터리 하위의 \`.log\`와 \`.json\` 확장자를 가진 모든 파일을 수집 대상으로 지정하였고, \`ndjson\` 파서를 적용해 JSON 형식의 로그를 효율적으로 처리하도록 하였습니다.<br/>
+
+\`Filebeat\`의 output은 \`Logstash\`의 5000번 포트로 지정되어 있어, 수집된 로그 데이터가 \`Logstash\`로 전달되도록 구성되어 있습니다.<br/><br/>
+
+\`Filebeat\` 설정이 완료되면, 다음으로  \`logstash/pipeline/logstash.conf\` 경로에 \`Logstash\` 파이프라인을 설정해줍니다.<br/> 이 경로는 \`docker-compose.yml\`의 volumes에 있는 경로입니다.<br/>
+\`Logstash\`는 해당 파이프라인 설정 파일(logstash.conf)을 통해 로그를 수집하고, 필요한 경우 가공한 뒤 \`Elasticsearch\`로 전달합니다.<br/><br/>
+
+\`\`\`xml
+input {
+  tcp {
+    port => 5000
+    codec => plain { charset => "UTF-8" }
+  }
+}
+
+filter {
+  json {
+    source => "message"
+    target => "log"
+  }
+
+  mutate {
+    add_field => { "level" => "%{[log][level]}" }
+    add_field => { "logger" => "%{[log][logger]}" }
+    add_field => { "message" => "%{[log][message]}" }
+  }
+}
+
+output {
+  elasticsearch {
+    hosts => ["<http://elasticsearch:9200>"]
+    index => "service-log-%{+YYYY.MM.dd}"
+  }
+  stdout { codec => rubydebug }
+}
+\`\`\`
+
+input 블록을 통해 TCP 5000 포트로 들어오는 로그를 JSON으로 파싱합니다.<br/>
+별도의 가공이 필요하다면 filter 블록에서 처리해줍니다.<br/>
+\`Elasticsearch\`에는 날짜별 인덱스로 저장해줍니다.<br/>
+
+이 과정을 통해 로그 데이터 수집과, 저장 및 분석을 위한 준비가 완료됩니다.
+
+<br/><br/>
+
+## 3.4 Kibana 대시보드 설정
+환경 구축을 마친 뒤, 정상적으로 설정이 되었는지 확인해주기 위해 \`http://localhost:9200\`로 접속하여 elastic search가 켜져있는지 확인합니다.<br/>
+정상적으로 접근 가능하다면, \`http://localhost:5601\` \`kibana\`에 접속합니다.<br/><br/>
+
+<img src="/posting/elk/kibana-ex-site1.png" alt="Kibana Example site" class="w-full rounded-md">
+<br/>
+
+먼저, Management > Stack Management > Data Views 경로로 접근해 Create data view 버튼을 눌러 \`logstash.conf\`에서 설정했던 index 패턴을 등록해줍니다.<br/> 제 경우에는 \`service-log-*\` 패턴을 등록하여 모든 날짜의 서비스 로그를 볼 수 있도록 설정했습니다.<br/><br/>
+
+<img src="/posting/elk/kibana-ex-site2.png" alt="Kibana Example site" class="w-full rounded-md">
+<br/>
+
+정상적으로 패턴이 등록되었다면, 이제 \`Kibana\`까지 사용할 준비가 완료된 것입니다.<br/>
+Analytics > Discover 메뉴로 접근하면 로그들이 실시간 수집되는 모습을 보실 수 있습니다.
+
+<br/>
+<hr />
+
+# 4. 도커 환경 재빌드 스크립트
+
+도커 환경에서 소스 코드나 설정 파일을 수정할 때마다 여러 명령어를 반복적으로 입력하는 비효율적인 작업을 피하기위해 재빌드 스크립트도 작성해주었습니다.<br/><br/>
+
+\`\`\`shell
+#!/bin/bash
+
+# 에러 발생 시 즉시 종료
+set -e
+
+echo "=== 프로덕션 환경 인프라 재빌드 시작 ==="
+
+echo "1. Gradle 빌드"
+./gradlew clean build -x test
+
+echo "2. .env 파일을 build/libs/로 복사"
+cp .env build/libs/
+
+echo "3. 도커 백엔드 이미지를 --no-cache로 재빌드"
+docker-compose build --no-cache backend
+
+echo "4. 도커 백엔드 컨테이너를 새로 실행"
+docker-compose up -d backend
+
+echo "모든 작업이 완료되었습니다."
+\`\`\`
+
+<br/>해당 스크립트를 실행하기 위해 실행 권한을 부여합니다.<br/>
+
+\`chmod +x prod_docker_back_deploy.sh\`
+
+<br/>그 후 아래 명령어로 스크립트를 실행할 수 있습니다.<br/>
+
+\`./prod_docker_back_deploy.sh\`
+
+<br/>
+<hr />
+
+# 마치며
+
+이번 글에서는 \`ELK\`의 필요성과 핵심 구성요소, 그리고 \`Docker\` 기반 환경에서의 구축 방법을 다뤘습니다.
+<br/><br/>
+이 글이 ELK 도입에 대한 고민을 하고 계신 분들께 조금이나마 도움이 되길 바라며,<br/>
+다음 포스팅에서는 이렇게 구축한 \`ELK\`를 어떻게 활용할 수 있는지, MDC를 통한 식별자 설정, 실시간 장애 모니터링, 대시보드 구성, 알림 등 구체적인 활용법을 다뤄보겠습니다.<br/><br/>
+
+감사합니다.
+        `
     },
     // {
     //     id: '2',
