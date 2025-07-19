@@ -71,7 +71,7 @@ export default function Posts() {
                                     placeholder="검색어를 입력하세요"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="bg-transparent px-2 py-2 outline-none text-sm w-full"
+                                    className="bg-transparent px-2 py-2 outline-none text-xs md:text-sm w-full"
                                 />
                                 {searchTerm && (
                                     <button
@@ -85,10 +85,10 @@ export default function Posts() {
                             </div>
                         </div>
 
-                        <div className="flex flex-row gap-3">
+                        <div className="flex flex-row justify-between md:justify-baseline gap-3">
                             <div className="flex flex-wrap bg-black-05p rounded-lg overflow-hidden border border-gray-800/50 w-fit h-fit">
                                 <button
-                                    className={`px-4 py-2 text-sm transition-all cursor-pointer ${
+                                    className={`px-4 py-2 text-xs md:text-sm transition-all cursor-pointer ${
                                         category === 'all'
                                             ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
                                             : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
@@ -97,7 +97,7 @@ export default function Posts() {
                                     전체
                                 </button>
                                 <button
-                                    className={`px-4 py-2 text-sm transition-all cursor-pointer ${
+                                    className={`px-4 py-2 text-xs md:text-sm transition-all cursor-pointer ${
                                         category === 'development'
                                             ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
                                             : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
@@ -106,7 +106,7 @@ export default function Posts() {
                                     개발
                                 </button>
                                 <button
-                                    className={`px-4 py-2 text-sm transition-all cursor-pointer ${
+                                    className={`px-4 py-2 text-xs md:text-sm transition-all cursor-pointer ${
                                         category === 'cs'
                                             ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
                                             : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
@@ -115,7 +115,7 @@ export default function Posts() {
                                     CS 지식
                                 </button>
                                 <button
-                                    className={`px-4 py-2 text-sm transition-all cursor-pointer ${
+                                    className={`px-4 py-2 text-xs md:text-sm transition-all cursor-pointer ${
                                         category === 'algorithm'
                                             ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
                                             : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
@@ -127,16 +127,16 @@ export default function Posts() {
 
                             <div className="z-100 relative sort-dropdown">
                                 <button
-                                    className="flex items-center justify-between w-28 bg-black-05p rounded-lg border border-gray-800/50 px-4 py-2 text-sm text-gray-300 hover:text-blue-400 transition-all"
+                                    className="flex items-center justify-between w-22 md:w-28 bg-black-05p rounded-lg border border-gray-800/50 pl-3 pr-2 md:px-4 py-2 text-xs md:text-sm text-gray-300 hover:text-blue-400 transition-all"
                                     onClick={() => setIsSortOpen(!isSortOpen)}
                                 >
                                     <span>{sortOrder === 'latest' ? '최신순' : '오래된순'}</span>
                                     {isSortOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                                 </button>
                                 {isSortOpen && (
-                                    <div className="absolute z-100 top-full left-0 w-28 rounded-lg border bg-gray-900 border-gray-800/50 mt-2 overflow-hidden">
+                                    <div className="absolute z-100 top-full left-0 w-22 md:w-28 rounded-lg border bg-gray-900 border-gray-800/50 mt-2 overflow-hidden">
                                         <button
-                                            className={`block w-full text-left px-4 py-2 text-sm transition-all ${
+                                            className={`block w-full text-left px-4 py-2 text-xs md:text-sm transition-all ${
                                                 sortOrder === 'latest'
                                                     ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
                                                     : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
@@ -145,7 +145,7 @@ export default function Posts() {
                                             최신순
                                         </button>
                                         <button
-                                            className={`block w-full text-left px-4 py-2 text-sm transition-all ${
+                                            className={`block w-full text-left px-4 py-2 text-xs md:text-sm transition-all ${
                                                 sortOrder === 'oldest'
                                                     ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
                                                     : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
