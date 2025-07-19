@@ -362,7 +362,7 @@ export default function ProjectDetail() {
                                         </div>                                        <p className="text-gray-300">{achievement.description}</p>
                                     </div>                                ))
                             ) : (
-                                <p className="text-gray-400 italic">등록된 성과가 없습니다.</p>
+                                <p className="text-gray-400 italic">아직 등록된 성과가 없습니다.</p>
                             )}
                         </div>
                     </div>
