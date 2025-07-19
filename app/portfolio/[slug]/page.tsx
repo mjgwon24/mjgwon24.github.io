@@ -368,7 +368,9 @@ export default function ProjectDetail() {
                         </div>
                     </div>
                     <div className="mb-32">
-                        <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">🔍 더 자세히 알아보기</h2>
+                        {project.links && (
+                            <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">🔍 더 자세히 알아보기</h2>
+                        )}
                         {project.links && (
                             <div className="mb-5">
                                 <div className="flex flex-wrap gap-2 sm:gap-4">
