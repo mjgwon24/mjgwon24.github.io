@@ -4,13 +4,15 @@ import React, { useState, useEffect } from 'react';
 import { postsData, Post } from '@/constants/posts';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, Clock, Search, X } from 'lucide-react';
+import { Calendar, Clock, Search, X, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function Posts() {
     const [category, setCategory] = useState<'all' | 'development' | 'cs' | 'algorithm'>('all');
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [sortOrder, setSortOrder] = useState<'latest' | 'oldest'>('latest');
+    const [isSortOpen, setIsSortOpen] = useState(false);
 
     useEffect(() => {
         const filtered = postsData.filter((post) => {
@@ -22,9 +24,31 @@ export default function Posts() {
             return matchesCategory && matchesSearch;
         });
 
-        setFilteredPosts(filtered);
+        const sorted = filtered.sort((a, b) => {
+            if (sortOrder === 'latest') {
+                return new Date(b.date).getTime() - new Date(a.date).getTime();
+            } else {
+                return new Date(a.date).getTime() - new Date(b.date).getTime();
+            }
+        });
+
+        setFilteredPosts(sorted);
         setIsLoading(false);
-    }, [category, searchTerm]);
+    }, [category, searchTerm, sortOrder]);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as HTMLElement;
+            if (isSortOpen && !target.closest('.sort-dropdown')) {
+                setIsSortOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isSortOpen]);
 
     return (
         <div className="relative min-h-screen pt-28 pb-20">
@@ -36,46 +60,7 @@ export default function Posts() {
                     <h1 className="text-white text-3xl md:text-4xl weight-600 sm:weight-700 mb-2">포스팅</h1>
                     <p className="text-gray-400 mb-8 text-lg">개발, CS 지식 및 알고리즘에 관한 글을 공유합니다</p>
 
-                    <div className="flex flex-col sm:flex-row justify-between gap-4 mb-8">
-                        <div className="flex flex-wrap bg-black-05p rounded-lg overflow-hidden border border-gray-800/50 w-full sm:w-auto">
-                            <button
-                                className={`px-4 py-2 text-sm transition-all cursor-pointer ${
-                                category === 'all'
-                                    ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
-                                    : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
-                                onClick={() => setCategory('all')}
-                            >
-                                전체
-                            </button>
-                            <button
-                                className={`px-4 py-2 text-sm transition-all cursor-pointer ${
-                                category === 'development'
-                                    ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
-                                    : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
-                                onClick={() => setCategory('development')}
-                            >
-                                개발
-                            </button>
-                            <button
-                                className={`px-4 py-2 text-sm transition-all cursor-pointer ${
-                                category === 'cs'
-                                    ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
-                                    : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
-                                onClick={() => setCategory('cs')}
-                            >
-                                CS 지식
-                            </button>
-                            <button
-                                className={`px-4 py-2 text-sm transition-all cursor-pointer ${
-                                category === 'algorithm'
-                                    ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
-                                    : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
-                                onClick={() => setCategory('algorithm')}
-                            >
-                                알고리즘
-                            </button>
-                        </div>
-
+                    <div className="flex flex-col sm:flex-row-reverse justify-between gap-4 mb-8">
                         <div className="relative">
                             <div className="flex items-center bg-black-05p rounded-lg border border-gray-800/50 overflow-hidden">
                                 <div className="pl-3">
@@ -99,7 +84,83 @@ export default function Posts() {
                                 )}
                             </div>
                         </div>
+
+                        <div className="flex flex-row gap-3">
+                            <div className="flex flex-wrap bg-black-05p rounded-lg overflow-hidden border border-gray-800/50 w-fit h-fit">
+                                <button
+                                    className={`px-4 py-2 text-sm transition-all cursor-pointer ${
+                                        category === 'all'
+                                            ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
+                                            : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
+                                    onClick={() => setCategory('all')}
+                                >
+                                    전체
+                                </button>
+                                <button
+                                    className={`px-4 py-2 text-sm transition-all cursor-pointer ${
+                                        category === 'development'
+                                            ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
+                                            : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
+                                    onClick={() => setCategory('development')}
+                                >
+                                    개발
+                                </button>
+                                <button
+                                    className={`px-4 py-2 text-sm transition-all cursor-pointer ${
+                                        category === 'cs'
+                                            ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
+                                            : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
+                                    onClick={() => setCategory('cs')}
+                                >
+                                    CS 지식
+                                </button>
+                                <button
+                                    className={`px-4 py-2 text-sm transition-all cursor-pointer ${
+                                        category === 'algorithm'
+                                            ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
+                                            : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
+                                    onClick={() => setCategory('algorithm')}
+                                >
+                                    알고리즘
+                                </button>
+                            </div>
+
+                            <div className="z-100 relative sort-dropdown">
+                                <button
+                                    className="flex items-center justify-between w-28 bg-black-05p rounded-lg border border-gray-800/50 px-4 py-2 text-sm text-gray-300 hover:text-blue-400 transition-all"
+                                    onClick={() => setIsSortOpen(!isSortOpen)}
+                                >
+                                    <span>{sortOrder === 'latest' ? '최신순' : '오래된순'}</span>
+                                    {isSortOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                                </button>
+                                {isSortOpen && (
+                                    <div className="absolute z-100 top-full left-0 w-28 rounded-lg border bg-gray-900 border-gray-800/50 mt-2 overflow-hidden">
+                                        <button
+                                            className={`block w-full text-left px-4 py-2 text-sm transition-all ${
+                                                sortOrder === 'latest'
+                                                    ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
+                                                    : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
+                                            onClick={() => setSortOrder('latest')}
+                                        >
+                                            최신순
+                                        </button>
+                                        <button
+                                            className={`block w-full text-left px-4 py-2 text-sm transition-all ${
+                                                sortOrder === 'oldest'
+                                                    ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
+                                                    : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
+                                            onClick={() => setSortOrder('oldest')}
+                                        >
+                                            오래된순
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+
+                        </div>
                     </div>
+
+
 
                     {isLoading ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
