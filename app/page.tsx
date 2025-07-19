@@ -160,13 +160,16 @@ function ClubSection({ visible, refObj, onImageLoad }: { visible: boolean; refOb
         </div>
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-4 w-full max-w-2xl mx-auto">
         <span className="text-blue-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
-          누적 활동 인원 총 86명
+          누적 활동 인원 총 127명
         </span>
           <span className="text-blue-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
           팀 프로젝트 8개 도출
         </span>
           <span className="text-blue-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
-          교내 해커톤 개최
+          개발 멘토링 진행
+        </span>
+            <span className="text-blue-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
+          해커톤 개최
         </span>
         </div>
       </div>
@@ -190,7 +193,7 @@ function StackNcutSection({ visible, refObj }: { visible: boolean; refObj: React
         <Slider images={STACK_IMAGES} fixedHeight={200} boxMaxWidth={760} />
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 mt-4 w-full max-w-2xl mx-auto">
             <span className="text-blue-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
-              누적 사용자 200명 이상
+              누적 사용자 1,300명 이상
             </span>
               <span className="text-blue-200 weight-500 text-base whitespace-nowrap" style={{ textShadow: '0px 0px 4px rgba(255, 255, 255, 0.60)' }}>
               생성된 이미지 1,000장 이상
