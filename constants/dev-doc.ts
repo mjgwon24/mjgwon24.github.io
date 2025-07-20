@@ -150,14 +150,6 @@ export const projectDevDocs: { [key: string]: ProjectDevDoc } = {
 - 인프라: \`Naver Cloud Server\`, \`Nginx\`, GitHub Actions(CI/CD)
 `
             },
-            flowchart: {
-                title: '시퀀스 다이어그램',
-                description: '서비스 흐름도 및 아키텍처',
-                image: {
-                    src: '/portfolio/stack-snapshot/flowchart.png',
-                    alt: '스택네컷 시퀀스 다이어그램',
-                }
-            },
             api: {
                 title: 'API 문서',
                 description: 'API 개요 및 세부 사항',
