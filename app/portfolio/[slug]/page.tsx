@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { projectsData } from '@/constants/home';
+import { postsData, Post } from '@/constants/posts';
 import components from '@/components/MarkdownComponents';
 import {ArrowLeft, X, ChevronLeft, ChevronRight, LucideFileText} from 'lucide-react';
 import ReactMarkdown from "react-markdown";
@@ -50,6 +51,7 @@ export default function ProjectDetail() {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [currentSlide, setCurrentSlide] = useState(0);
     const [allImages, setAllImages] = useState<string[]>([]);
+    const [relatedPosts, setRelatedPosts] = useState<Post[]>([]);
 
     useEffect(() => {
         const foundProject = projectsData.find(p => p.slug === slug);
@@ -62,6 +64,13 @@ export default function ProjectDetail() {
                 images.push(...foundProject.detailImages);
             }
             setAllImages(images);
+
+            // 관련 포스팅 찾기
+            const projectSlug = typeof slug === 'string' ? slug : Array.isArray(slug) ? slug[0] : '';
+            const related = postsData.filter(post =>
+                post.projects && post.projects.includes(projectSlug)
+            );
+            setRelatedPosts(related);
         }
 
         setLoading(false);
@@ -147,6 +156,83 @@ export default function ProjectDetail() {
         );
     };
 
+    const renderRelatedPosts = () => {
+        if (relatedPosts.length === 0) return null;
+
+        return (
+            <div className="mb-16">
+                <div className="flex items-end gap-2 mb-4">
+                    <h2 className="text-white text-2xl weight-600 sm:weight-700 select-none">관련 포스팅</h2>
+                    <span className="text-gray-400 px-2 py-0.5 rounded-md">
+                    {relatedPosts.length}개
+                </span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {relatedPosts.map((post) => (
+                        <Link
+                            key={post.id}
+                            href={`/posts/${post.slug}`}
+                            className="group flex gap-4 p-4 rounded-lg bg-black-05p border border-gray-800/50 hover:border-blue-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10"
+                        >
+                            <div className="relative w-20 h-20 rounded-md overflow-hidden flex-shrink-0">
+                                {post.thumbnail ? (
+                                    <Image
+                                        src={post.thumbnail}
+                                        alt={post.title}
+                                        fill
+                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                    />
+                                ) : (
+                                    <div className={`w-full h-full flex items-center justify-center
+                                    ${post.category === 'development'
+                                        ? 'bg-emerald-600/20'
+                                        : post.category === 'cs'
+                                            ? 'bg-purple-600/20'
+                                            : 'bg-yellow-600/20'}`}
+                                    >
+                                    <span className="text-xl opacity-70">
+                                        {post.category === 'development' ? '{ }' :
+                                            post.category === 'cs' ? 'CS' : '⊃∪'}
+                                    </span>
+                                    </div>
+                                )}
+                            </div>
+                            <div className="flex-grow">
+                                <div className="flex items-center gap-2 mb-1">
+                                <span className={`px-2 py-0.5 rounded text-xs
+                                    ${post.category === 'development'
+                                    ? 'bg-emerald-600/50 text-emerald-300'
+                                    : post.category === 'cs'
+                                        ? 'bg-purple-600/50 text-purple-400'
+                                        : 'bg-yellow-600/50 text-yellow-400'}`}
+                                >
+                                    {post.category === 'development' ? '개발' :
+                                        post.category === 'cs' ? 'CS 지식' : '알고리즘'}
+                                </span>
+                                </div>
+                                <h3 className="text-white font-medium mb-1 line-clamp-2 group-hover:text-blue-400 transition-colors">
+                                    {post.title}
+                                </h3>
+                                <p className="text-gray-400 text-sm line-clamp-2">
+                                    {post.description}
+                                </p>
+                            </div>
+                        </Link>
+                    ))}
+                </div>
+                <div className="mt-4 flex justify-end">
+                    <Link
+                        href="/posts"
+                        className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors text-sm"
+                    >
+                        <span>모든 포스팅 보기</span>
+                        <ChevronRight size={16} />
+                    </Link>
+                </div>
+            </div>
+        );
+    };
+
     const renderOtherProjects = () => {
         const otherProjects = projectsData
             .filter(p => p.slug !== slug)
@@ -166,10 +252,11 @@ export default function ProjectDetail() {
                             className="group bg-black-05p rounded-lg overflow-hidden border border-gray-800/50 hover:border-blue-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10"
                         >
                             <div className="relative h-48 overflow-hidden">
-                                <Image                                    src={proj.image}
-                                                                          alt={proj.title}
-                                                                          fill
-                                                                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                <Image
+                                    src={proj.image}
+                                    alt={proj.title}
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform duration-500"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                                 <div className="absolute bottom-0 left-0 right-0 p-4">
@@ -379,11 +466,10 @@ export default function ProjectDetail() {
                             ))}
                         </div>
                     </div>
-                    <div className="mb-32">
-                        {project.links && (
-                            <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">🔍 더 자세히 알아보기</h2>
-                        )}
-                        {project.links && (
+
+                    {project.links && (
+                        <div className="mb-12">
+                            <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">더 자세히 알아보기</h2>
                             <div className="mb-5">
                                 <div className="flex flex-wrap gap-2 sm:gap-4">
                                     {project.links.isDevDoc && (
@@ -424,8 +510,10 @@ export default function ProjectDetail() {
                                     )}
                                 </div>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
+
+                    {relatedPosts.length > 0 && renderRelatedPosts()}
 
                     {renderOtherProjects()}
 
@@ -485,8 +573,8 @@ const ProjectDetailSkeleton = () => {
                             <div className="w-10 h-10 rounded-full bg-gray-700/40"/>
                         </div>
                         <div className="absolute top-1/2 -translate-y-1/2 right-2">
-                        <div className="w-10 h-10 rounded-full bg-gray-700/40"/>
-                    </div>
+                            <div className="w-10 h-10 rounded-full bg-gray-700/40"/>
+                        </div>
                         <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
                             <div className="w-4 h-2 rounded-full bg-gray-700/40"/>
                             <div className="w-2 h-2 rounded-full bg-gray-700/40"/>
@@ -528,8 +616,8 @@ const ProjectDetailSkeleton = () => {
                         <div className="w-10 h-10 rounded-full bg-gray-700/40"/>
                     </div>
                     <div className="absolute inset-y-0 right-2 flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-gray-700/40"/>
-                </div>
+                        <div className="w-10 h-10 rounded-full bg-gray-700/40"/>
+                    </div>
                     <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
                         <div className="w-4 h-2 rounded-full bg-gray-700/40"/>
                         <div className="w-2 h-2 rounded-full bg-gray-700/40"/>

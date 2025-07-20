@@ -8,6 +8,7 @@ export interface Post {
     thumbnail?: string;
     readingTime: string;
     slug: string;
+    projects?: string[];
     content: string;
 }
 
@@ -22,6 +23,7 @@ export const postsData: Post[] = [
         thumbnail: '/posting/globalException/flow.png',
         readingTime: '4분',
         slug: 'global-exception-handling',
+        projects: ['flexrate', 'softcat'],
         content: `
 API를 개발할때 응답의 일관성은 서비스에 대한 신뢰도, 유지보수성 그리고 클라이언트 개발자들의 생산성까지 영향을 미치는 중요한 요소입니다. 만약 API마다 에러 응답 구조가 매번 달라진다면, 프론트엔드와의 협업 과정에서 혼란이 발생하고 운영 중 오류 추적과 대응 역시 어렵게 됩니다. 이는 단순히 보기 불편한 수준을 넘어 개발 시간의 증가와 확장성 저하를 가져올 수 있으며, 결국 서비스 품질 악화로 이어질 수 있습니다.<br><br>
 이러한 상황을 방지하고자, 저는 프로젝트 초기 설계 단계부터 체계적인 예외 처리 구조를 도입하기로 결정했습니다. 이번 글에서는 왜 일관된 예외 응답이 필요한지, 그리고 프로젝트에 \`GlobalExceptionHandler\`와 커스텀 예외 구조를 어떻게 적용했는지 그 경험을 공유해보고자 합니다.
@@ -278,6 +280,7 @@ public class GlobalExceptionHandler {
         thumbnail: '/posting/elk/kibana.png',
         readingTime: '6분',
         slug: 'elk-implementation',
+        projects: ['flexrate', 'softcat'],
         content: `
 서비스를 운영함에 있어서 장애나 이슈의 원인을 빠르고 정확하게 파악하는 것은 언제나 중요합니다.<br/>
 단순히 로그 파일을 서버에서 열어보는 방식으로는 분산된 여러 서비스의 상태를 종합적으로 파악하기 어렵고, 문제 발생 시 실시간으로 대응하는 것도 제한적입니다.<br/>
