@@ -2,7 +2,7 @@ export interface Post {
     id: string;
     title: string;
     description: string;
-    category: 'development' | 'cs' | 'algorithm';
+    category: 'backend' | 'cs' | 'algorithm';
     tags: string[];
     date: string;
     thumbnail?: string;
@@ -17,10 +17,10 @@ export const postsData: Post[] = [
         id: '1',
         title: 'Global Exception으로 일관된 예외 응답 처리',
         description: '커스텀 예외와 글로벌 핸들러를 통해 일관된 에러 응답 구조를 구현하는 방법에 대해 다룹니다.',
-        category: 'development',
-        tags: ['Global Exception', '예외 처리', 'Spring Boot', 'FLEXRATE'],
+        category: 'backend',
+        tags: ['Global Exception', '예외 처리', 'Spring Boot'],
         date: '2025-04-26',
-        thumbnail: '/posting/globalException/flow.png',
+        thumbnail: '/posting/global-exception-handling/flow.png',
         readingTime: '4분',
         slug: 'global-exception-handling',
         projects: ['flexrate', 'softcat'],
@@ -75,7 +75,7 @@ public UserResponse getUser(@PathVariable Long id) {
 
 ## 2.1 GlobalExceptionHandler + CustomException 동작 흐름
 
-<img src="/posting/globalException/flow.png" alt="Global Exception Handling Flow" class="w-full rounded-md">
+<img src="/posting/global-exception-handling/flow.png" alt="Global Exception Handling Flow" class="w-full rounded-md">
 
 <br>
 본격적으로 코드를 구현하기 전에, 간단하게 동작 흐름을 살펴보도록 하겠습니다.
@@ -152,7 +152,7 @@ public class FlexrateException extends RuntimeException {
 <br>
 이제 서비스 레이어에서는 아래와 같이 간결하고 일관된 방식으로 예외를 던질 수 있습니다.
 
-<img src="/posting/globalException/exampleCode.png" alt="Custom Exception Usage" class="w-full rounded-md">
+<img src="/posting/global-exception-handling/exampleCode.png" alt="Custom Exception Usage" class="w-full rounded-md">
 
 <br>
 
@@ -218,7 +218,7 @@ public class GlobalExceptionHandler {
 ## 2.5 일관된 에러 응답 반환
 이제 실제로 에러가 발생하면, 항상 아래와 같은 구조로 응답이 반환됩니다.<br/>
 
-<img src="/posting/globalException/codeResponse.png" alt="Custom Exception Usage" class="w-full rounded-md">
+<img src="/posting/global-exception-handling/codeResponse.png" alt="Custom Exception Usage" class="w-full rounded-md">
 <br/>
 
 이처럼 에러 코드와 메시지가 명확하게 전달되므로 프론트엔드에서는 code 값으로 정확한 분기 처리가 가능해지고, 클라이언트-서버 간의 협업이 훨씬 수월해집니다.
@@ -274,12 +274,12 @@ public class GlobalExceptionHandler {
         id: '2',
         title: '정교한 이슈 트래킹을 위한 ELK 도입',
         description: '운영 환경에서의 실시간 로그 분석과 이슈 트래킹을 위한 ELK 스택의 도입과 활용 방법에 대해 다룹니다.',
-        category: 'development',
-        tags: ['ELK', '로그 분석', '장애 추적', 'FLEXRATE', 'SOFTCAT'],
+        category: 'backend',
+        tags: ['ELK', '로그 분석', '장애 추적'],
         date: '2025-05-01',
-        thumbnail: '/posting/elk/kibana.png',
+        thumbnail: '/posting/elk-implementation/kibana.png',
         readingTime: '6분',
-        slug: 'elk-implementation',
+        slug: 'elk-implementation-implementation',
         projects: ['flexrate', 'softcat'],
         content: `
 서비스를 운영함에 있어서 장애나 이슈의 원인을 빠르고 정확하게 파악하는 것은 언제나 중요합니다.<br/>
@@ -305,7 +305,7 @@ public class GlobalExceptionHandler {
 \`ELK\`란, \`Elasticsearch\`, \`Logstash\`, \`Kibana\` 세 가지 오픈소스 솔루션의 약자입니다.<br/>
 \`Elasticsearch\`는 검색과 분석 엔진을 담당하고, \`Logstash\`는 로그 수집, 가공, 전송의 역할을 담당하며, \`Kibana\`는 시각화와 대시보드를 담당하고 있습니다.<br/><br/>
 
-<img src="/posting/elk/elk-flow.png" alt="ELK Stack Flow" class="w-full rounded-md">
+<img src="/posting/elk-implementation/elk-flow.png" alt="ELK Stack Flow" class="w-full rounded-md">
 <br/>
 
 먼저, \`Spring Boot\`에서 발생한 로그를 \`Filebeat\`를 통해 \`Logstash\`가 수집하고, 필요에 따라 가공한 뒤, \`Elasticsearch\`에 저장합니다.<br/>
@@ -583,12 +583,12 @@ input 블록을 통해 TCP 5000 포트로 들어오는 로그를 JSON으로 파�
 환경 구축을 마친 뒤, 정상적으로 설정이 되었는지 확인해주기 위해 \`http://localhost:9200\`로 접속하여 elastic search가 켜져있는지 확인합니다.<br/>
 정상적으로 접근 가능하다면, \`http://localhost:5601\` \`kibana\`에 접속합니다.<br/><br/>
 
-<img src="/posting/elk/kibana-ex-site1.png" alt="Kibana Example site" class="w-full rounded-md">
+<img src="/posting/elk-implementation/kibana-ex-site1.png" alt="Kibana Example site" class="w-full rounded-md">
 <br/>
 
 먼저, Management > Stack Management > Data Views 경로로 접근해 Create data view 버튼을 눌러 \`logstash.conf\`에서 설정했던 index 패턴을 등록해줍니다.<br/> 제 경우에는 \`service-log-*\` 패턴을 등록하여 모든 날짜의 서비스 로그를 볼 수 있도록 설정했습니다.<br/><br/>
 
-<img src="/posting/elk/kibana-ex-site2.png" alt="Kibana Example site" class="w-full rounded-md">
+<img src="/posting/elk-implementation/kibana-ex-site2.png" alt="Kibana Example site" class="w-full rounded-md">
 <br/>
 
 정상적으로 패턴이 등록되었다면, 이제 \`Kibana\`까지 사용할 준비가 완료된 것입니다.<br/>
@@ -645,11 +645,323 @@ echo "모든 작업이 완료되었습니다."
 감사합니다.
         `
     },
+    {
+        id: '3',
+        title: 'JMeter 부하 테스트로 성능 진단하고 최적화하기',
+        description: 'JMeter를 사용해 부하 테스트를 진행하여 병목 지점을 찾고, 성능을 최적화한 과정에 대해 다룹니다.',
+        category: 'backend',
+        tags: ['JMeter', '부하테스트', '성능테스트', 'QA'],
+        date: '2025-04-15',
+        thumbnail: '/posting/jmeter-performance-testing/jmeter-flow.png',
+        readingTime: '9분',
+        slug: 'jmeter-performance-testing',
+        projects: ['stack-snapshot'],
+        content: `
+로컬 환경에서 개발할 때는 모든 기능이 정상적으로 동작하는 것처럼 보여도, 실제 운영 환경에 배포하면 예상치 못한 현실적인 문제에 부딪히는 경우가 많습니다.<br/>
+이런 문제를 미리 예방하려면, 실제 서비스 환경을 충분히 고려해 배포 전에 철저한 성능 테스트를 진행하고, 발견된 이슈를 신속하게 개선하는 과정이 매우 중요합니다.<br/><br/>
+
+이번 글에서는 JMeter를 활용해 부하 테스트를 진행하며 병목 구간을 진단하고, 비동기 아키텍처와 최적화 기법을 도입해 실질적으로 어떤 성능 개선 효과를 얻었는지에 대한 과정을 자세히 다뤄보려고 합니다.<br>
+<hr />
+
+# 1. 문제 파악
+<br>
+스택네컷 프로젝트는 현장에서 촬영한 네컷사진을 즉시 편집하고, QR 코드로 다운로드할 수 있는 디지털 사진 서비스입니다.<br>
+사용자는 사진 촬영 후 즉시 결과물을 받아볼 수 있고, 이후 뽑기 이벤트 부가 기능도 즐길 수 있습니다.<br>
+이러한 서비스 특성상, 빠른 이미지 처리와 실시간 응답성이 매우 중요합니다.<br><br>
+
+프로젝트 초기에는 시스템 구조를 단순하게 유지하기 위해 모든 이미지 처리 로직을 **동기(Synchronous) 방식**으로 설계했습니다.<br>
+즉, 사용자가 사진을 업로드하면 서버는 순차적으로 이미지를 저장하고, 프레임을 합성한 뒤, 최종 결과물을 생성해 응답하는 구조였습니다.<br>
+개발할 때는 이 방식이 큰 문제가 없어 보였고, 로컬 환경에서 또한 서버 자원도 충분했고, 응답 속도 역시 만족스러웠습니다.<br><br>
+
+하지만, 스택네컷 서비스의 실제 운영 환경은 사람이 많은 대학 축제나 대규모 이벤트 현장이었기 때문에, 여러 대의 촬영 기기를 통해 많은 사용자가 동시에 사진을 업로드하고 결과물을 요청하는 상황이 빈번히 발생할 수 있었습니다.<br>
+특히, 행사장에서는 짧은 시간 동안 트래픽이 집중되기 때문에, 서버가 과연 이러한 부하를 안정적으로 처리할 수 있을지 사전에 검증할 필요가 있었습니다.<br><br>
+
+이러한 현실적인 상황을 충분히 반영하기 위해, 실제 운영 환경과 유사한 조건인 여러 대의 기기, 동시 접속자 다수를 가정해 JMeter 부하 테스트를 진행하였습니다.<br>  
+동기 방식 구조에서는 모든 요청이 한 줄로 늘어서 순차적으로 처리되기 때문에, 만약 앞선 요청 중 하나라도 이미지 병합이나 파일 저장 등에서 시간이 오래 걸리면, 뒤따르는 모든 요청이 그만큼 지연될 수밖에 없습니다.<br>
+동시 접속자가 늘어날수록 병목 현상은 더욱 심해지고, 서버의 최대 처리량 역시 빠르게 한계에 도달할 수 있습니다.<br><br>
+
+이러한 동기 방식의 한계는 서버 리소스를 비효율적으로 사용하는 원인이 됩니다.<br>
+CPU와 메모리는 대기 상태에 머무르는 시간이 많아지고, I/O 작업이 완료될 때까지 다음 작업이 진행되지 못하는 구조적 비효율이 발생합니다.<br>
+이런 상황이 반복되면, 일시적인 트래픽 증가에도 서비스 전체가 느려지거나, 심할 경우 장애로 이어질 수 있습니다.<br><br>
+
+따라서, 직접 서비스할 환경을 모의한 부하 테스트를 진행하여 실제 환경에서 문제가 있을지 여부를 파악하고자 JMeter 부하 테스트를 진행하게 되었습니다.
+
+<br/>
+<hr />
+
+# 2. JMeter 부하 테스트로 구체적 문제 진단
+<br/>
+
+## 2.1 테스트 시나리오 및 환경
+먼저, 실제 행사장과 유사하게 여러 대의 촬영 기기가 동시에 서버에 요청을 보내는 상황을 가정했습니다.<br>
+JMeter를 통해 동시 사용자를 50명, 100명으로 설정하고, 각 사용자가 20초 동안 2회씩 사진 업로드 및 결과 조회를 반복하도록 시나리오를 구성했습니다.<br><br>
+
+테스트 환경은 아래와 같이 설정했습니다.<br><br>
+
+<img src="/posting/jmeter-performance-testing/jmeter-flow.png" alt="JMeter Test Flow" class="w-[300px] rounded-md">
+<br>
+
+- Window 기반 개발 서버, Java 17, Spring Boot 3.x
+- 네트워크 환경: 무선 wifi
+- JMeter 5.6.3 버전 사용
+- 테스트 대상 API: 
+  - POST /api/photos/upload (이미지 업로드)
+  - POST /api/photos/frames (프레임 합성)
+  - GET /api/photos/result (결과 다운로드)
+  - 그 외 기본 api 4개
+  
+  <br>
+  
+## 2.2 동기 구조일 시 성능 지표 분석
+
+테스트 결과 도출된 지표는 아래와 같습니다.<br><br>
+
+• 최적화 전 동시 접속자 **50명** 성능 테스트 결과
+<img src="/posting/jmeter-performance-testing/jmeter-before-50.png" alt="JMeter Test Result 50 Users" class="w-full rounded-md">
+<br/>
+• 최적화 전 동시 접속자 **100명** 성능 테스트 결과
+<img src="/posting/jmeter-performance-testing/jmeter-before-100.png" alt="JMeter Test Result 100 Users" class="w-full rounded-md">
+<br/>
+
+동시 접속자 50명 기준, 전체 API의 평균 응답 시간은 20ms 내외로 비교적 안정적이었습니다.<br/>  
+하지만, 동시 접속자가 100명으로 늘어나자 일부 API, 특히 이미지 병합(POST /api/photos/frames) 구간에서 평균 응답 시간이 133ms까지 증가했습니다.<br/>  
+최대 응답 시간 역시 282ms로 급등했으며, 99% 응답 시간도 244ms로 증가했습니다.<br/>
+이는 병목 구간이 특정 API에 집중되어 있음을 의미합니다.<br/><br/>
+
+동시 접속자 증가에 따라, 이미지 업로드 및 병합 API의 데이터 전송량 또한 급격히 늘어났습니다.<br/>  
+50명 기준 초당 15,464KB, 100명 기준 30,713KB에 달하는 데이터가 전송되었습니다.<br/>
+이는 서버의 I/O 리소스가 빠르게 소진될 수 있음을 나타냅니다.<br/><br/>
+
+가장 큰 병목은 이미지 병합(프레임 합성) API에서 발생했습니다.<br/>  
+이 구간은 연산량이 많고, 파일 입출력이 집중되는 구조이기 때문에, 동기 방식에서는 앞선 요청이 완료될 때까지 후속 요청이 모두 대기 상태에 머무르게 됩니다.<br/>
+결과적으로 동시 요청이 몰릴수록 응답 지연이 눈에 띄게 증가하게 됩니다.<br/><br/>
+
+모든 테스트에서 에러율은 0.00%로 SLA(1% 이하)를 안정적으로 만족했습니다.<br/>
+하지만, 이는 서버가 요청을 모두 정상 처리했음을 의미할 뿐, 실제 사용자의 체감 대기 시간은 충분히 길어질 수 있다는 점을 보여줍니다.<br/><br/>
+
+결과적으로, 이미지 처리 로직의 복잡성과 동기적 처리 방식으로 인해 동시 접속자가 증가할 경우 서버 성능이 크게 저하된다는 사실을 확인했습니다.
+<br/><br/>
+<hr />
+
+# 3. 개선 목표 및 전략 수립
+<br>
+JMeter 부하 테스트를 통해 동기 구조의 한계와 주요 병목 구간이 명확히 드러난 이후, 본격적으로 서비스의 성능을 근본적으로 개선하기 위한 목표와 전략을 수립하였습니다.<br><br>
+성능 개선의 궁극적인 목적은 단순히 수치상 응답 시간을 줄이는 데에만 있지 않습니다.<br>
+실제 현장에서 수십, 수백 명의 사용자가 동시에 사진을 촬영하고 결과물을 받아가는 상황에서도, 서비스가 안정적으로 동작하며, 사용자 모두가 쾌적한 경험을 누릴 수 있도록 하는 것이 목표였습니다.<br>
+무엇보다도, 이미지 업로드 및 병합과 같은 연산량이 큰 작업에서 발생하는 병목을 해소하고, 서버 리소스를 효율적으로 활용하여 처리량을 극대화하는 것이 핵심 과제였습니다.<br><br>
+
+이러한 분석 결과와 개선 목표를 바탕으로 서비스 최적화를 위해 다음과 같은 전략을 정하고, 코드에 반영했습니다.<br><br>
+
+## 3.1 이미지 처리 로직의 비동기화 및 자원 최적화
+동기 방식의 이미지 업로드 및 병합 처리를 Java의 \`CompletableFuture\`와 비동기 메서드로 전환하여, 이미지들을 병렬로 처리하여 전체 처리 속도가 향상되도록 개선했습니다.
+
+\`\`\`java
+// PhotoService.java
+// 이미지 업로드 병렬 처리
+List<CompletableFuture<String>> futures = new ArrayList<>();
+for (MultipartFile image : images) {
+    CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+        // 파일 저장 로직
+        return fileName;
+    });
+    futures.add(future);
+}
+\`\`\`
+
+<br />
+이미지 병합(프레임 합성)의 경우도, 비동기적으로 처리해주도록 개선하였습니다.
+
+\`\`\`java
+// 선택된 프레임 기반 사진 합성
+// 비동기적으로 이미지 병합 작업 실행
+return selectFrameService.mergeImagesAsync( /* ... */ )
+        .thenApply(combinedImagePath -> PhotoResponseDto.builder()
+            // ...
+            .fileName(combinedImagePath)
+            .build());
+\`\`\`
+
+\`\`\`java
+// SelectFrameService.java
+@Async
+public CompletableFuture<String> mergeImagesAsync(/* ... */) {
+    // 이미지 병합 처리
+    return CompletableFuture.completedFuture(mergedFileName);
+}
+\`\`\`
+
+<br/>
+<br/>
+
+## 3.2 프레임 이미지 캐싱
+프레임 이미지는 항상 동일하므로 매 요청마다 디스크에서 읽어올 필요가 없습니다.<br>
+따라서, 메모리 내 캐시(ConcurrentHashMap)에 저장하여 불필요한 I/O를 줄이고 응답 속도를 높여주도록 개선하였습니다.
+
+\`\`\`java
+// 프레임 이미지 캐시
+private final ConcurrentHashMap<Integer, BufferedImage> frameImageCache = new ConcurrentHashMap<>();
+
+private BufferedImage loadFrameImage(String FRAME_PATH, int frameId) throws IOException {
+    if (frameImageCache.containsKey(frameId)) 
+        return deepCopy(frameImageCache.get(frameId));
+    // 디스크에서 읽어와 캐시에 저장
+    BufferedImage frameImage = ImageIO.read(new File(FRAME_PATH + frameId + "." + EXT));
+    frameImageCache.put(frameId, frameImage);
+    return frameImage;
+}
+\`\`\`
+
+<br/>
+
+## 3.3 DTO 자료형 개선
+개선을 위해 기존 코드를 검토해본 결과, 불필요한 DTO 필드가 존재하고있었습니다.<br/>
+따라서 필요한 데이터만 포함하도록 DTO 구조를 개선하여 메모리 사용량을 최소화하였습니다.
+
+<br/>
+
+## 3.4 임시 파일 및 개인정보 관리
+저장 공간 절약과 개인정보 보호를 위해 서비스에서 생성되는 임시 파일 및 개인정보가 포함된 데이터를 주기적으로 삭제하도록 로직을 추가했습니다.
+<br/>
+<br/>
+
+Spring의 \`@Scheduled\` 어노테이션을 활용하여, 24시간이 지난 파일을 매일 새벽 3시에 일괄 삭제하도록 구현하였습니다.
+
+\`\`\`java
+@Service
+public class TempFileCleanupService {
+
+    @Value("$\{file.upload-dir\}")
+    private String uploadDirectory;
+
+    // 매일 새벽 3시 실행
+    @Scheduled(cron = "0 0 3 * * *")
+    public void cleanOldFiles() {
+        File uploadDir = new File(uploadDirectory);
+        long now = System.currentTimeMillis();
+        long expiredTime = 24 * 60 * 60 * 1000L;
+
+        for (File groupDir : uploadDir.listFiles(File::isDirectory)) {
+            for (File file : groupDir.listFiles()) {
+                if (now - file.lastModified() > expiredTime) file.delete();
+            }
+            // 비어있으면 폴더 삭제
+            if (groupDir.list().length == 0) groupDir.delete();
+        }
+    }
+}
+\`\`\`
+
+<br/>
+<hr />
+
+# 4. 성능 개선 결과
+<br>
+
+## 4.1 이미지 처리 최적화 효과
+
+이미지 처리 최적화 후, JMeter를 통해 다시 성능 테스트를 진행하여 개선 효과를 확인했습니다.<br><br>
+
+• 이미지 처리 최적화 후 동시 접속자 **50명** 성능 테스트 결과
+
+<img src="/posting/jmeter-performance-testing/jmeter-image-after-50.png" alt="After JMeter Aggregate 50" />
+<br/>
+
+• 이미지 처리 최적화 후 동시 접속자 **100명** 성능 테스트 결과
+
+<img src="/posting/jmeter-performance-testing/jmeter-image-after-100.png" alt="After JMeter Aggregate 100" />
+<br />
+
+- 평균 응답 시간 최대 **21% 감소**:
+  - 50명: 125ms → 115ms (8%↓)  
+  - 100명: 133ms → 105ms (**21%↓**)
+- 데이터 전송량 **40% 감소**:  
+  - 50명: 15,464KB/s → 9,285KB/s (**40%↓**)
+  - 100명: 30,713KB/s → 18,457KB/s (**40%↓**)
+<br />
+<br />
+
+## 4.2 비동기 처리 도입 효과
+
+비동기 처리 도입 후, JMeter를 통해 다시 성능 테스트를 진행하여 개선 효과를 확인했습니다.<br><br>
+
+• 비동기 처리 도입 후 동시 접속자 **50명** 성능 테스트 결과
+<img src="/posting/jmeter-performance-testing/jmeter-async-after-50.png" alt="After JMeter Aggregate 50" />
+<br/>
+• 비동기 처리 도입 후 동시 접속자 **100명** 성능 테스트 결과
+<img src="/posting/jmeter-performance-testing/jmeter-async-after-100.png" alt="After JMeter Aggregate 100" />
+<br />
+
+- 이미지 병합 API 응답 시간 최대 **66% 감소**:
+  - 50명: 125ms → 88ms (30%↓)  
+  - 100명: 133ms → 82ms (38%↓)  
+  - 최대 응답 시간: 282ms → 95ms (**66%↓**)
+- 전체 API 평균 응답 시간 최대 **33% 감소**:  
+  - 50명: 20ms → 15ms (25%↓)  
+  - 100명: 21ms → 14ms (**33%↓**)
+- 에러율:  
+  - 모든 API 0.00%로 안정적 유지
+<br/><br/>
+
+결과적으로, 비동기 처리 도입과 이미지 최적화 로직 추가로 인해, 전체 API의 평균 응답 시간이 **21ms에서 15ms로 감소**했습니다.<br>
+또한, 이미지 병합 API의 최대 응답 시간은 **282ms에서 95ms로 크게 감소**했음을 확인할 수 있었습니다.<br><br>
+
+<hr />
+
+# 5. 비동기 도입의 트레이드오프와 한계
+<br>
+
+## 5.1 race condition - 비동기 방식 도입으로 인한 동시 디렉토리 생성 문제
+
+비동기 방식(\`CompletableFuture.supplyAsync\`)을 도입하면서 여러 스레드가 동시에 동일한 디렉토리에 접근하는 상황이 발생했습니다.
+<br/><br/>
+디렉토리가 존재하지 않을 경우, 각 스레드가 \`groupDirectory.exists()\`를 확인한 뒤, 디렉토리를 생성하려고 시도하게 됩니다. 이 과정에서 두 개 이상의 스레드가 동시에, **의도치않게 여러번 디렉토리를 생성**(race condition)할 가능성이 있습니다. 이러한 경우, "디렉토리 생성 실패"나 "IOException" 오류가 발생하게 됩니다.
+<br/><br/>
+스택네컷 프로젝트에서도 이러한 문제를 경험했으며, 이를 해결하기 위해 클래스 수준의 \`synchronized\` 블록을 도입했습니다.
+이렇게 하면 **한 번에 하나의 스레드만 해당 블록에 진입**할 수 있어, 디렉토리 생성 작업이 원자적으로 수행되고, 다른 스레드가 동시에 같은 디렉토리를 생성하려는 시도를 방지할 수 있습니다. 
+<br/><br/>
+
+\`\`\`java
+// 비동기 업로드 중 디렉토리 생성 부분
+synchronized (PhotoService.class) {
+    if (!groupDirectory.exists() && !groupDirectory.mkdirs()) {
+        throw new IOException("Failed to create group directory: " + groupDirectory.getAbsolutePath());
+    }
+}
+\`\`\`
+\`synchronized\` (PhotoService.class)를 사용하여, 동시에 여러 스레드가 해당 블록에 진입하지 못하도록 제어합니다.
+위 작업을 통해, 디렉토리 생성이 중복 없이 안전하게 진행될 수 있었습니다.
+
+
+## 5.2 비동기 처리의 트레이드오프
+
+이미지 업로드 API (\`uploadPhotos\`)의 최적화를 진행한 결과, 동시 사용자 50명 기준으로 평균 응답 시간이 21ms에서 35ms로 증가했습니다.<br>
+그러나 동시 사용자 100명 기준으로는 응답 시간이 24ms에서 27ms로 비교적 안정적인 수준을 유지했습니다.<br>
+이러한 성능 변화는 최적화 로직 추가로 인한 데이터 전송량 감소 이점과의 절충으로 판단됩니다.<br>
+따라서 이미지 최적화 로직의 장점을 고려할 때, 전체 시스템의 효율성을 높이는 데 긍정적인 영향을 주었다고 볼 수 있습니다.
+<br /><br />
+
+\`synchronized\` 블록은 특정 자원에 대해 하나의 스레드만 접근할 수 있도록 제한하기 때문에, 여러 스레드가 동시에 실행될 때 병목 현상을 일으킬 수 있습니다.<br> 
+또한, 여러 스레드가 이 블록에 접근하려고 할 때 락 경쟁이 발생하여 대기 시간이 늘어날 수 있습니다.<br/><br>
+현재 스택네컷 프로젝트에서는 작은 단위의 기능에만 \`synchronized\` 락을 적용하여 큰 병목 현상이 발생하지 않았습니다. <br>
+또한 아직까지 락 경쟁이 발생할 정도로 많은 요청이 들어온 적이 없어 성능 저하도 발생하지 않았습니다.<br> 
+앞으로의 확장 가능성이 있다고 판단되면, 동기화 범위를 더 세밀하게 조정하거나 락 분할(\`lock splitting\`), 비동기 큐와 같은 대체 동기화 방법을 도입하여 확장성을 확보할 예정입니다.<br><br>
+
+<br/>
+<hr />
+
+# 마치며
+
+이번 글에서는 JMeter를 활용한 부하 테스트를 통해 스택네컷 서비스의 성능 병목을 진단하고, 비동기 아키텍처와 최적화 기법을 도입하여 성능을 개선한 과정을 다뤘습니다.<br/><br/>
+
+이 글이 부하 테스트와 성능 최적화에 대한 분석을 고려하는 분들께 도움이 되었으면 합니다.<br/>
+감사합니다.
+        `
+    },
     // {
     //     id: '2',
     //     title: 'Next.js 13의 App Router 완벽 가이드',
     //     description: 'Next.js 13에서 도입된 App Router의 핵심 개념과 장점, 사용법을 자세히 살펴봅니다.',
-    //     category: 'development',
+    //     category: 'backend',
     //     tags: ['Next.js', 'React', 'App Router', 'SSR'],
     //     date: '2023-12-10',
     //     readingTime: '12분',
@@ -659,7 +971,7 @@ echo "모든 작업이 완료되었습니다."
     //     id: '3',
     //     title: 'TypeScript 제네릭 마스터하기',
     //     description: 'TypeScript의 강력한 기능인 제네릭을 실제 사용 사례와 함께 깊이 있게 알아봅니다.',
-    //     category: 'development',
+    //     category: 'backend',
     //     tags: ['TypeScript', '제네릭', '타입 시스템'],
     //     date: '2024-01-20',
     //     readingTime: '10분',
