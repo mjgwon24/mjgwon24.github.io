@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { Calendar, Clock, Search, X, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function Posts() {
-    const [category, setCategory] = useState<'all' | 'development' | 'cs' | 'algorithm'>('all');
+    const [category, setCategory] = useState<'all' | 'backend' | 'cs' | 'algorithm'>('all');
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -98,12 +98,12 @@ export default function Posts() {
                                 </button>
                                 <button
                                     className={`px-4 py-2 text-xs md:text-sm transition-all cursor-pointer ${
-                                        category === 'development'
+                                        category === 'backend'
                                             ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
                                             : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
-                                    onClick={() => setCategory('development')}
+                                    onClick={() => setCategory('backend')}
                                 >
-                                    개발
+                                    백엔드
                                 </button>
                                 <button
                                     className={`px-4 py-2 text-xs md:text-sm transition-all cursor-pointer ${
@@ -190,22 +190,22 @@ export default function Posts() {
 
 const PostCard = ({ post }: { post: Post }) => {
     const categoryText =
-        post.category === 'development' ? '개발' :
+        post.category === 'backend' ? '백엔드' :
             post.category === 'cs' ? 'CS 지식' :
                 '알고리즘';
 
     const categoryColor =
-        post.category === 'development' ? 'bg-emerald-600/50 text-emerald-300' :
+        post.category === 'backend' ? 'bg-emerald-600/50 text-emerald-300' :
             post.category === 'cs' ? 'bg-purple-600/50 text-purple-400' :
                 'bg-yellow-600/50 text-yellow-400';
 
     const categoryIcon =
-        post.category === 'development' ? '{ }' :
+        post.category === 'backend' ? '{ }' :
             post.category === 'cs' ? 'CS' :
                 '⊃∪';
 
     const gradientColors =
-        post.category === 'development' ? 'from-green-500/20 via-blue-500/20 to-cyan-500/20' :
+        post.category === 'backend' ? 'from-green-500/20 via-blue-500/20 to-cyan-500/20' :
             post.category === 'cs' ? 'from-purple-500/20 via-blue-500/20 to-indigo-500/20' :
                 'from-yellow-500/20 via-orange-500/20 to-red-500/20';
 

@@ -90,7 +90,7 @@ export default function PostDetail({ slug }: { slug: string }) {
     }
 
     const categoryColor =
-        post.category === 'development' ? 'text-green-400 border-green-400' :
+        post.category === 'backend' ? 'text-green-400 border-green-400' :
             post.category === 'cs' ? 'text-purple-400 border-purple-400' :
                 'text-yellow-400 border-yellow-400';
 
@@ -210,7 +210,7 @@ export default function PostDetail({ slug }: { slug: string }) {
                 <div className="flex flex-col justify-center lg:flex-row-reverse lg:mr-20 gap-12">
                     <div className="flex-grow max-w-3xl">
                         <div className={`inline-flex px-3 py-1 rounded-lg border ${categoryColor} text-sm mb-4`}>
-                            {post.category === 'development' ? '개발' :
+                            {post.category === 'backend' ? '백엔드' :
                                 post.category === 'cs' ? 'CS 지식' : '알고리즘'}
                         </div>
 

@@ -184,14 +184,14 @@ export default function ProjectDetail() {
                                     />
                                 ) : (
                                     <div className={`w-full h-full flex items-center justify-center
-                                    ${post.category === 'development'
+                                    ${post.category === 'backend'
                                         ? 'bg-emerald-600/20'
                                         : post.category === 'cs'
                                             ? 'bg-purple-600/20'
                                             : 'bg-yellow-600/20'}`}
                                     >
                                     <span className="text-xl opacity-70">
-                                        {post.category === 'development' ? '{ }' :
+                                        {post.category === 'backend' ? '{ }' :
                                             post.category === 'cs' ? 'CS' : '⊃∪'}
                                     </span>
                                     </div>
@@ -200,13 +200,13 @@ export default function ProjectDetail() {
                             <div className="flex-grow">
                                 <div className="flex items-center gap-2 mb-1">
                                 <span className={`px-2 py-0.5 rounded text-xs
-                                    ${post.category === 'development'
+                                    ${post.category === 'backend'
                                     ? 'bg-emerald-600/50 text-emerald-300'
                                     : post.category === 'cs'
                                         ? 'bg-purple-600/50 text-purple-400'
                                         : 'bg-yellow-600/50 text-yellow-400'}`}
                                 >
-                                    {post.category === 'development' ? '개발' :
+                                    {post.category === 'backend' ? '백엔드' :
                                         post.category === 'cs' ? 'CS 지식' : '알고리즘'}
                                 </span>
                                 </div>
