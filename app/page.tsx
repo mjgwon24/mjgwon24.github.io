@@ -122,7 +122,7 @@ function IntroSection({ visible, refObj }: { visible: boolean; refObj: React.Ref
             priority
         />
         <h1 className="text-white text-2xl sm:text-4xl weight-700 text-center leading-snug select-none">
-          개발을 사랑하는 개발자,<br />
+          사람과 서비스를 이어주는 개발자,<br />
           <span className="text-blue-500">권민지</span>입니다.
         </h1>
       </div>

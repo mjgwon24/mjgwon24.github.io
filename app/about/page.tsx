@@ -32,12 +32,17 @@ export default function About() {
                     />
 
                     <p className="text-gray-200 leading-relaxed text-start">
-                        <span className="weight-700 text-blue-300 lg:text-lg">Step By Step, 꾸준함을 아는 개발자</span>
+                        <span className="weight-700 text-blue-300 lg:text-lg">사람과 서비스를 이어주는 개발자</span>
                         <br/><br/>
+                        2023년부터 개발을 시작해 다양한 서비스와 팀을 만들어왔습니다.<br/><br/>
+
                         4.5점 만점으로 학과 수석을 여러 차례 기록하며 기본기를 다졌고, 개발동아리를 설립해 멘토링 활동을 하며 집단 전체의 성장을 위해 노력해왔습니다.<br/><br/>
-                        매일 온라인 개발 스터디를 꾸준히 진행하며, 하루 평균 9시간 이상 개발에 몰입하는 생활을 이어가고 있습니다.<br/><br/>
-                        코드를 작성하며 서비스가 점차 완성되어 가는 모습을 볼 때 가장 큰 행복을 느낍니다.<br/><br/>
-                        저의 인생 목표는 사람들이 원하는 서비스를 개발하여, 그들의 일상에 긍정적인 영향을 미치는 개발자가 되는 것입니다.<br/>
+
+                        사용자가 서비스를 보다 편리하게, 그리고 안전하게 이용할 수 있도록 하는 것을 최우선으로 생각합니다. 이를 위해 쿼리 튜닝 역량과 렌더링 시간 단축 역량, 인증/인가 및 데이터 보안 강화 경험을 활용하여 사용자에게 보다 빠르고 안전한 서비스 경험을 제공하기 위해 노력해왔습니다. 또한, 좋은 서비스는 혼자가 아닌 함께 만들 수 있다고 생각하기에 다양한 직무의 구성원들과 적극적으로 커뮤니케이션하며 협업해왔습니다.<br/><br/>
+
+                        반복되는 일을 자동화하고 비효율적인 프로세스를 개선하는 일을 좋아합니다. 개발 프로세스에서 배포 시간을 단축시키기 위해 기존의 배포 스크립트를 고도화하여 배포 시간을 67% 단축시킨 경험이 있습니다.<br/><br/>
+
+                        궁극적인 저의 목표는 사람들이 원하는, 그리고 편리하게 사용할 수 있는 서비스를 개발하여, 그들의 일상에 긍정적인 영향을 미치는 개발자가 되는 것입니다.<br/>
                     </p>
                 </div>
 
@@ -46,30 +51,31 @@ export default function About() {
 
                     <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-10 lg:mb-20">
                         <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
-                            <h3 className="text-lg weight-600 mb-3 text-blue-300">기술 역량</h3>
+                            <h3 className="text-lg weight-600 mb-3 text-blue-300">Tech Lead</h3>
                             <p className="text-gray-200 leading-relaxed">
-                                • 에러 발생 시, 플로우별 철저한 디버깅으로 문제 해결<br/>
-                                • 쿼리 최적화, 캐싱을 통한 대용량 데이터 성능 개선<br/>
-                                • UI/UX 개선으로 LCP 62% 단축<br/>
-                                • 입력값 검증, 인증/인가 로직 강화, 취약점 진단으로 보안 강화
+                                • 스크립트 고도화를 통해 단순 반복 작업을 자동화하여 배포 소요 시간 67% 단축<br/>
+                                • 쿼리 튜닝을 통해 복합 인덱스, 페이징 적용으로 API 응답 속도 84% 단축<br/>
+                                • JMeter 부하 테스트를 통해 비동기/병렬 처리 적용으로 API 응답 속도 66% 단축<br/>
+                                • 반복적으로 사용되는 이미지 프레임을 캐싱하여 데이터 전송량 40% 절감<br/>
+                                • 이미지 priority 속성, 스켈레톤 적용으로 LCP 66% 단축<br/>
                             </p>
                         </div>
 
                         <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
-                            <h3 className="text-lg weight-600 mb-3 text-blue-300">일정 관리 및 커뮤니케이션</h3>
+                            <h3 className="text-lg weight-600 mb-3 text-blue-300">People Lead</h3>
                             <p className="text-gray-200 leading-relaxed">
-                                • 분단위 스케줄링<br/>
                                 • 업무 우선순위 설정<br/>
                                 • 팀원의 업무 수행 능력을 바탕으로 적절한 업무 분담<br/>
-                                • 의문점이 생기면 즉시 소통 진행<br/>
+                                • 원활한 협업을 위해 개발 프로세스 및 기술 공유 문서 작성<br/>
+                                • 다양한 직무의 구성원들과 적극적으로 커뮤니케이션<br/>
                             </p>
                         </div>
 
                         <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
-                            <h3 className="text-lg weight-600 mb-3 text-blue-300">AI 활용</h3>
+                            <h3 className="text-lg weight-600 mb-3 text-blue-300">AI Practice</h3>
                             <p className="text-gray-200 leading-relaxed">
-                                • 문서 자동화 및 테스트 시나리오 도출<br/>
-                                • 코파일럿 AI 코드리뷰를 통해 PR 승인 속도를 높여 개발 생산성 향상<br/>
+                                • 개발 생산성을 높여주기 위한 코파일럿 AI 코드리뷰 도입<br/>
+                                • 보다 정확하고 향상된 응답을 위한 일관된 프롬프트 사용<br/>
                                 • 할루시네이션 현상 최소화를 위한 결과 교차 검증 및 공식 문서 기반 재확인
                             </p>
                         </div>
@@ -81,8 +87,8 @@ export default function About() {
                         <div className="w-full space-y-4">
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
                                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-3">
-                                    <h3 className="text-lg weight-600 text-blue-300">우리FIS 아카데미 우수 수료</h3>
-                                    <span className="text-gray-400 text-sm">2025.01 ~ 2025.06</span>
+                                    <h3 className="text-lg weight-600 text-blue-300">우리FIS 아카데미 클라우드 서비스 개발 교육 우수 수료</h3>
+                                    <span className="text-gray-400 text-sm">2024.12 ~ 2025.06</span>
                                 </div>
                                 <ul className="text-gray-200 leading-relaxed list-disc pl-5 space-y-1">
                                     <li>최종 프로젝트 1위</li>
@@ -103,24 +109,15 @@ export default function About() {
 
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
                                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-3">
-                                    <h3 className="text-lg weight-600 text-blue-300">구독형 솔루션 판매 사이트 제작</h3>
-                                    <span className="text-gray-400 text-sm">2024.06 ~ 2024.12</span>
-                                </div>
-                                <ul className="text-gray-200 leading-relaxed list-disc pl-5 space-y-1">
-                                    <li>솔루션 소프트웨어 판매 사이트 softcat 1인 개발/배포/서버관리</li>
-                                </ul>
-                            </div>
-
-                            <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
-                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-3">
-                                    <h3 className="text-lg weight-600 text-blue-300">더존비즈온 erp 물류개발 부서 현장실습</h3>
+                                    <h3 className="text-lg weight-600 text-blue-300">더존비즈온 ERP 물류개발 부서 현장실습</h3>
                                     <span className="text-gray-400 text-sm">2024.01 ~ 2024.06</span>
                                 </div>
                                 <ul className="text-gray-200 leading-relaxed list-disc pl-5 space-y-1">
-                                    <li>구매, 영업, 생산, 원가, 외주를 포함하는 총 201개의 메뉴에 대한 출력물 표준 템플릿 개발 및 적용</li>
-                                    <li>매일 하루 3번 Git, FileZilla, 쉘 스크립트를 통해 개발 코드 배포</li>
-                                    <li>코드 검토 및 빌드 테스트 진행</li>
-                                    <li>매주 &#39;ERP개발부서 개발 역량 강화를 위한 지식 공유&#39; 발표 진행 (SpringBoot, JPA, SQL 튜닝, React)</li>
+                                    <li>매일 3번, Git, FileZilla, 쉘 스크립트를 통해 프론트엔드 및 백엔드 코드를 개발 서버에 배포</li>
+                                    <li>기존의 쉘 스크립트와 수작업이 병행되던 배포 방식을 완전히 자동화하여  배포 소요 시간을 12분에서 4분으로 67% 단축</li>
+                                    <li>매주 Spring Boot, JPA, React, 쿼리 튜닝 기술 공유 발표 진행</li>
+                                    <li>구매, 영업, 생산, 원가, 외주 총 201개 메뉴에 대해 출력물 표준 템플릿을 직접 개발하고, 개선 사항을 일괄적으로 반영</li>
+                                    <li>기존 팀원 및 신규 팀원이 개선된 표준 템플릿 정보를 알 수 있도록 표준 템플릿 가이드 문서 작성</li>
                                 </ul>
                             </div>
 
@@ -162,6 +159,15 @@ export default function About() {
 
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
                                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full">
+                                    <h3 className="text-lg weight-600 text-blue-300">2025 우리FISA 기술 세미나 1위</h3>
+                                    <p className="text-gray-400 text-sm">우리FIS</p>
+                                </div>
+
+                                <p className="text-gray-400 text-sm">2025.02.06</p>
+                            </div>
+
+                            <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
+                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full">
                                     <h3 className="text-lg weight-600 text-blue-300">2024 경주 지역문제해결 해커톤 최우수상</h3>
                                     <p className="text-gray-400 text-sm">경북ICT융합산업진흥협회</p>
                                 </div>
@@ -180,11 +186,59 @@ export default function About() {
 
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
                                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full">
-                                    <h3 className="text-lg weight-600 text-blue-300">학과 SW 경진대회 대상</h3>
+                                    <h3 className="text-lg weight-600 text-blue-300">교내 SW 경진대회 대상</h3>
                                     <p className="text-gray-400 text-sm">동국대학교 전자정보통신공학과</p>
                                 </div>
 
                                 <p className="text-gray-400 text-sm">2021.12.16</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 발표 섹션 추가 */}
+                    <div className="mt-12 flex flex-col items-center mb-10 lg:mb-20">
+                        <h2 className="text-white text-2xl weight-600 mb-8 text-center">발표</h2>
+                        <div className="w-full space-y-4">
+                            <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
+                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full mb-1">
+                                    <h3 className="text-lg weight-600 text-blue-300">데이터베이스 튜닝</h3>
+                                    <p className="text-gray-400 text-sm">우리FIS 아카데미</p>
+                                </div>
+                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full">
+                                    <p className="text-gray-400 text-sm">2025.03</p>
+                                    <a
+                                        href="https://glamorous-key-514.notion.site/248feed75f9b806680f0e1fe1eeed937?source=copy_link"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center mt-2 lg:mt-0"
+                                    >
+                                        <span>발표자료 보기</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
+                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full mb-1">
+                                    <h3 className="text-lg weight-600 text-blue-300">클로저와 렉시컬 스코프에 대한 이해와 활용</h3>
+                                    <p className="text-gray-400 text-sm">우리FIS 아카데미</p>
+                                </div>
+                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full">
+                                    <p className="text-gray-400 text-sm">2025.02</p>
+                                    <a
+                                        href="https://glamorous-key-514.notion.site/248feed75f9b80fab376d5028890deca"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center mt-2 lg:mt-0"
+                                    >
+                                        <span>발표자료 보기</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -206,19 +260,19 @@ export default function About() {
 
                         <div className="flex flex-col gap-4 items-center">
                             <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
-                                <StackCard title="Languages" items={techStackData.languages} />
+                                <StackCard title="Backend" items={techStackData.Backend} />
                             </div>
 
                             <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
-                                <StackCard title="Libraries & Frameworks" items={techStackData.frameworks} />
+                                <StackCard title="Frontend" items={techStackData.Frontend} />
                             </div>
 
                             <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
-                                <StackCard title="Infra" items={techStackData.infrastructure} />
+                                <StackCard title="Database" items={techStackData.Database} />
                             </div>
 
                             <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
-                                <StackCard title="Tools" items={techStackData.tools} />
+                                <StackCard title="Data" items={techStackData.Data} />
                             </div>
 
                             <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
