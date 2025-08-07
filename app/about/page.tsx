@@ -32,12 +32,17 @@ export default function About() {
                     />
 
                     <p className="text-gray-200 leading-relaxed text-start">
-                        <span className="weight-700 text-blue-300 lg:text-lg">Step By Step, 꾸준함을 아는 개발자</span>
+                        <span className="weight-700 text-blue-300 lg:text-lg">사람과 서비스를 이어주는 개발자</span>
                         <br/><br/>
+                        2023년부터 개발을 시작해 다양한 서비스와 팀을 만들어왔습니다.<br/><br/>
+
                         4.5점 만점으로 학과 수석을 여러 차례 기록하며 기본기를 다졌고, 개발동아리를 설립해 멘토링 활동을 하며 집단 전체의 성장을 위해 노력해왔습니다.<br/><br/>
-                        매일 온라인 개발 스터디를 꾸준히 진행하며, 하루 평균 9시간 이상 개발에 몰입하는 생활을 이어가고 있습니다.<br/><br/>
-                        코드를 작성하며 서비스가 점차 완성되어 가는 모습을 볼 때 가장 큰 행복을 느낍니다.<br/><br/>
-                        저의 인생 목표는 사람들이 원하는 서비스를 개발하여, 그들의 일상에 긍정적인 영향을 미치는 개발자가 되는 것입니다.<br/>
+
+                        사용자가 서비스를 보다 편리하게, 그리고 안전하게 이용할 수 있도록 하는 것을 최우선으로 생각합니다. 이를 위해 쿼리 튜닝 역량과 렌더링 시간 단축 역량, 인증/인가 및 데이터 보안 강화 경험을 활용하여 사용자에게 보다 빠르고 안전한 서비스 경험을 제공하기 위해 노력해왔습니다. 또한, 좋은 서비스는 혼자가 아닌 함께 만들 수 있다고 생각하기에 다양한 직무의 구성원들과 적극적으로 커뮤니케이션하며 협업해왔습니다.<br/><br/>
+
+                        반복되는 일을 자동화하고 비효율적인 프로세스를 개선하는 일을 좋아합니다. 개발 프로세스에서 배포 시간을 단축시키기 위해 기존의 배포 스크립트를 고도화하여 배포 시간을 67% 단축시킨 경험이 있습니다.<br/><br/>
+
+                        궁극적인 저의 목표는 사람들이 원하는, 그리고 편리하게 사용할 수 있는 서비스를 개발하여, 그들의 일상에 긍정적인 영향을 미치는 개발자가 되는 것입니다.<br/>
                     </p>
                 </div>
 
@@ -46,30 +51,31 @@ export default function About() {
 
                     <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-10 lg:mb-20">
                         <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
-                            <h3 className="text-lg weight-600 mb-3 text-blue-300">기술 역량</h3>
+                            <h3 className="text-lg weight-600 mb-3 text-blue-300">Tech Lead</h3>
                             <p className="text-gray-200 leading-relaxed">
-                                • 에러 발생 시, 플로우별 철저한 디버깅으로 문제 해결<br/>
-                                • 쿼리 최적화, 캐싱을 통한 대용량 데이터 성능 개선<br/>
-                                • UI/UX 개선으로 LCP 62% 단축<br/>
-                                • 입력값 검증, 인증/인가 로직 강화, 취약점 진단으로 보안 강화
+                                • 스크립트 고도화를 통해 단순 반복 작업을 자동화하여 배포 소요 시간 67% 단축<br/>
+                                • 쿼리 튜닝을 통해 복합 인덱스, 페이징 적용으로 API 응답 속도 84% 단축<br/>
+                                • JMeter 부하 테스트를 통해 비동기/병렬 처리 적용으로 API 응답 속도 66% 단축<br/>
+                                • 반복적으로 사용되는 이미지 프레임을 캐싱하여 데이터 전송량 40% 절감<br/>
+                                • 이미지 priority 속성, 스켈레톤 적용으로 LCP 66% 단축<br/>
                             </p>
                         </div>
 
                         <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
-                            <h3 className="text-lg weight-600 mb-3 text-blue-300">일정 관리 및 커뮤니케이션</h3>
+                            <h3 className="text-lg weight-600 mb-3 text-blue-300">People Lead</h3>
                             <p className="text-gray-200 leading-relaxed">
-                                • 분단위 스케줄링<br/>
                                 • 업무 우선순위 설정<br/>
                                 • 팀원의 업무 수행 능력을 바탕으로 적절한 업무 분담<br/>
-                                • 의문점이 생기면 즉시 소통 진행<br/>
+                                • 원활한 협업을 위해 개발 프로세스 및 기술 공유 문서 작성<br/>
+                                • 다양한 직무의 구성원들과 적극적으로 커뮤니케이션<br/>
                             </p>
                         </div>
 
                         <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
-                            <h3 className="text-lg weight-600 mb-3 text-blue-300">AI 활용</h3>
+                            <h3 className="text-lg weight-600 mb-3 text-blue-300">AI Practice</h3>
                             <p className="text-gray-200 leading-relaxed">
-                                • 문서 자동화 및 테스트 시나리오 도출<br/>
-                                • 코파일럿 AI 코드리뷰를 통해 PR 승인 속도를 높여 개발 생산성 향상<br/>
+                                • 개발 생산성을 높여주기 위한 코파일럿 AI 코드리뷰 도입<br/>
+                                • 보다 정확하고 향상된 응답을 위한 일관된 프롬프트 사용<br/>
                                 • 할루시네이션 현상 최소화를 위한 결과 교차 검증 및 공식 문서 기반 재확인
                             </p>
                         </div>
