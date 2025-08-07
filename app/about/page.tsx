@@ -114,9 +114,9 @@ export default function About() {
                                 </div>
                                 <ul className="text-gray-200 leading-relaxed list-disc pl-5 space-y-1">
                                     <li>매일 3번, Git, FileZilla, 쉘 스크립트를 통해 프론트엔드 및 백엔드 코드를 개발 서버에 배포</li>
-                                    <li>기존의 쉘 스크립트와 수작업이 병행되던 배포 방식을 완전히 자동화하여  배포 소요 시간을 12분에서 4분으로 67% 단축</li>
+                                    <li>기존의 쉘 스크립트와 수작업이 병행되던 배포 방식을 완전히 자동화하여  배포 소요 시간을 12분에서 4분으로 67% 단축</li>
                                     <li>매주 Spring Boot, JPA, React, 쿼리 튜닝 기술 공유 발표 진행</li>
-                                    <li>구매, 영업, 생산, 원가, 외주 총 201개 메뉴에 대해 출력물 표준 템플릿을 직접 개발하고,  개선 사항을 일괄적으로 반영</li>
+                                    <li>구매, 영업, 생산, 원가, 외주 총 201개 메뉴에 대해 출력물 표준 템플릿을 직접 개발하고, 개선 사항을 일괄적으로 반영</li>
                                     <li>기존 팀원 및 신규 팀원이 개선된 표준 템플릿 정보를 알 수 있도록 표준 템플릿 가이드 문서 작성</li>
                                 </ul>
                             </div>
@@ -191,6 +191,54 @@ export default function About() {
                                 </div>
 
                                 <p className="text-gray-400 text-sm">2021.12.16</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 발표 섹션 추가 */}
+                    <div className="mt-12 flex flex-col items-center mb-10 lg:mb-20">
+                        <h2 className="text-white text-2xl weight-600 mb-8 text-center">발표</h2>
+                        <div className="w-full space-y-4">
+                            <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
+                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full mb-1">
+                                    <h3 className="text-lg weight-600 text-blue-300">데이터베이스 튜닝</h3>
+                                    <p className="text-gray-400 text-sm">우리FIS 아카데미</p>
+                                </div>
+                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full">
+                                    <p className="text-gray-400 text-sm">2025.03</p>
+                                    <a
+                                        href="https://glamorous-key-514.notion.site/248feed75f9b806680f0e1fe1eeed937?source=copy_link"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center mt-2 lg:mt-0"
+                                    >
+                                        <span>발표자료 보기</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
+                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full mb-1">
+                                    <h3 className="text-lg weight-600 text-blue-300">클로저와 렉시컬 스코프에 대한 이해와 활용</h3>
+                                    <p className="text-gray-400 text-sm">우리FIS 아카데미</p>
+                                </div>
+                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full">
+                                    <p className="text-gray-400 text-sm">2025.02</p>
+                                    <a
+                                        href="https://glamorous-key-514.notion.site/248feed75f9b80fab376d5028890deca"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm text-blue-400 hover:text-blue-300 transition-colors duration-200 flex items-center mt-2 lg:mt-0"
+                                    >
+                                        <span>발표자료 보기</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
