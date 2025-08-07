@@ -212,19 +212,19 @@ export default function About() {
 
                         <div className="flex flex-col gap-4 items-center">
                             <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
-                                <StackCard title="Languages" items={techStackData.languages} />
+                                <StackCard title="Backend" items={techStackData.Backend} />
                             </div>
 
                             <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
-                                <StackCard title="Libraries & Frameworks" items={techStackData.frameworks} />
+                                <StackCard title="Frontend" items={techStackData.Frontend} />
                             </div>
 
                             <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
-                                <StackCard title="Infra" items={techStackData.infrastructure} />
+                                <StackCard title="Database" items={techStackData.Database} />
                             </div>
 
                             <div className="flex flex-col sm:flex-row w-full gap-4 items-center">
-                                <StackCard title="Tools" items={techStackData.tools} />
+                                <StackCard title="Data" items={techStackData.Data} />
                             </div>
 
                             <div className="flex flex-col sm:flex-row w-full gap-4 items-center">

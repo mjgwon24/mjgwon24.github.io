@@ -1,5 +1,10 @@
 export const techStackData = {
-    languages: ['Java', 'JavaScript', 'TypeScript'],
+    Backend: ['Java', 'Spring', 'Nest.js', 'JPA', 'MyBatis', 'AWS', 'Docker'],
+    Frontend: ['JavaScript', 'TypeScript', 'React.js', 'Next.js', 'HTML/CSS'],
+    Data: ['SQL', 'ELK stack'],
+    Database: ['MySQL', 'MongoDB', 'Redis'],
+
+    languages: ['Java', 'Node.js', 'JavaScript', 'TypeScript'],
     frameworks: ['Spring', 'MyBatis', 'React.js', 'Next.js'],
     infrastructure: ['AWS Cloud', 'Nginx', 'Docker'],
     tools: ['Git', 'Figma', 'JMeter', 'Postman'],
