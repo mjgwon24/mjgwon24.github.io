@@ -112,43 +112,12 @@ export const projectsData = [
         techStacks: ['Spring Boot', 'QueryDSL', 'WebSocket', 'React', 'Redux', 'MySQL', 'AWS', 'Docker', 'Kubernetes', 'Jenkins', 'Git'],
         rolesAndContributions: [
             {
-                role: 'Backend',
+                role: 'Tech Lead',
                 contributions:`
-- 사용자 커스텀 네트워크 구성 정보 구조화 및 관리
-- 실시간 공격/방어 시나리오 실행 로직 구현
-- SYN flood, DDoS 보안 이벤트 탐지 및 실시간 알림 시스템 개발
-- 네트워크 객체 및 이벤트 이력 데이터 조회 \`QueryDSL\` 기반 최적화
-- 운영 로그 및 감사 이력 관리
-- \`DTO\`/\`Mapper\` 표준화
-- 사용자 인증 및 권한 관리 기능 구현
-- \`Builder\`/\`record\` 기반 DTO, \`CQRS\` 구조, 테스트 자동화 적용
-                `
-            },
-            {
-                role: 'Frontend',
-                contributions: `
-- 네트워크 시각화 엔진 및 Drag&Drop UI 설계/구현
-- 공격/방어 시나리오 실행 패널 및 실시간 로그 뷰어 개발
-- \`Redux\` 기반 대규모 상태관리 구조 설계 및 퍼포먼스 최적화
-- 백엔드와의 실시간 \`WebSocket\` 연동 및 에러 핸들링
-- 사용자 중심 시나리오 선택/환경 저장 기능 개발
-- 교육 효과를 높이기 위한 UX 설계 및 인터랙션 강화
-                `
-            },
-            {
-                role: 'Infra',
-                contributions:`
-- AWS 기반 클라우드 인프라 설계 및 IaC(Terraform, CDK)로 자동화 구축
-- \`Docker\`/\`Kubernetes\` 기반 격리된 네트워크 환경 제공, 실습 시나리오별 동적 리소스 할당
-- \`Prometheus\`, \`ELK\`, \`Grafana\`로 실시간 모니터링 및 경보 시스템 구축
-- \`Spring Security\`, \`HTTPS\` 인증/인가 및 데이터 보안 강화
-- \`GitHub Actions\`, \`Jenkins\` 기반 CI/CD 및 배포 자동화 파이프라인 구축
-                `
-            },
-            {
-                role: 'Design',
-                contributions: `
-- 프로토타입 및 디자인 제작
+- 실시간 네트워크 공격/방어 시나리오 자동 실행 및 탐지 시스템 개발
+- IaC, Docker, AWS 및 CI/CD 파이프라인 구축
+- DTO/Mapper 기반 데이터 구조 및 관리 방식 표준화
+- 네트워크 시각화, 실시간 로그 뷰 등 주요 UI 기능 설계 및 구현
                 `
             }
         ],
@@ -179,55 +148,12 @@ export const projectsData = [
         techStacks: ['Spring Boot', 'JPA', 'QueryDSL', 'MySQL', 'Docker', 'React', 'Next.js', 'Tailwind', 'Axios', 'TanstackQuery', 'Google Mail SMTP', 'Git', 'Figma'],
         rolesAndContributions: [
             {
-                role: 'Backend',
-                contributions: `### 설계
-- 동아리별 통장(계좌) 관리 메뉴 데이터 모델 및 API 구조 설계
-- 회원 등급 및 권한 기반 접근 제어 정책 설계
-- 서비스 계층의 확장성과 테스트 용이성을 고려한 interface 기반 설계
-
-### 개발
-- 통장 정보/내역 조회, 추가, 수정, 삭제(soft delete)등 계좌 도메인 전반 API 개발
-- 각 API별 요청자 회원 검증 로직 추가
-- CQRS 패턴 기반으로 Command(등록/수정/삭제)와 Query(조회) 핸들러 분리 구현
-- 도메인 서비스 및 리포지토리 추상화를 위한 interface 정의 및 활용
-
-### 보안
-- 통장 관리 API 접근 시, 요청자 회원의 소속 및 권한 검증 로직 적용
-- 소속된 동아리의 일정 권한 이상일 경우에만 추가, 수정, 삭제 동작 가능하도록 분기처리
-
-### 테스트
-- 권한별(상위/하위 등급) 통장 API 접근 테스트 케이스 작성 및 검증
-- 통장 정보 변경, 삭제, 조회 등 주요 기능에 대한 JUnit 기반 단위 테스트 수행
-
-### 최적화
-- 대용량 통장 내역 데이터 처리 시 성능 저하 방지를 위한 Spring Data 페이지네이션 적용
-- MapStruct 활용으로 수동 매핑 코드 제거 및 DTO 변환 성능 최적화
-- Global Exception Handler를 통한 일관된 에러 응답 구조 적립`
-            },
-            {
-                role: 'Frontend',
-                contributions: `### 설계
-- 공통 레이아웃 구조 설계 및 구현
-
-### 개발
-- 조회조건 영역, 범위 입력 폼 등 공통 컴포넌트 구현으로 재사용과 통일성 확보
-- 예산 메뉴 전반 UI 및 기능 구현  
-
-### 최적화
-- 메뉴 전반 검토 및 디테일 개선, 통일화
-- 라이트하우스 LCP 지표 분석 및 개발자 퍼포먼스 탭을 활용한 화면 렌더링 속도 개선  
-- 화면 세로 길이 축소 시 UI 요소 찌그러짐 현상 개선  
-- 통장관리 테이블 높이, UI 배경 색상 등 시각적 일관성 및 가독성 개선  
-
-### 테스트
-- Cypress를 활용한 E2E(End-to-End) 테스트 작성 및 자동화  
-- UI 변경 사항 및 오류 수정 후, 브라우저별 크로스 테스트 및 주요 기능 회귀 테스트 수행`
-            },
-            {
-                role: 'Designer',
-                contributions: `- 사용자 흐름 설계, 와이어프레임 제작
-- 화면 레이아웃 및 인터랙션 설계
-- 컴포넌트 스타일 가이드 정의 및 적용`
+                role: 'Tech Lead',
+                contributions: `
+- 동아리별 계좌 관리 및 권한 기반 접근제어 API 설계/구현
+- 컴포넌트, E2E 테스트 도입으로 프론트엔드 전반 설계/구현
+- MapStruct를 통한 데이터 변환 최적화, Custom Exception으로 일관된 에러 처리
+`
             }
         ],
         slug: 'semi-erp',
@@ -356,55 +282,12 @@ export const projectsData = [
         techStacks: ['Spring Boot', 'REST API', 'JPA', 'JPQL', 'Next.js', 'React Query', 'Tailwind', 'MySQL', 'Docker', 'Git', 'Postman', 'Figma'],
         rolesAndContributions: [
             {
-                role: 'Backend',
+                role: 'Tech Lead',
                 contributions:
 `
-### 설계
-- Java 17의 record와 Lombok Builder 패턴을 결합해 불변 객체 기반 DTO 구조 설계
-- 예약 서비스의 날짜, 객체 조합에 유니크 제약조건을 적용하여 데이터 무결성 및 동시성 이슈 예방
-- Spring Data JPA 기반 CRUD, 페이징, 정렬 기능을 고려한 API 응답 구조 설계
-
-### 개발
-- \`@Transactional\` 어노테이션을 활용해 트랜잭션 처리 및 예외 발생 시 롤백 구현
-- Slf4j를 활용한 통합 로깅 체계와 일관된 예외 처리 로직 구현
-
-### 보안
-- \`@Value\` 어노테이션과 Config 클래스 분리로 환경 변수 및 설정 파일 관리
-- CORS 정책 등 인프라 보안 설정 적용
-
-### 테스트
-- 예약 및 데이터 무결성 검증을 위한 단위 테스트와 통합 테스트 작성
-- 동시성 시나리오 테스트로 오버부킹 방지 로직 검증
-
-### 최적화
-- Spring Data JPA의 페이징, 정렬 기능 적용으로 대용량 데이터 조회 성능 개선
-- 필요한 컬럼만 조회하는 DTO 분리 및 쿼리 최적화
-`
-            },
-            {
-                role: 'Frontend',
-                contributions:
-`
-### 개발
-- Next.js 기반 SSR과 CSR 병행 구조로 SPA 설계 및 구현
-- React Query와 axios로 서버 데이터 패칭, 캐싱, 자동 갱신 로직 구현
-- 이미지 업로드 및 미리보기 기능 구현
-
-### 최적화
-- useCallback, useRef 등 React Hook 활용으로 불필요한 렌더링 최소화
-- Tailwind CSS 적용으로 반응형 및 일관된 디자인 시스템 구축
-
-### 협업
-- Figma를 활용한 프로토타입 공유 및 UI/UX 피드백 반영
-- 재사용 가능한 컴포넌트 설계로 팀원 간 개발 효율성 증대
-- React-icons 등 외부 라이브러리 선택 및 도입 논의
-`
-            },
-            {
-                role: 'Design',
-                contributions:
-`
-- 경주의 시그니처 컬러인 주황색을 메인 컬러로 선정하여, 지역의 정체성을 시각적으로 강조한 서비스 전체 디자인 구현
+- 예약/객실 도메인 불변 DTO 설계 및 동시성/데이터 무결성 보장 API 구현
+- Next.js 기반 SSR/CSR, 이미지 업로드 등 예약 UI 및 프론트엔드 전반 설계/구현
+- Spring Data JPA 페이징/정렬, 쿼리 최적화를 활용해 대용량 데이터 성능 개선
 `
             }
         ],
