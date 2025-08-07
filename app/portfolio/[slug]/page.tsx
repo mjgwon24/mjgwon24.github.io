@@ -383,7 +383,7 @@ export default function ProjectDetail() {
                         </div>
                     )}
 
-                    <div className="mb-8">
+                    <div className="mb-14">
                         <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">서비스 개요</h2>
                         <div className="flex flex-wrap gap-2 mb-4">
                             {project.tags.map((tag: string, index: number) => (
@@ -397,7 +397,7 @@ export default function ProjectDetail() {
                         </div>
                         <p className="text-gray-300 whitespace-pre-wrap">{project.detailedDescription || project.description}</p>
                     </div>
-                    <div className="mb-8">
+                    <div className="mb-14">
                         <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">역할 및 기여</h2>
                         <div className="flex flex-wrap gap-2 mb-4">
                             {project.roles.map((role: string, index: number) => (
@@ -436,7 +436,7 @@ export default function ProjectDetail() {
                         )}
                     </div>
 
-                    <div className="mb-8">
+                    <div className="mb-14">
                         <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">주요 성과</h2>
                         <div className="space-y-4">
                             {project.achievements ? (
@@ -453,7 +453,7 @@ export default function ProjectDetail() {
                             )}
                         </div>
                     </div>
-                    <div className="mb-8">
+                    <div className="mb-14">
                         <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">사용 기술</h2>
                         <div className="flex flex-wrap gap-2">
                             {project.techStacks.map((techStack: string, index: number) => (
@@ -468,7 +468,7 @@ export default function ProjectDetail() {
                     </div>
 
                     {project.links && (
-                        <div className="mb-12">
+                        <div className="mb-14">
                             <h2 className="text-white text-2xl weight-600 sm:weight-700 mb-4 select-none">더 자세히 알아보기</h2>
                             <div className="mb-5">
                                 <div className="flex flex-wrap gap-2 sm:gap-4">
@@ -589,7 +589,7 @@ const ProjectDetailSkeleton = () => {
                         <div className="h-4 w-full bg-gray-700/30 rounded mb-2"/>
                         <div className="h-4 w-3/4 bg-gray-700/30 rounded"/>
                     </div>
-                    <div className="mb-8">
+                    <div className="mb-14">
                         <div className="h-8 w-48 bg-gray-700/30 rounded mb-4"/>
                         <div className="flex gap-2 mb-4">
                             <div className="h-8 w-20 bg-gray-700/30 rounded"/>
@@ -599,7 +599,7 @@ const ProjectDetailSkeleton = () => {
                         <div className="h-4 w-full bg-gray-700/30 rounded mb-2"/>
                         <div className="h-4 w-3/4 bg-gray-700/30 rounded"/>
                     </div>
-                    <div className="mb-8">
+                    <div className="mb-14">
                         <div className="h-8 w-48 bg-gray-700/30 rounded mb-4"/>
                         <div className="flex gap-2">
                             <div className="h-8 w-16 bg-gray-700/30 rounded"/>
@@ -627,7 +627,7 @@ const ProjectDetailSkeleton = () => {
                 </div>
             </div>
             <div className="max-w-5xl mx-auto mt-20">
-                <div className="h-8 w-48 bg-gray-700/30 rounded mb-8"/>
+                <div className="h-8 w-48 bg-gray-700/30 rounded mb-14"/>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {[1, 2, 3].map((i) => (
                         <div key={i} className="bg-black-05p border border-gray-800/50 rounded-lg overflow-hidden">
