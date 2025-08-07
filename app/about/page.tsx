@@ -87,8 +87,8 @@ export default function About() {
                         <div className="w-full space-y-4">
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
                                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-3">
-                                    <h3 className="text-lg weight-600 text-blue-300">우리FIS 아카데미 우수 수료</h3>
-                                    <span className="text-gray-400 text-sm">2025.01 ~ 2025.06</span>
+                                    <h3 className="text-lg weight-600 text-blue-300">우리FIS 아카데미 클라우드 서비스 개발 교육 우수 수료</h3>
+                                    <span className="text-gray-400 text-sm">2024.12 ~ 2025.06</span>
                                 </div>
                                 <ul className="text-gray-200 leading-relaxed list-disc pl-5 space-y-1">
                                     <li>최종 프로젝트 1위</li>
@@ -109,24 +109,15 @@ export default function About() {
 
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
                                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-3">
-                                    <h3 className="text-lg weight-600 text-blue-300">구독형 솔루션 판매 사이트 제작</h3>
-                                    <span className="text-gray-400 text-sm">2024.06 ~ 2024.12</span>
-                                </div>
-                                <ul className="text-gray-200 leading-relaxed list-disc pl-5 space-y-1">
-                                    <li>솔루션 소프트웨어 판매 사이트 softcat 1인 개발/배포/서버관리</li>
-                                </ul>
-                            </div>
-
-                            <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
-                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-3">
-                                    <h3 className="text-lg weight-600 text-blue-300">더존비즈온 erp 물류개발 부서 현장실습</h3>
+                                    <h3 className="text-lg weight-600 text-blue-300">더존비즈온 ERP 물류개발 부서 현장실습</h3>
                                     <span className="text-gray-400 text-sm">2024.01 ~ 2024.06</span>
                                 </div>
                                 <ul className="text-gray-200 leading-relaxed list-disc pl-5 space-y-1">
-                                    <li>구매, 영업, 생산, 원가, 외주를 포함하는 총 201개의 메뉴에 대한 출력물 표준 템플릿 개발 및 적용</li>
-                                    <li>매일 하루 3번 Git, FileZilla, 쉘 스크립트를 통해 개발 코드 배포</li>
-                                    <li>코드 검토 및 빌드 테스트 진행</li>
-                                    <li>매주 &#39;ERP개발부서 개발 역량 강화를 위한 지식 공유&#39; 발표 진행 (SpringBoot, JPA, SQL 튜닝, React)</li>
+                                    <li>매일 3번, Git, FileZilla, 쉘 스크립트를 통해 프론트엔드 및 백엔드 코드를 개발 서버에 배포</li>
+                                    <li>기존의 쉘 스크립트와 수작업이 병행되던 배포 방식을 완전히 자동화하여  배포 소요 시간을 12분에서 4분으로 67% 단축</li>
+                                    <li>매주 Spring Boot, JPA, React, 쿼리 튜닝 기술 공유 발표 진행</li>
+                                    <li>구매, 영업, 생산, 원가, 외주 총 201개 메뉴에 대해 출력물 표준 템플릿을 직접 개발하고,  개선 사항을 일괄적으로 반영</li>
+                                    <li>기존 팀원 및 신규 팀원이 개선된 표준 템플릿 정보를 알 수 있도록 표준 템플릿 가이드 문서 작성</li>
                                 </ul>
                             </div>
 
@@ -168,6 +159,15 @@ export default function About() {
 
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
                                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full">
+                                    <h3 className="text-lg weight-600 text-blue-300">2025 우리FISA 기술 세미나 1위</h3>
+                                    <p className="text-gray-400 text-sm">우리FIS</p>
+                                </div>
+
+                                <p className="text-gray-400 text-sm">2025.02.06</p>
+                            </div>
+
+                            <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
+                                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full">
                                     <h3 className="text-lg weight-600 text-blue-300">2024 경주 지역문제해결 해커톤 최우수상</h3>
                                     <p className="text-gray-400 text-sm">경북ICT융합산업진흥협회</p>
                                 </div>
@@ -186,7 +186,7 @@ export default function About() {
 
                             <div className="bg-gray-800/60 border border-blue-400/20 rounded-lg p-6 shadow-lg hover:border-blue-400/40 transition-all duration-300 hover:shadow-blue-900/20">
                                 <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center w-full">
-                                    <h3 className="text-lg weight-600 text-blue-300">학과 SW 경진대회 대상</h3>
+                                    <h3 className="text-lg weight-600 text-blue-300">교내 SW 경진대회 대상</h3>
                                     <p className="text-gray-400 text-sm">동국대학교 전자정보통신공학과</p>
                                 </div>
 
