@@ -957,6 +957,414 @@ synchronized (PhotoService.class) {
 감사합니다.
         `
     },
+    {
+        id: '4',
+        title: 'JWT 인증/인가 시스템 설계 방법 - part.1',
+        description: '토큰, 세션 기반 인증의 차이와 JWT를 활용한 인증/인가 시스템 설계 방법에 대해 다룹니다.',
+        category: 'backend',
+        tags: ['Token', 'Session', 'JWT', '인증', '인가'],
+        date: '2025-06-14',
+        thumbnail: '/posting/jwt-authentication-design-part1/thumb-login.png',
+        readingTime: '6분',
+        slug: 'jwt-authentication-design-part1',
+        projects: ['flexrate', 'softcat', 'semi-erp', 'gyeongju-night', 'secubox'],
+        content: `
+실제 운영을 위한 서비스를 구현하다 보면, 단순히 로그인/로그아웃만 해주는 기능만으로는 보안이 부족하다는 걸 느끼게 됩니다. 저 역시 최근 웹, 모바일, API 서버와 같이 여러 클라이언트가 동시에 접근하는 프로젝트를 진행하면서, 어떻게 하면 더 안전하고, 확장성 있게 인증/인가를 처리할 수 있을지 고민하게 되었습니다. 특히 서비스가 커지면서 세션 기반 인증의 한계가 확실히 느껴졌고, 운영 환경에서는 보안과 확장성을 모두 챙길 수 있는 방법으로 토큰 기반 인증 방식을 도입하게 됐습니다.<br/><br/>
+이번 포스팅에서는 인증/인가가 왜 중요한지, 세션과 토큰 방식이 어떤 차이가 있는지, 그리고 JWT의 원리를 간단하게 다뤄보려고 합니다.
+<hr />
+
+# 1. 토큰 기반 인증을 선택한 이유
+<br>
+웹 서비스가 성장하고 다양한 플랫폼에서 동시에 접근하는 환경이 늘어나면서, 인증/인가의 중요성이 점점 커지고 있습니다.<br>
+여기서 인증은 “진짜 본인이 맞는지”를 확인하는 과정이고, 인가는 “사용자가 이 행동을 하는것을 허락”하는 절차입니다.<br>
+만약 이 과정이 허술하다면, 민감한 정보가 유출되거나 권한 없는 사람이 시스템을 망가뜨릴 수 있습니다. 실제로 이런 보안 사고는 뉴스에서도 종종 등장합니다.<br><br>
+
+특히, 여러 서비스가 연동되는 환경에서는 인증/인가 시스템이 서비스 전체의 신뢰성과 직결되기 때문에, 단순히 로그인/로그아웃만 구현하고 끝이 아니라는 것을 최근에 자주 느끼고 있습니다.<br><br>
+
+과거의 프로젝트에서는 전통적인 세션 기반 인증 방식을 고려했었습니다. <br>
+그러나 서비스가 점점 커지고, 여러 대의 서버에 트래픽을 분산(Scale-out)해야 하는 상황이 되면서 세션 방식이 가진 한계가 명확하게 드러났습니다. 그래서 이를 극복하고자 토큰 기반 인증, 그 중에서도 JWT(JSON Web Token) 방식을 선택하게 되었습니다.<br>
+
+<br/>
+<hr />
+
+# 2. 세션 vs 토큰 기반 인증 차이
+<br/>
+
+서비스를 설계할 때, ‘세션(Session) 기반 인증’과 ‘토큰(Token) 기반 인증’ 두 인증 방식이 가장 많이 비교된다고 생각합니다. 둘 다 사용자 인증을 처리하는 게 목표지만, 내부 동작 방식과 운영 관점에서는 차이가 많습니다.<br><br>
+
+## 2.1 세션 기반 인증의 특징과 한계
+세션 기반 인증은 사용자가 로그인할 때마다 서버가 세션을 생성하고, 클라이언트에게 세션 ID를 쿠키로 전달하는 방식입니다. 이 세션 ID를 통해 사용자의 인증 상태를 서버가 직접 관리하게 됩니다.<br><br>
+
+초기에는 구현이 간단하고, 단일 서버 환경에서는 비교적 무난하게 동작합니다. <br>
+하지만 서비스가 성장하면서 서버를 여러 대로 늘리면, 아래와 같은 문제가 발생합니다.<br><br>
+
+1. 서버 메모리 사용량 증가<br>
+2. 확장성(Scale-out) 문제<br><br>
+
+### 2.1.1 서버 메모리 사용량 증가
+각 사용자의 세션 정보는 서버 메모리에 저장되기 때문에, 사용자가 많아질수록 서버 메모리의 부담이 커집니다.<br> 
+특히, 로그인을 자주 하거나 장시간 유지되는 서비스일수록 이 부담은 더욱 커질 것 입니다.<br><br>
+
+### 2.1.2 확장성(Scale-out) 문제
+여러 대의 서버로 트래픽을 분산하는 환경이라고 가정해봅시다.<br> 
+
+사용자가 서버A에서 로그인했을 경우 생성된 세션 정보는 서버B에서도 인식할 수 있어야 합니다.<br> 
+
+이를 위해 Redis같은 별도의 세션 저장소를 도입하거나, 부가적인 인프라 구성이 필요해집니다.<br> 
+
+이 과정에서 관리 포인트가 늘어나고, 아키텍처가 더욱 복잡해질 수 있습니다.<br> <br> 
+  
+## 2.2 토큰 기반 인증의 장점
+위에서 언급한 한계를 극복하기 위해 토큰 기반 인증이 등장하게 되었습니다.<br> <br> 
+
+토큰 기반 인증의 가장 큰 장점은 **Stateless 구조**라는 점입니다. 서버가 인증 상태를 직접 저장하지 않기 때문에, 서버 대수를 늘려도 세션 동기화나 별도의 저장소 관리 없이 트래픽을 자유롭게 분산시킬 수 있습니다.<br><br>  
+
+아래와 같이 Spring Security의 세션 관리 정책을 STATELESS로 지정하면, 서버가 세션 정보를 관리하지 않게 됩니다.<br> 
+
+\`\`\`java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+\t\t@Bean
+\t  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+\t\t  http.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+\t\t  // 그 외 설정들
+\t  
+\t\t  return http.build();
+\t\t}
+}
+\`\`\`
+
+<br>
+또한, 토큰 기반 인증은 마이크로서비스 환경과도 잘 맞습니다. 각 서비스가 독립적으로 인증을 처리할 수 있고, 토큰에 담긴 Claims 정보를 통해 권한 검증도 효율적으로 수행할 수 있습니다.<br><br>
+
+예를 들어, 아래의 JwtTokenProvider 클래스 코드를 보면, 토큰 생성 시 사용자 id, role, type과 같은 주요 정보를 Claims에 포함시키고, 이를 바탕으로 추후 필요시 추출하여 사용할 수 있습니다.<br>
+
+\`\`\`java
+@Slf4j
+@Component
+@RequiredArgsConstructor
+public class JwtTokenProvider {
+    @Value("\$\{jwt.secret - key}")
+    private String secretKey;
+ 
+    /**
+     * JWT 토큰 생성
+     * @param memberId 회원 ID
+     * @param role 회원 역할
+     * @param type JWT 타입 (ACCESS, REFRESH)
+     * @return 생성된 JWT 토큰 문자열
+     */
+    public String generateToken(Long memberId, Role role, JwtType type) {
+        Duration expiredAt = Duration.ofDays(7);
+        if (type == JwtType.ACCESS) {
+            expiredAt = Duration.ofHours(1);
+        }
+
+        Date now = new Date();
+        SecretKey key = getSigningKey();
+
+        return Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + expiredAt.toMillis()))
+                .setSubject(String.valueOf(memberId))
+                .claim("id", memberId)
+                .claim("role", role.name())
+                .claim("type", type.name())
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
+    } 
+    
+    /**
+     * 회원 ID를 JWT 토큰에서 추출
+     * @param token JWT 토큰 문자열
+     * @return 회원 ID
+     */
+    public Long getMemberId(String token) {
+        Claims claims = getClaims(token);
+        Long memberId = claims.get("id", Long.class);
+        
+        if (memberId == null) {
+            log.warn("JWT 토큰에 id 정보가 없습니다.");
+            return null;
+        }
+        
+        return memberId;
+    }
+
+    /**
+     * JWT 토큰에서 역할(Role) 추출
+     * @param token JWT 토큰 문자열
+     * @return Role 객체, 토큰에 role 정보가 없거나 잘못된 경우 null 반환
+     */
+    public Role getRole(String token) {
+        Claims claims = getClaims(token);
+        String roleString = claims.get("role", String.class);
+
+        if (roleString == null) {
+            log.warn("JWT 토큰에 role 정보가 없습니다.");
+            return null;
+        }
+
+        try {
+            return Role.valueOf(roleString);
+        } catch (IllegalArgumentException e) {
+            log.warn("잘못된 role 값: {}", roleString);
+            return null;
+        }
+    }
+}
+\`\`\`
+
+<br/>
+마지막으로, 모바일 앱이나 다양한 클라이언트 지원 측면에서도 토큰 기반 인증은 큰 이점을 제공합니다.<br/>
+
+HTTP 헤더에 토큰만 추가하면 모바일, 웹, 외부 API 등 어디서든 인증 로직이 똑같이 적용되니까, 프론트엔드와 백엔드가 분리된 구조에서도 편하게 인증/인가 처리를 할 수 있습니다.<br/><br/>
+
+즉, 아래와 같이 차이를 정리해볼 수 있겠습니다.<br/>
+
+- 세션 기반 인증 : 단일 서버 환경에서는 문제 없지만, 서비스가 확장되고 다양한 플랫폼을 지원해야할 경우 한계 존재.
+- 토큰 기반 인증 : Stateless 구조 덕분에 서버 확장과 다양한 플랫폼 지원 가능. 마이크로서비스 환경에 적합함.
+
+<br/>
+<hr />
+
+# 3. JWT 토큰 설계와 구현
+<br>
+운영 환경에서 JWT 기반 인증 시스템을 설계할 때는 단순히 라이브러리를 도입하는 수준을 넘어, 실제 서비스의 보안과 확장성을 모두 고려한 아키텍처 설계가 필요합니다. 이를 위해 JWT 구조와 엑세스/리프레시 토큰 전략을 이해하는 것은 필수라고 볼 수 있습니다.<br/><br/>
+
+## 3.1 JWT 구조
+
+JWT(JSON Web Token)는 크게 세 부분으로 구성되어 있습니다.<br/>
+
+- **Header**: 토큰의 타입(JWT)과 서명 알고리즘 정보
+- **Payload(Claims)**: 인증에 필요한 사용자 정보와 추가 데이터
+- **Signature**: 토큰의 위/변조를 방지하기 위해 서버의 비밀키로 서명된 값
+
+<br/>
+JWT는 이 세 부분을 \`.\`으로 구분하여 하나의 문자열로 인코딩합니다.<br/>
+실제로는 Base64Url로 인코딩되어 전송되며, 서버와 클라이언트가 토큰의 내용을 쉽게 파싱할 수 있습니다.
+
+<br/>
+<br/>
+
+## 3.2 Access Token vs Refresh Token
+
+운영 환경에서는 보안과 사용자 경험을 모두 고려해야 하므로, Access Token과 Refresh Token을 분리해서 관리하는 것이 일반적입니다.<br/><br/>
+
+**Access Token**은 실제 인증 및 인가에 사용되는 토큰으로, 유효 기간이 짧게 설정됩니다. 만약 탈취되더라도 공격자가 사용할 수 있는 시간이 제한되므로, 보안 사고의 영향을 최소화할 수 있습니다.
+
+**Refresh Token**은 Access Token이 만료되었을 때 새로운 Access Token을 발급받기 위한 용도로 사용되며, 상대적으로 긴 유효 기간으로 관리됩니다. 이 역시 탈취 위험을 고려해 Redis와 같은 별도의 저장소에서 관리하거나, 쿠키의 보안 속성을 강화하여 저장합니다.
+
+<br/>
+저는 위 토큰들을 사용해줄때 주로 아래와 같이 만료 시간을 지정합니다.
+
+- **Access Token**: 1시간
+토큰 탈취 시 피해를 최소화해주기 위해 짧은 유효기간을 주되, 사용자 경험이 저하되지 않도록 너무 짧지 않게 지정
+- **Refresh Token**: 7일
+사용자가 장기간 로그인 상태를 유지할 수 있도록 충분한 기간 설정
+
+<br/>
+
+## 3.3 토큰 생성 및 검증 로직
+
+보통 JWT의 서명 알고리즘으로 HMAC-SHA256(HS256)을 가장 많이 사용합니다.<br/><br/>
+
+HS256은 간단하고 빠르며, 대칭키 방식이기때문에 관리가 편하다는 장점이 있습니다. 또한, JWS(Json Web Signature) 표준에서도 널리 지원해서 운영 환경에서 검증된 선택이 될 수 있습니다.<br/>
+
+RSA 같은 비대칭키도 있지만, 이 경우는 규모가 크거나 특별한 보안 요구가 있을 경우 주로 사용합니다.<br/><br/>
+
+이제 목차 2.2에서 잠깐 봤던 토큰 생성 로직을 다시 보도록 하겠습니다.<br/>
+
+\`\`\`java
+/**
+* JWT 토큰 생성
+* @param memberId 회원 ID
+* @param role 회원 역할
+* @param type JWT 타입 (ACCESS, REFRESH)
+* @return 생성된 JWT 토큰 문자열
+*/
+public String generateToken(Long memberId, Role role, JwtType type) {
+    Duration expiredAt = Duration.ofDays(7);
+    if (type == JwtType.ACCESS) {
+        expiredAt = Duration.ofHours(1);
+    }
+    
+    Date now = new Date();
+    SecretKey key = getSigningKey();
+    
+    return Jwts.builder()
+            .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+            .setIssuedAt(now)
+            .setExpiration(new Date(now.getTime() + expiredAt.toMillis()))
+            .setSubject(String.valueOf(memberId))
+            .claim("id", memberId)
+            .claim("role", role.name())
+            .claim("type", type.name())
+            .signWith(key, SignatureAlgorithm.HS256)
+            .compact();
+}
+\`\`\`
+
+<br/>
+여기서 Claims을 어떻게 설계해줄지에 대한 고민이 필요합니다.<br/>
+
+저는 아래 정보들을 넣어주었습니다.<br/>
+
+- **id**: 회원 고유 ID (DB PK)
+- **role**: 사용자의 권한(USER, ADMIN)
+- **type**: 토큰 종류(ACCESS, REFRESH)
+
+<br/>
+이렇게 설계함으로써, 토큰만으로도 인증과 인가, 그리고 토큰 종류 구분까지 모두 처리할 수 있도록 해주었습니다.<br/><br/>
+
+토큰 검증 역시 HMAC-SHA256으로 서명된 토큰을 서버에서 복호화하여 Claims를 추출하고, 만료 여부, 블랙리스트 등록 여부와 같은 유효성을 체크해주도록 구현했습니다.<br/>
+
+\`\`\`java
+/**
+* JWT 토큰 유효성 검사
+* @param token 검사할 JWT 토큰 문자열
+* @return 토큰이 유효하면 true, 그렇지 않으면 false
+*/
+public boolean validToken(String token) {
+    SecretKey key = getSigningKey();
+
+    if (jwtBlacklistService.isBlacklisted(token)) {
+        log.warn("블랙리스트에 등록된 JWT 토큰으로 접근 시도: {}", token);
+        return false;
+    }
+
+    try {
+        Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+        return true;
+    } catch (ExpiredJwtException e) {
+        log.warn("만료된 JWT 토큰: {}", e.getMessage());
+    } // ... 기타 예외 처리 생략
+    return false;
+}
+
+/**
+* JWT 서명 키를 디코딩하여 SecretKey 객체로 변환
+* @return SecretKey 객체
+*/
+private SecretKey getSigningKey() {
+    byte[] keyBytes = Base64.getDecoder().decode(secretKey);
+    return new SecretKeySpec(keyBytes, SignatureAlgorithm.HS256.getJcaName());
+}
+\`\`\`
+
+
+<br/>
+<hr />
+
+# 4. 운영 환경의 보안 고려사항
+인증/인가 부분인 만큼 추가적으로 고려해야하는 보안적인 측면이 더 존재합니다. 마지막 장에서는 이 부분들에 대해 다뤄보도록 하겠습니다.
+<br><br>
+
+## 4.1 JWT 블랙리스트 구현
+
+JWT는 본질적으로 Stateless하기 때문에, 토큰이 발급된 이후에는 서버가 그 상태를 직접 추적하지 않습니다. 하지만, 사용자가 로그아웃하거나 탈퇴하는 경우, 이미 발급된 토큰이 여전히 유효하다면 심각한 보안 문제가 발생할 수 있습니다. 이를 해결하기 위해 **블랙리스트 관리**가 필요합니다.<br /><br />
+
+로그아웃 시 해당 토큰을 즉시 무효화해주기 위해, 저는 Redis 인메모리 저장소를 활용하여 블랙리스트를 관리해주었습니다.<br />
+
+\`\`\`java
+@Service
+@RequiredArgsConstructor
+public class JwtBlacklistService {
+    private final StringRedisTemplate redisTemplate;
+    private static final String BLACKLIST_PREFIX = "jwt_blacklist:";
+
+    /**
+     * JWT 토큰을 블랙리스트에 추가
+     * @param token JWT 토큰 문자열
+     * @param expirationMillis 블랙리스트에 추가된 토큰의 만료 시간 (밀리초 단위)
+     */
+    public void blacklistToken(String token, long expirationMillis) {
+        String key = BLACKLIST_PREFIX + token;
+        redisTemplate.opsForValue().set(key, "blacklisted", expirationMillis, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * 블랙리스트에 등록된 토큰인지 확인
+     * @param token JWT 토큰 문자열
+     * @return 블랙리스트 여부
+     */
+    public boolean isBlacklisted(String token) {
+        String key = BLACKLIST_PREFIX + token;
+        return Boolean.TRUE.equals(redisTemplate.hasKey(key));
+    }
+}
+\`\`\`
+
+위와 같이 로그아웃된 토큰이나 탈퇴한 회원의 토큰을 블랙리스트에 등록하여 더 이상 사용할 수 없도록 만들어주고자 하였습니다.
+
+<br />
+
+## 4.2 토큰 탈취 대응 전략
+
+토큰 기반 인증의 가장 큰 위험 중 하나는 토큰 탈취입니다. <br />
+만약 공격자가 토큰을 획득하면, 별도의 추가 인증 없이 서비스에 접근할 수 있습니다. 이를 방어하기 위해서는 토큰의 저장 방식과 쿠키 설정이 매우 중요합니다.<br /><br />
+
+**쿠키 보안 속성**을 강화하는 것이 기본이며, 아래와 같은 설정을 적용합니다.<br />
+
+- \`HttpOnly\`: 자바스크립트에서 쿠키를 접근하지 못하도록 하여 XSS 공격 방어
+- \`Secure\`: HTTPS 환경에서만 쿠키가 전송되도록 하여 네트워크 상의 도청 방어
+- \`SameSite=“None”\`: 크로스사이트 요청에서도 쿠키가 전송되도록 함
+
+<br />
+이를 적용하여 아래와 같이 CookieUtil 클래스 내부에 토큰 쿠키 생성 메서드를 구현하여 사용해주었습니다.<br />
+
+이 방식은 리프레시 토큰 쿠키를 생성할 때도 동일하게 적용할 수 있습니다.<br />
+
+\`\`\`java
+/**
+* 액세스 토큰 쿠키 생성
+* @param accessToken 액세스 토큰
+* @param maxAgeSeconds 쿠키 최대 유효 시간 (초 단위)
+* @return ResponseCookie
+*/
+public static ResponseCookie createAccessTokenCookie(String accessToken, int maxAgeSeconds) {
+    return ResponseCookie.from("access_token", accessToken)
+            .httpOnly(true)
+            .secure(true)
+            .sameSite("None")
+            .path("/")
+            .maxAge(maxAgeSeconds)
+            .build();
+}
+\`\`\`
+
+<br>
+
+## 4.3 토큰 저장 위치별 보안 비교
+
+토큰은 크게 LocalStorage, Cookie, Memory와 같은 위치에 저장할 수 있습니다. 각 방식은 장단점이 뚜렷하므로, 서비스 특성에 맞는 선택이 필요합니다.<br>
+
+- **LocalStorage**
+    - 장점: 구현이 간단하고, 프론트엔드에서 쉽게 접근 가능
+    - 단점: XSS 공격에 매우 취약, 토큰 탈취 가능성 높음
+- **Cookie (HttpOnly, Secure 설정)**
+    - 장점: XSS로부터 안전, 서버와 브라우저가 자동으로 쿠키를 관리
+    - 단점: CSRF 공격에 노출될 수 있으므로 SameSite 옵션과 추가적인 방어가 필요
+- **Memory (클라이언트 런타임 메모리)**
+    - 장점: 새로고침 시 토큰이 사라져 보안성이 높음
+    - 단점: 사용성 측면에서 불편함(로그인 상태 유지 어려움)
+
+<br>
+일반적으로는 HttpOnly, Secure 쿠키에 토큰을 저장하여 XSS와 CSRF를 모두 방어할 수 있도록 설계합니다. 만약 모바일 앱이나 SPA 환경이라면, 메모리 저장 방식도 고려할 수 있습니다.
+
+<br/>
+<hr />
+
+# 마치며
+
+이번 글에서는 Spring Boot 환경에서 JWT 기반 인증/인가 시스템을 설계할 때 알고 있어야할 원리와 운영 환경의 보안 고려사항을 다뤄보았습니다.<br/><br/>
+
+이 글이 인증/인가 시스템을 이해하고 구축하는 데 조금이나마 도움이 되길 바라며, 다음 포스팅에서는 Spring Security와 Redis를 활용한 통합 구현, 그리고 성능 최적화 부분을 더 깊이 있게 다뤄보겠습니다.<br/><br/>
+감사합니다.
+        `
+    },
     // {
     //     id: '2',
     //     title: 'Next.js 13의 App Router 완벽 가이드',
