@@ -58,7 +58,7 @@ export default function Posts() {
             <div className="container mx-auto px-4 py-8 relative z-10">
                 <div className="max-w-5xl mx-auto">
                     <h1 className="text-white text-3xl md:text-4xl weight-600 sm:weight-700 mb-2">포스팅</h1>
-                    <p className="text-gray-400 mb-8 text-lg">개발, CS 지식 및 알고리즘에 관한 글을 공유합니다</p>
+                    <p className="text-gray-400 mb-8 text-lg">계속 기억하고 싶은 지식들을 공유하는 공간입니다.</p>
 
                     <div className="flex flex-col sm:flex-row-reverse justify-between gap-4 mb-8">
                         <div className="relative">
@@ -105,24 +105,24 @@ export default function Posts() {
                                 >
                                     백엔드
                                 </button>
-                                <button
-                                    className={`px-4 py-2 text-xs md:text-sm transition-all cursor-pointer ${
-                                        category === 'cs'
-                                            ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
-                                            : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
-                                    onClick={() => setCategory('cs')}
-                                >
-                                    CS 지식
-                                </button>
-                                <button
-                                    className={`px-4 py-2 text-xs md:text-sm transition-all cursor-pointer ${
-                                        category === 'algorithm'
-                                            ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'
-                                            : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}
-                                    onClick={() => setCategory('algorithm')}
-                                >
-                                    알고리즘
-                                </button>
+                                {/*<button*/}
+                                {/*    className={`px-4 py-2 text-xs md:text-sm transition-all cursor-pointer ${*/}
+                                {/*        category === 'cs'*/}
+                                {/*            ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'*/}
+                                {/*            : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}*/}
+                                {/*    onClick={() => setCategory('cs')}*/}
+                                {/*>*/}
+                                {/*    CS 지식*/}
+                                {/*</button>*/}
+                                {/*<button*/}
+                                {/*    className={`px-4 py-2 text-xs md:text-sm transition-all cursor-pointer ${*/}
+                                {/*        category === 'algorithm'*/}
+                                {/*            ? 'bg-blue-500/20 text-blue-400 hover:bg-blue-500/30'*/}
+                                {/*            : 'hover:bg-black-10p hover:text-blue-400 text-gray-300'}`}*/}
+                                {/*    onClick={() => setCategory('algorithm')}*/}
+                                {/*>*/}
+                                {/*    알고리즘*/}
+                                {/*</button>*/}
                             </div>
 
                             <div className="z-100 relative sort-dropdown">
