@@ -995,6 +995,9 @@ synchronized (PhotoService.class) {
 ## 2.1 세션 기반 인증의 특징과 한계
 세션 기반 인증은 사용자가 로그인할 때마다 서버가 세션을 생성하고, 클라이언트에게 세션 ID를 쿠키로 전달하는 방식입니다. 이 세션 ID를 통해 사용자의 인증 상태를 서버가 직접 관리하게 됩니다.<br><br>
 
+<img src="/posting/jwt-authentication-design-part1/session-flow.png" alt="Session Based Authentication" class="w-full rounded-md">
+
+<br>
 초기에는 구현이 간단하고, 단일 서버 환경에서는 비교적 무난하게 동작합니다. <br>
 하지만 서비스가 성장하면서 서버를 여러 대로 늘리면, 아래와 같은 문제가 발생합니다.<br><br>
 
@@ -1017,8 +1020,11 @@ synchronized (PhotoService.class) {
 ## 2.2 토큰 기반 인증의 장점
 위에서 언급한 한계를 극복하기 위해 토큰 기반 인증이 등장하게 되었습니다.<br> <br> 
 
-토큰 기반 인증의 가장 큰 장점은 **Stateless 구조**라는 점입니다. 서버가 인증 상태를 직접 저장하지 않기 때문에, 서버 대수를 늘려도 세션 동기화나 별도의 저장소 관리 없이 트래픽을 자유롭게 분산시킬 수 있습니다.<br><br>  
+토큰 기반 인증의 가장 큰 장점은 **Stateless 구조**라는 점입니다. 서버가 인증 상태를 직접 저장하지 않기 때문에, 서버 대수를 늘려도 세션 동기화나 별도의 저장소 관리 없이 트래픽을 자유롭게 분산시킬 수 있습니다.<br><br>
 
+<img src="/posting/jwt-authentication-design-part1/token-flow.png" alt="Token Based Authentication" class="w-full rounded-md">
+
+<br>
 아래와 같이 Spring Security의 세션 관리 정책을 STATELESS로 지정하면, 서버가 세션 정보를 관리하지 않게 됩니다.<br> 
 
 \`\`\`java
