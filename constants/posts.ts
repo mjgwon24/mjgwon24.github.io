@@ -959,7 +959,7 @@ synchronized (PhotoService.class) {
     },
     {
         id: '4',
-        title: 'JWT 인증/인가 시스템 설계 방법 - part.1',
+        title: 'JWT 인증/인가 시스템 설계 part1. 토큰, 세션 기반 인증의 차이',
         description: '토큰, 세션 기반 인증의 차이와 JWT를 활용한 인증/인가 시스템 설계 방법에 대해 다룹니다.',
         category: 'backend',
         tags: ['Token', 'Session', 'JWT', '인증', '인가'],
@@ -1368,6 +1368,439 @@ public static ResponseCookie createAccessTokenCookie(String accessToken, int max
 이번 글에서는 Spring Boot 환경에서 JWT 기반 인증/인가 시스템을 설계할 때 알고 있어야할 원리와 운영 환경의 보안 고려사항을 다뤄보았습니다.<br/><br/>
 
 이 글이 인증/인가 시스템을 이해하고 구축하는 데 조금이나마 도움이 되길 바라며, 다음 포스팅에서는 Spring Security와 Redis를 활용한 통합 구현, 그리고 성능 최적화 부분을 더 깊이 있게 다뤄보겠습니다.<br/><br/>
+감사합니다.
+        `
+    },
+    {
+        id: '5',
+        title: 'JWT 인증/인가 시스템 설계 part2. Spring Security와 Redis를 활용한 토큰 관리',
+        description: 'Spring Security와 JWT를 통합하는 방법과 Redis를 활용한 토큰 관리 전략을 다룹니다.',
+        category: 'backend',
+        tags: ['Spring Security', 'JWT', 'Redis', '성능 최적화', '모니터링', '인증', '인가'],
+        date: '2025-06-17',
+        thumbnail: '/posting/jwt-authentication-design-part2/thumb-login.png',
+        readingTime: '6분',
+        slug: 'jwt-authentication-design-part2',
+        projects: ['flexrate', 'softcat', 'semi-erp', 'gyeongju-night', 'secubox'],
+        content: `
+<span style="color: darkgray">이번 포스팅은 ‘JWT 인증/인가 시스템 설계 part1. 토큰, 세션 기반 인증의 차이’ 포스팅과 이어집니다.</span> 
+<br>
+<br>
+
+이전 포스팅에서는 인증/인가가 왜 중요한지, 세션과 토큰 방식이 어떤 차이가 있는지, 그리고 JWT의 원리를 다뤄보았습니다.<br>
+
+이번 포스팅에서는 전과 이어서, Spring Security와 Redis를 중심으로 JWT 인증/인가 시스템을 구현한 방식과 운영 환경에서 고려해야 할 보안 및 성능 최적화 전략을 다뤄보려고 합니다.<br><br>
+<hr />
+
+# 1. Spring Security 통합 구현
+
+## 1.1 필터 체인 설계
+
+Spring Security와 JWT를 엮을 때 첫 관문은 필터 체인을 어떻게 구성하느냐입니다.<br/><br/>
+
+제 경우에는, SecurityConfig 안에서 세션을 \`STATELESS\`로 두고, \`UsernamePasswordAuthenticationFilter\` 이전 위치에 커스텀 \`TokenAuthenticationFilter\`를 등록해 모든 요청을 JWT 기반으로 재해석하도록 구성했습니다.<br/>
+
+이 필터는 요청 헤더 또는 쿠키에서 토큰을 추출한 뒤 블랙리스트 여부를 확인하고, \`JwtTokenProvider\`로 서명/만료/클레임을 검증한 후 \`Authentication\` 객체를 만들어 \`SecurityContextHolder\`에 저장합니다.<br/>
+
+\`\`\`java
+public class TokenAuthenticationFilter extends OncePerRequestFilter {
+    @Override
+    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+            throws ServletException, IOException {
+        String token = resolveToken(req); // 헤더 또는 쿠키에서 추출
+        if (token != null && jwtTokenProvider.validate(token) && !blacklistService.isBlacklisted(token)) {
+            Authentication auth = jwtTokenProvider.getAuthentication(token);
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+        chain.doFilter(req, res);
+    }
+}
+\`\`\`
+
+<br/>
+
+또한 검증에 실패했을 때를 섬세하게 나누기 위해 \`AuthenticationEntryPoint\`와 \`AccessDeniedHandler\`를 별도로 두었습니다.<br/>
+
+전자는 토큰이 없거나 만료된 “인증 자체가 없는” 상황에서 \`401\`을, 후자는 “인증은 되었지만 권한이 부족”한 상황에서 \`403\`을 반환합니다.<br/>
+
+\`\`\`java
+@Component
+public class JwtAuthenticationEntryPoint  implements AuthenticationEntryPoint {
+
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, org.springframework.security.core.AuthenticationException authException) throws IOException, ServletException {
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(String.format("{\\"code\\": \\"%s\\", \\"message\\": \\"%s\\"}",
+                ErrorCode.LOGIN_REQUIRED.getCode(),
+                ErrorCode.LOGIN_REQUIRED.getMessage()));
+    }
+}
+\`\`\`
+
+\`\`\`java
+@Component
+public class JwtAccessDeniedHandler implements AccessDeniedHandler {
+
+    @Override
+    public void handle(HttpServletRequest request,
+                       HttpServletResponse response,
+                       AccessDeniedException accessDeniedException) throws IOException {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(String.format("{\\"code\\": \\"%s\\", \\"message\\": \\"%s\\"}",
+                ErrorCode.ACCESS_DENIED.getCode(),
+                ErrorCode.ACCESS_DENIED.getMessage()));
+    }
+}
+\`\`\`
+
+<br/>
+
+이렇게 분리해두면 프론트엔드에서 \`401\`을 받았을 때는 재로그인 또는 리프레시 시나리오로, \`403\`은 화면 차단/권한 안내로 자연스럽게 분기할 수 있습니다. 공식 문서에도 정의되어있는 이 구성은 Security 필터 단계에서 예외를 조기에 표준화해 애플리케이션 단의 불필요한 \`try/catch\` 남용을 줄일 수 있습니다.<br/><br/><br/>
+
+## 1.2 권한 검사 위치 : 필터 vs 인터셉터
+
+인증 로직을 구현할 때면, “권한 검사를 필터에서 할 것인가, 인터셉터에서 할 것인가”에 대한 고민을 하게 됩니다. <br/><br/>
+
+토큰을 파싱하거나 블랙리스트 조회, \`Authentication\` 주입 같은 보안 1차선은 **필터**에서 주로 처리됩니다. 필터는 \`Servlet\` 컨테이너 레벨에서 가장 앞단에 가까워 비용이 큰 비즈니스 로직이나 DB 접근 전에 요청을 걸러낼 수 있기 때문입니다.<br/><br/>
+
+**인터셉터**는 이미 \`DispatcherServlet\` 라우팅 이후이므로 이 시점에서 인증을 처음 시도하면 낭비가 발생할 수 있습니다. 다만 확실히 인가된 이후 도메인별 세밀한 정책을 추가로 넣어야 한다면, \`HandlerInterceptor\`나 AOP를 보조적으로 붙이는 방식이 깔끔할 것이라고 생각합니다.<br/><br/>
+
+제 경우에는 \`Authentication\` 객체에 Role 정보만 담고 세밀한 엔터티 소유 검증은 서비스 계층에서 별도 처리하는 전략을 사용했습니다.<br/><br/><br/>
+
+## 1.3 CORS 설정과 보안
+
+CORS는 허용 범위를 최소화하되 프론트 환경이 실제로 사용하는 도메인만 허용하도록 설정해주었습니다.<br/><br/>
+\`SecurityConfig\`에서 \`CorsConfigurationSource\`를 등록해 Origin 화이트리스트, 허용 메서드, 노출 헤더(\`Authorization\`), \`Credential\` 허용 여부를 명시했습니다.<br/>
+
+특히 프론트가 쿠키 기반 리프레시 토큰을 사용할 경우 \`credentials(true)\` 설정과 함께 \`Access-Control-Allow-Origin\`에 와일드카드(*)를 사용할 수 없다는 제약을 반드시 인지해야 합니다.<br/><br/>
+
+또한 OPTIONS preflight 요청이 인증 필터에 막혀 \`401\`을 내지 않도록, 토큰 추출 시 메서드가 OPTIONS면 바로 통과시키는 방식을 적용해 CORS preflight 지연을 피했습니다.
+
+\`\`\`java
+@Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(securityConfigProperties.getAllowedOrigins());
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "Accept", "X-Requested-With"));
+        config.setExposedHeaders(List.of("Authorization"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
+\`\`\`
+
+\`\`\`java
+public class TokenAuthenticationFilter extends OncePerRequestFilter {
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        return "OPTIONS".equalsIgnoreCase(request.getMethod());
+    }
+}
+\`\`\`
+
+<br/><br/>
+
+### 1.4 ArgumentResolver를 통한 사용자 정보 주입
+
+컨트롤러에서 인증된 사용자 정보를 매번 \`SecurityContextHolder\`에서 꺼내 캐스팅하는 반복을 줄이기 위해 \`ArgumentResolver\`를 도입했습니다.<br/><br/>
+
+\`@LoginMember\` 커스텀 어노테이션을 파라미터에 붙이면 \`LoginMemberArgumentResolver\`가 현재 \`Authentication\`의 \`Principal\`을 조회하고, 도메인 전용 DTO로 변환해 주입합니다.
+
+\`\`\`java
+@Target(ElementType.PARAMETER)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface LoginMember {}
+
+public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolver {
+    @Override
+    public boolean supportsParameter(MethodParameter parameter) {
+        return parameter.hasParameterAnnotation(LoginMember.class);
+    }
+    
+    @Override
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mav,
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) return null;
+        CustomUserDetails principal = (CustomUserDetails) auth.getPrincipal();
+        return new LoginMemberDto(principal.getId(), principal.getRole());
+    }
+}
+\`\`\`
+
+이 패턴을 사용하면 컨트롤러는 깔끔하게 비즈니스 의도만 표현할 수 있고, 테스트에서도 가짜 \`Authentication\` 주입으로 보다 쉽게 시나리오를 구성할 수 있습니다.
+
+<br/>
+<hr />
+
+# 2. Redis를 활용한 토큰 관리
+
+앞서 JWT 검증 단계를 살펴보았으니, 이제 “이미 발급된 토큰의 수명과 폐기(Invalidation)를 어떻게 통제할까?” 관점으로 넘어가 보겠습니다. 먼저, 토큰 관리에 Redis를 사용해준 이유부터 살펴보도록 하겠습니다.<br/><br/>
+
+## 2.1 Redis를 선택한 이유
+
+토큰 관리에 Redis가 적합한 이유는 두 가지로 정리해볼 수 있습니다.<br/><br/>
+
+첫째, 인메모리 기반이라 조회/쓰기 모두 네트워크 왕복 비용만 감수하면 되기때문에 빠르고 저렴합니다. 일반적으로 문자열 키를 조회하는 속도는 평균 O(1)입니다. 애플리케이션 레이어에서 블랙리스트 여부를 확인하는 한 번의 I/O 비용을 매우 낮게 유지할 수 있습니다.
+
+둘째, Redis가 키마다 붙여둔 TTL(Time To Live)을 자체적으로 관리하면서 만료된 키를 자동 정리해 주기 때문에 별도의 배치 작업 없이 블랙리스트 항목이 자동으로 제거되는 구조를 만들 수 있습니다.<br/><br/>
+
+## 2.2 토큰 관리 전략
+
+Access Token은 기본적으로 \`Stateless\` 원칙을 따릅니다. 토큰의 서명과 만료 시간만 보고 유효한 토큰인지 검증할 수 있기에 빠르고 효율적입니다.
+사용자 로그아웃, 강제 탈퇴, 권한 박탈, 탈취 의심과 같은 예외 상황의 경우, 해당 Access Token을 Redis 블랙리스트에 등록해야합니다.<br/><br/>
+
+여기서 신경써야 하는 포인트는, 토큰의 남은 유효 시간 만큼만 블랙리스트에 올리는 것입니다.
+
+예를 들어, 만약 토큰이 7분 뒤에 만료될 예정이었다면, 굳이 1시간, 2시간 길게 등록하지 않고 **딱 7분만** 블랙리스트에 등록하는 것입니다.
+
+이렇게 하면 불필요한 데이터가 Redis에 계속 쌓이는 걸 막을 수 있습니다.<br/><br/>
+
+반면 Refresh Token은 재발급을 통제해야 하므로 반드시 서버측(Redis)에 존재해야 합니다. 특히 요즘처럼 사용자가 PC, 모바일 등 여러 기기에서 동시에 로그인하는 환경을 지원하려면, 더 정교한 관리 방식이 필요합니다.
+
+여러 기기에서의 동시 로그인을 지원하기 위해, **사용자 식별자(memberId)를 Key로 하는 Redis Hash**에 기기별 토큰을 저장하도록 설계해 주었습니다.<br/><br/>
+
+각 Hash의 Field는 기기 식별값, Value는 해당 기기의 Refresh Token이 됩니다.
+
+토큰 회전(rotation) 시, 전체를 덮어쓰는 대신 재발급이 일어난 특정 기기의 Field 값만 새로운 토큰으로 교체합니다. 이 방식 덕분에 탈취자가 예전 Refresh Token을 사용하려 해도, 서버의 Hash에 저장된 현재 유효한 토큰과 일치하지 않으므로 재발급이 거절됩니다. 동시에 다른 기기의 로그인 세션은 안전하게 유지됩니다.<br/><br/>
+
+코드 레벨에서는 \`RedisUtil\`이 \`StringRedisTemplate\`을 감싸, Refresh Token 관리를 위한 **Redis Hash 전용** 메서드를 제공합니다.
+
+그 위에 \`JwtBlacklistService\`는 Access Token을 무효화하기 위해, **String 자료구조**를 사용하며 \`“jwt_blacklist:”\` 라는 \`Prefix\`를 붙여 네임스페이스를 분리합니다.
+
+마지막으로 \`TokenService\`는 \`RedisUtil\`을 사용하여 Refresh Token을 \`Redis Hash\`에 저장합니다. 이때 Key는 \`“refreshToken-hash:{memberId}”\` 형태가 되며, 이 Key가 가리키는 Hash 내부에 \`{deviceId}\`를 Field로, \`{refreshToken}\`을 Value로 저장하여 '1인 N토큰'을 구현합니다.<br/><br/>
+
+아래는 지금까지 다룬 \`RedisUtil\`, \`TokenService\`, \`JwtBlacklistService\` 코드의 일부입니다.
+
+\`\`\`java
+@Component
+@RequiredArgsConstructor
+public class RedisUtil {
+    private final StringRedisTemplate template;
+    
+    public void hSet(String key, String field, String value) {
+        HashOperations<String, String, String> hashOperations = template.opsForHash();
+        hashOperations.put(key, field, value);
+    }
+
+    public String hGet(String key, String field) {
+        HashOperations<String, String, String> hashOperations = template.opsForHash();
+        return hashOperations.get(key, field);
+    }
+
+    public void hDel(String key, String field) {
+        HashOperations<String, String, String> hashOperations = template.opsForHash();
+        hashOperations.delete(key, field);
+    }
+
+    public boolean hExists(String key, String field) {
+        HashOperations<String, String, String> hashOperations = template.opsForHash();
+        return hashOperations.hasKey(key, field);
+    }
+
+    public void setKeyExpiration(String key, RedisKeyType type) {
+        Duration timeout = Duration.ofDays(7);
+        if (type == RedisKeyType.REFRESH) {
+            template.expire(key, timeout.toMillis(), TimeUnit.MILLISECONDS);
+        }
+    }
+
+    public String createTokenHashKey(Long memberId) {
+        return "refreshToken-hash:" + memberId;
+    }
+}
+\`\`\`
+
+\`\`\`java
+@Service
+@RequiredArgsConstructor
+public class TokenService {
+    private final JwtTokenProvider tokenProvider;
+    private final RedisUtil redisUtil;
+    
+    /**
+     * 액세스 토큰 재발급 (1인 N토큰 방식)
+     * @param refreshToken 클라이언트로부터 받은 리프레시 토큰
+     * @param deviceId 클라이언트의 기기 식별자
+     * @return ReissueAccessTokenResponse 재발급된 액세스 토큰과 리프레시 토큰
+     */
+    @Transactional
+    public ReissueAccessTokenResponse reissueTokens(String refreshToken, String deviceId) {
+        // 유효성 검사
+        if (refreshToken == null || refreshToken.isEmpty() || deviceId == null || deviceId.isEmpty()) {
+            throw new ApplicationException(ErrorCode.INVALID_REQUEST_PARAMETER);
+        }
+
+        // Refresh Token 유효성 검사
+        if (!tokenProvider.validToken(refreshToken)) {
+            throw new ApplicationException(ErrorCode.INVALID_REFRESH_TOKEN);
+        }
+
+        // 토큰에서 사용자 정보 추출
+        Long memberId = tokenProvider.getMemberId(refreshToken);
+        Role role = tokenProvider.getRole(refreshToken);
+
+        // Redis에서 사용자와 기기에 해당하는 저장된 토큰 조회
+        String redisKey = redisUtil.createTokenHashKey(memberId);
+        String storedToken = redisUtil.hGet(redisKey, deviceId);
+
+        // 저장된 토큰과 비교하여 탈취/만료 여부 확인
+        if (storedToken == null || !storedToken.equals(refreshToken)) {
+            throw new ApplicationException(ErrorCode.REFRESH_TOKEN_VALUE_NOT_FOUND);
+        }
+
+        // 새로운 토큰 생성
+        String newAccessToken = tokenProvider.generateToken(memberId, role, JwtType.ACCESS);
+        String newRefreshToken = tokenProvider.generateToken(memberId, role, JwtType.REFRESH);
+
+        // Redis에 새로운 Refresh Token으로 덮어쓰기
+        redisUtil.hSet(redisKey, deviceId, newRefreshToken);
+        redisUtil.setKeyExpiration(redisKey, RedisKeyType.REFRESH);
+
+        return ReissueAccessTokenResponse.builder()
+                .accessToken(newAccessToken)
+                .refreshToken(newRefreshToken)
+                .build();
+    }
+}
+\`\`\`
+
+\`\`\`java
+@Service
+@RequiredArgsConstructor
+public class JwtBlacklistService {
+    private final StringRedisTemplate redisTemplate;
+    private static final String BLACKLIST_PREFIX = "jwt_blacklist:";
+
+    /**
+     * JWT 토큰을 블랙리스트에 추가
+     * @param token JWT 토큰 문자열
+     * @param expirationMillis 블랙리스트에 추가된 토큰의 만료 시간 (밀리초 단위)
+     */
+    public void blacklistToken(String token, long expirationMillis) {
+        redisTemplate.opsForValue().set(
+                BLACKLIST_PREFIX + token,
+                "blacklisted",
+                expirationMillis,
+                TimeUnit.MILLISECONDS
+        );
+    }
+
+    /**
+     * JWT 토큰이 블랙리스트에 있는지 확인
+     * @param token JWT 토큰 문자열
+     * @return 블랙리스트에 있으면 true, 그렇지 않으면 false
+     */
+    public boolean isBlacklisted(String token) {
+        return Boolean.TRUE.equals(
+                redisTemplate.hasKey(BLACKLIST_PREFIX + token)
+        );
+    }
+}
+\`\`\`
+
+여기서 중요한 점은 “모든 Access Token을 저장하지 않는다”는 점입니다. 전부 저장하면 메모리/스케일링 비용이 기하급수적으로 커질 수 있기 때문입니다.
+
+평범한 토큰은 유효기간이 끝나면 자연스럽게 소멸하므로 굳이 관리할 필요가 없습니다. <br/><br/>
+
+즉, Redis는 **무효 토큰을 거르는 블랙리스트**와 **유효한 Refresh Token을 관리하는 역할**만 맡습니다. 덕분에 시스템은 가벼움을 유지하면서도 필수적인 보안을 확보할 수 있습니다.
+
+<br/>
+<hr />
+
+# 3. 성능 최적화와 모니터링
+
+기본적인 인증 시스템을 만들었으니, 이제는 시스템이 빠르게 움직이도록 성능을 다듬고, 오류를 감시하는 운영 관점으로 접근해보도록 하겠습니다.<br/><br/><br/>
+
+## 3.1 토큰 검증 성능 최적화
+
+모든 API 요청의 관문인 \`TokenAuthenticationFilter\`는 1ms라도 빠르게 동작해야 전체 시스템 응답 속도에 기여할 수 있습니다. 토큰 검증 과정의 핵심 연산은 두 가지입니다.
+
+1. JWT 서명 검증 (CPU 연산)
+2. Redis 블랙리스트 조회 (I/O 연산)
+
+서명 검증은 암호학적 연산이라 CPU를 꽤 사용합니다. 이때 성능을 좌우하는 포인트는 **서명 키(Signing Key)를 매번 생성하지 않는 것**입니다.<br/><br/> 
+
+아래 \`JwtTokenProvider\` 코드를 보면 \`@PostConstruct\` 어노테이션을 활용해 애플리케이션 시작 시 한 번만 시크릿 키를 파싱해 Key 객체를 만들어두고 재사용하는 것을 볼 수 있습니다. 만약 이 부분을 매번 실행했다면, 요청마다 무거운 객체 생성 오버헤드가 발생해 성능이 크게 저하될 것 입니다.
+
+\`\`\`java
+@Component
+@RequiredArgsConstructor
+public class JwtTokenProvider {
+    @Value("$\{\jwt.secret - key}")
+    private String secretKey;
+    private Key key;
+    private final JwtBlacklistService jwtBlacklistService;
+
+    /**
+     * JWT 서명 키를 Base64로 디코딩하여 SecretKey 객체로 변환
+     * - 시작 시 1회만 초기화
+     */
+    @PostConstruct
+    private void init() {
+        byte[] keyBytes = Base64.getDecoder().decode(secretKey);
+        this.key = new SecretKeySpec(keyBytes, SignatureAlgorithm.HS256.getJcaName());
+    }
+
+    /**
+     * JWT 서명 키 반환
+     * @return Key 객체
+     */
+    private Key getSigningKey() {
+        return this.key;
+    }
+}
+\`\`\`
+
+Redis 블랙리스트 조회는 인메모리 기반이라 매우 빠르지만, 어쨌든 네트워크 I/O 비용이 발생합니다. 지금처럼 한 번만 조회하는 단순한 로직을 유지하는 것이 성능에 유리할 것 입니다.<br/><br/><br/>
+
+## 3.2 로깅 전략
+
+"기록되지 않은 것은 존재하지 않은 것이다"라는 말이 있듯이, 문제가 생겼을 때 원인을 찾으려면 로그는 필수입니다. 하지만 모든 것을 기록하면 로그 파일이 너무 커져서 정작 중요한 내용을 찾기 어렵고, 시스템 부하도 커집니다. 그래서 전략이 필요합니다.<br/><br/>
+
+**실패는 반드시 기록한다.**
+
+토큰 검증 실패는 중요한 보안 이벤트일 수 있습니다. 메서드의 각 예외에 따라 \`warn\` 레벨로 로그를 남기면, 비정상적인 토큰으로 공격 시도가 들어오는지, 혹은 특정 토큰이 계속 만료되어 사용자들이 불편을 겪는지 파악할 수 있습니다.<br/><br/>
+
+**성공은 조용히 넘어간다.**
+
+정상적인 토큰 검증은 초당 수백, 수천 번도 일어날 수 있습니다. 이걸 모두 \`info\` 레벨로 기록하면 로그가 너무 많아집니다. 성공 로그는 디버깅이 필요할 때만 \`debug\`나 \`trace\` 레벨로 남기는 것이 좋습니다.<br/><br/>
+
+**절대 민감 정보는 남기지 않는다.** 
+
+로그를 남길 때 JWT 토큰 전체나 사용자 개인정보를 그대로 기록하는 것은 절대로 하지 말아야 할 행동입니다. 토큰에서 추출한 사용자 ID 정도만 기록해 흐름을 추적할 수 있게 하는 것이 안전합니다.<br/><br/><br/>
+
+## 3.3 메트릭(Metric) 수집 포인트
+
+로그가 사후 분석용이라면, 메트릭은 시스템의 현재 상태를 실시간으로 보여주는 계기판입니다. Prometheus나 Grafana 같은 도구와 연동해 다음 지표들을 수집하면 시스템 상태를 한눈에 파악하고 이상 징후를 조기에 발견할 수 있습니다.<br/><br/>
+
+**토큰 검증 처리 시간 (Latency)**<br/>
+\`TokenAuthenticationFilter\`가 요청 하나를 처리하는 데 걸리는 시간을 측정합니다. 이 시간이 갑자기 늘어난다면 Redis나 서버 CPU에 문제가 생겼다는 신호입니다.<br/><br/>
+
+**토큰 예외 종류별 발생 건수 (Error Count)**<br/>
+'만료된 토큰(Expired)', '잘못된 서명(Signature)' 등 예외 종류별로 카운트를 측정합니다. 특정 예외 카운트가 급증한다면 원인을 파악해야 합니다. 예를 들어, 갑자기 '만료된 토큰' 에러가 폭증하면 클라이언트 측 시간 설정에 문제가 있거나 토큰 만료 정책이 너무 짧은 건 아닌지 점검해볼 수 있습니다.<br/><br/>
+
+**Redis 블랙리스트 크기 (Size)**<br/>
+블랙리스트에 쌓인 키의 개수를 주기적으로 확인합니다. 만약 키 개수가 비정상적으로 계속 늘어난다면, 어딘가에서 불필요한 로그아웃 처리가 남발되고 있다는 뜻일 수 있습니다.<br/><br/>
+
+이렇게 시스템을 꼼꼼히 들여다볼 수 있는 창문을 마련해두면, 문제가 터지기 전에 미리 대응할 수 있는 든든한 무기를 갖게 되는 셈입니다.
+
+<br/>
+<hr />
+
+# 마치며
+
+이번 글에서는 Spring Security와 JWT를 통합하는 방법, Redis를 활용한 토큰 관리 전략, 그리고 성능 최적화와 모니터링 방안을 다뤘습니다.<br/><br/>
+
+작성하다 보니 생각보다 내용이 길어져서.. part3으로 나눠서 작성해보도록 하겠습니다.<br/><br/>
+
+이 글이 JWT 기반 인증 시스템을 직접 구현하거나 개선하려는 분들께 조금이나마 도움이 되길 바라며, 다음 포스팅에서는 운영 환경에서 마주할 수 있는 이슈들과 최종 체크리스트를 다뤄보겠습니다.<br/><br/>
+
 감사합니다.
         `
     },
