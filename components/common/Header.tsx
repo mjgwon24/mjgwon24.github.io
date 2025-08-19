@@ -165,7 +165,7 @@ const Header = () => {
                             {/*</button>*/}
                             <button
                                 className="hover:bg-blue-400/20 bg-blue-400/10 text-blue-300 border border-blue-400 hover:border-blue-500 rounded-lg py-3.5 w-full text-sm font-medium transition-all duration-300 backdrop-blur-sm flex items-center justify-center"
-                                onClick={() => window.open('https://open.kakao.com/o/sxbzZ4Bh', '_blank')}
+                                onClick={() => window.open('https://open.kakao.com/o/sECeAqNh', '_blank')}
                             >
                                 <svg width="18" height="18" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" className="mr-2">
                                     <path fill="currentColor" d="M128 36C70.562 36 24 72.713 24 118c0 29.279 19.466 54.97 48.748 69.477-1.593 5.494-5.438 19.555-6.244 22.575-.996 3.783 1.47 3.71 3.088 2.701c1.225-.763 19.248-12.44 27.116-17.471a135.305 135.305 0 0 0 31.292 3.718c57.438 0 104-36.712 104-81.999C232 72.713 185.438 36 128 36z"/>
